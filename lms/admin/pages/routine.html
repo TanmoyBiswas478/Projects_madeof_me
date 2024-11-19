@@ -1,0 +1,242 @@
+<br>
+<div class="container" style="background: #fff; border: 2px solid #EAEAEC;" ng-init="trainingview2();staff_view();routine_view();">
+  <div class="row">
+    <div class="col-md-12" style="background:blueviolet; height: 60px; color: #fff !important; display: flex; align-items: center;">
+        <div class="mr-auto p-3"><i class="fa-solid fa-bars"></i> Routine Section</div>
+        <div class="p-2">
+            <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" data-whatever="@mdo">
+                <i class="fa-solid fa-plus"></i> Create Routine
+            </button>
+        </div>
+    </div>
+</div>
+
+
+  <div class="row" style="padding-top: 10px !important;">
+    <div class="col-md-12 text-right">
+        Search: <input type="text" ng-model="search" placeholder="Search by any index">
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 10px !important;">
+    <div class="col-md-12 text-right">
+      <table width="100%" class="table table-bordered table-striped" style="font-size: 11.5px!important;">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Days</th>
+                <th class="text-center">Time Sloat</th>
+                <th class="text-center">Batch No</th>
+                <th class="text-center">Training Name</th>
+                
+                <th class="text-center">Starting Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Teacher Name</th>
+                <th class="text-center">Edit/Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="x in routine_data">
+                <td class="text-center">{{$index+1}}</td>
+                <td class="text-center">{{x.days}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.sloat}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.bno}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.tname | uppercase}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.sdate | date : 'dd-MM-yyyy'}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.tdate | date : 'dd-MM-yyyy'}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.teacher}}</td>
+                <td class="text-center">
+                    <button class="btn-success" title="edit" data-toggle="modal"
+                    data-target="#exampleModalCenter"><i class="fa-solid fa-pen-to-square" ng-click="routine_edit(x.id)"></i></button>
+                    <button class="btn-danger" title="Delete" ng-click="routine_delete(x.id)"><i
+                            class="fa-sharp fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- Client Model Section -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <h2 class="text-center"><u>Routine Section</u></h2>
+            <div class="container" style="padding-bottom: 20px !important;">
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Training Name</label>
+                            <select class="form-control" ng-model="tname" ng-change="batch_datas()">
+                                <option ng-repeat="x in training_data">{{x.tname}}</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Days</label>
+                            <select class="form-control" ng-model="days">
+                                <option ng-repeat="x in day">{{x.days}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Timing</label>
+                            <select class="form-control" ng-model="sloat">
+                                <option ng-repeat="x in slot_data">{{x.sloat}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Batch No</label>
+                            <select class="form-control" ng-model="bno" ng-change="dates_data()">
+                                <option ng-repeat="y in b_data">{{y.bno}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Start Date</label>
+                            <input type="text" class="form-control" ng-model="sdate" readonly>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">End Date</label>
+                            <input type="text" class="form-control" ng-model="tdate" readonly>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Teacher Name</label>
+                            <select class="form-control" ng-model="teacher">
+                                <option ng-repeat="x in staff_data">{{x.sname}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-success" id="myBtn" ng-click="routine_entry()">Submit</button> &nbsp;
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button> &nbsp;
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Update model section -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Update Routine Section</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="container" style="padding-bottom: 20px !important;">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Training Name</label>
+                        <select class="form-control" ng-model="tname" ng-change="batch_datas()">
+                            <option ng-repeat="x in training_data">{{x.tname}}</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Days</label>
+                        <select class="form-control" ng-model="days">
+                            <option ng-repeat="x in day">{{x.days}}</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Timing</label>
+                        <select class="form-control" ng-model="sloat">
+                            <option ng-repeat="x in slot_data">{{x.sloat}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Batch No</label>
+                        <select class="form-control" ng-model="bno" ng-change="dates_data()">
+                            <option ng-repeat="y in b_data">{{y.bno}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Start Date</label>
+                        <input type="text" class="form-control" ng-model="sdate" readonly>
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">End Date</label>
+                        <input type="text" class="form-control" ng-model="tdate" readonly>
+                    </div>
+                </div>
+                
+            </div>
+
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Teacher Name</label>
+                        <select class="form-control" ng-model="teacher">
+                            <option ng-repeat="x in staff_data">{{x.sname}}</option>
+                        </select>
+                    </div>
+                </div>
+                </div>
+
+        </div>
+        <div class="modal-footer">
+          <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="routine_update()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>

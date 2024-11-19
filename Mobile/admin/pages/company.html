@@ -1,0 +1,102 @@
+<div style="padding-top: 20px;" ng-init="companyview()">
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header" style="background:rgb(82, 70, 159) !important; color: aliceblue !important;">
+                <div class="d-flex">
+                    <div class="mr-auto p-2"><b>Company Entry Section</b></div>
+                    <div class="p-2">
+                       <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">
+                        <i class="fas fa-plus"></i>
+                        Add Company
+                    </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table width="100%" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-center">Company Name</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="x in company_data">
+                            <td class="text-center">{{$index+1}}</th>
+                            <td>{{x.company | uppercase}}</th>
+                            <td class="text-center">
+                                <button class="btn-success" title="edit" data-toggle="modal"
+                                data-target="#exampleModalCenter" ng-click="company_edit(x.id)"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="btn-danger" title="Delete" ng-click="company_delete(x.id)"><i
+                                    class="fa-sharp fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+              
+        </div>
+    </div>
+</div>
+
+<!-- Client Model Section -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <h2 class="text-center"><u>Company Entry Section</u></h2>
+            <div class="container" style="padding-bottom: 20px !important;">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Company Name</label>
+                            <input type="text" class="form-control" ng-model="company" style="text-transform: uppercase !important;" onkeypress="return isTextKey(event)">
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-success" ng-click="companyentry()">Submit</button> &nbsp;
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button> &nbsp;
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update model section -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Update Company Section</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Company Name</label>
+                        <input type="text" class="form-control" ng-model="company" style="text-transform: uppercase !important;" onkeypress="return isTextKey(event)">
+                        <input type="hidden" class="form-control" ng-model="idd">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="company_update()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>

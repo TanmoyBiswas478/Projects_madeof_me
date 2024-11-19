@@ -1,0 +1,202 @@
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- Angular JS  -->
+    <script src="../assets/js/angular.min.js"></script>
+    <script src="../assets/js/angular-router.min.js"></script>
+    <script src="../assets/js/angular-cookies.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+    <script src="controller/main.js"></script>
+    <script src="controller/validation.js"></script>
+<br>
+<div class="container"
+   style="background: #fff; height: 550px !important; border: 2px solid #EAEAEC; border-radius: 15px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"
+   ng-init>
+   <div class="row">
+      <div class="col-md-12"
+         style="background:#2B99EA; height: 60px; color: #fff !important; border-radius: 15px 15px 0px 0px;">
+         <div class="d-flex">
+            <div class="mr-auto p-3"><i class="fa-solid fa-bars"></i>
+               <b>Service Section</b>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row" style="padding-top: 10px;">
+      <div class="col-lg-6 text-left">
+         <div class="form-group">
+            <div class="col-auto">
+               <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                     <div class="input-group-text">Search Keywords</div>
+                  </div>
+                  <input type="text" class="form-control" id="inlineFormInputGroup">
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-4"></div>
+      <div class="col-lg-2 text-right"><button class="btn btn-warning" style="background: #F5D109;" data-toggle="modal"
+            data-target=".bd-example-modal-lg" data-whatever="@mdo"><i class="fa-solid fa-plus"></i> Add
+            Service</button></div>
+   </div>
+   <div class="row">
+      <div class="col-lg-12">
+         <table class="table table-striped table-bordered text-center">
+            <thead>
+               <tr class="text-center table-info">
+                  <th width="5%">#</th>
+                  <th width="10%">Staff ID</th>
+                  <th width="14%">Name</th>
+                  <th width="10%">Role</th>
+                  <th width="8%">Designation</th>
+                  <th width="10%">Department</th>
+                  <th width="10%">Gender</th>
+                  <th width="9%">Phone</th>
+                  <th width="15%">Email</th>
+                  <th width="9%">Action</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td class="text-center">{{$index+1}}</td>
+                  <td class="text-center">{{x.staff_id}}</td>
+                  <td class="text-center">{{x.name}}</td>
+                  <td class="text-center">{{x.role}}</td>
+                  <td class="text-center">{{x.designation}}</td>
+                  <td class="text-center">{{x.dept}}</td>
+                  <td class="text-center">{{x.gender}}</td>
+                  <td class="text-center">{{x.phone}}</td>
+                  <td class="text-center">{{x.email}}</td>
+                  <td class="text-center">
+                     <button class="btn-success" title="Edit" data-toggle="modal" data-target="#exampleModalCenter"
+                        ng-click="unit_name_delete(x.id)"><i class="fa-solid fa-pen-to-square"></i></button>
+                     <button class="btn-danger" title="Delete" ng-click="unit_name_delete(x.id)"><i
+                           class="fa-sharp fa-solid fa-trash"></i></button>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>
+<!-- insert form -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="card">
+            <div class="card-header text-center text-success">
+               <h4><i class="fa-solid fa-users"></i> Create Service</h4>
+            </div>
+            <div class="card-body">
+               <div class="row">
+                  <div class="col-lg-6">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1"><i class="fa-solid fa-user"></i>
+                           Name</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           style="text-transform: capitalize;">
+                     </div>
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1"><i class="fa-solid fa-phone"></i> Mobile
+                           No</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           style="text-transform: capitalize;">
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-lg-6">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1"><i class="fa-solid fa-envelope"></i>
+                           Email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           style="text-transform: capitalize;">
+                     </div>
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1"><i class="fa-solid fa-address-card"></i> PAN
+                           No</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           style="text-transform: capitalize;">
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-lg-8">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1"><i class="fa-solid fa-location-dot"></i>
+                           Address</label>
+                        <textarea type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           style="text-transform: capitalize;"></textarea>
+                     </div>
+                  </div>
+                  <div class="col-lg-4">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1"><i class="fa-solid fa-calendar-days"></i> Date of Birth</label>
+                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           style="text-transform: capitalize;">
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-lg-4">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1"><i class="fa-solid fa-city"></i>
+                           City</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           style="text-transform: capitalize;">
+                     </div>
+                  </div>
+                  <div class="col-lg-4">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1"><i class="fa-solid fa-city"></i> State</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           style="text-transform: capitalize;">
+                     </div>
+                  </div>
+                  <div class="col-lg-4">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1"><i class="fa-solid fa-map-pin"></i> Pin</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           style="text-transform: capitalize;">
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-lg-12">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1"><i class="fa-solid fa-gear"></i>
+                           Deals-in</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           style="text-transform: capitalize;">
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="card-footer text-muted text-right">
+               <button class="btn btn-success" data-toggle="modal"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+               <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                     class="fa-solid fa-circle-xmark"></i> Close</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,220 @@
+<div class="container" style="padding-top: 40px !important;" ng-init="roleview()">
+    <div class="card">
+        <h5 class="card-header" style="background:rgb(82, 70, 159) !important; color: aliceblue !important; ">Service Request</h5>
+
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+
+            <!-- <table class="table table-bordered" style="font-size: 11.5px !important;">
+              <thead>
+                <tr>
+                    <th  class="text-center">#</th>
+                    <th  class="text-center">Category Name </th>
+                    <th  class="text-center">Service Name</th>
+                    <th  class="text-center">Client Name</th>
+                    <th  class="text-center">Client PhoneNo</th>
+                    <th  class="text-center">Client Address</th>
+                    <th  class="text-center">Charges</th>
+                    <th  class="text-center">Description</th>
+                    <th  class="text-center">Action</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in role_data">
+                    <td class="text-center">{{$index+1}}</td>
+                    <td class="text-center">{{x.role}}</td>
+                    <td class="text-center">{{x.role}}</td>
+                    <td class="text-center">{{x.role}}</td>
+                    <td class="text-center">{{x.role}}</td>
+                    <td class="text-center">{{x.role}}</td>
+                    <td class="text-center">{{x.role}}</td>
+                    <td class="text-center">{{x.role}}</td>
+                    <td class="text-center">
+                        <button class="btn-success" title="Edit" data-toggle="modal" data-target="#exampleModalCenter1" ng-click="role_edit(x.id)"><i class="fa-solid fa-pen-to-square" ></i></button>
+                        <button class="btn-danger" title="Delete" ng-click="role_delete(x.id)"><i class="fa-solid fa-trash-can"></i></i></button>
+                    </td>
+
+                    
+                  </tr>
+                  
+                </tbody>
+              </table> -->
+
+              <!-- Form  -->
+                
+              <form>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="inputEmail4" style="font-weight: bold; ">Service Request No</label>
+                    <input type="text" class="form-control"  >
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="inputPassword4" style="font-weight: bold; ">Service Request Date</label>
+                    <input type="date" class="form-control"  >
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="inputPassword4" style="font-weight: bold; ">Customer Phone No</label>
+                    <input type="text" class="form-control" maxlength="10">
+                  </div>
+                </div>
+          
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4" style="font-weight: bold;">Customer Name</label>
+                      <input type="text" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4" style="font-weight: bold; ">Client Name</label>
+                      <input type="text" class="form-control"  >
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4" style="font-weight: bold; ">Client Type</label>
+                      <input type="text" class="form-control"  >
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4" style="font-weight: bold; ">Customer No</label>
+                      <input type="text" class="form-control"  >
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4" style="font-weight: bold; ">Category</label>
+                      <input type="text" class="form-control"  >
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4" style="font-weight: bold; ">Service Name</label>
+                      <input type="text" class="form-control"  >
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4" style="font-weight: bold; ">Charges</label>
+                      <input type="text" class="form-control"  >
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4" style="font-weight: bold; ">Confirmation</label>
+                      <select class="form-control">
+                        <option></option>
+                        <option>Confirm</option>
+                        <option>Not confirmed</option>
+                        <option>Response Later</option>
+                       
+                      </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label for="inputState" style="font-weight: bold; ">Service Description</label>
+                      <textarea class="form-control"></textarea>
+                      </div>
+                    </div>
+
+                  </div>
+
+                 
+                
+               
+                <div class="text-center">
+                    <button class="btn btn-success" >Submit</button>
+                    <button class="btn btn-danger" data-dismiss="modal">Exit</button>
+                </div> <br>
+                
+              </form>
+              <!-- end form -->
+
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Client Modal -->
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="margin-left: 35% !important;"><U>Servie request</U></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Category Name</label>
+              <input type="text" class="form-control" >
+             </div>
+             <div class="form-group">
+              <label for="exampleInputEmail1">Service Name</label>
+              <input type="text" class="form-control" >
+             </div>
+             <div class="form-group">
+              <label for="exampleInputEmail1">Client Name</label>
+              <input type="text" class="form-control" >
+             </div>
+             <div class="form-group">
+              <label for="exampleInputEmail1">Client Phone</label>
+              <input type="text" class="form-control" >
+             </div>
+             <div class="form-group">
+              <label for="exampleInputEmail1">Client Address</label>
+              <input type="text" class="form-control" >
+             </div>
+             <div class="form-group">
+              <label for="exampleInputEmail1">Charges</label>
+              <input type="text" class="form-control" >
+             </div>
+             <div class="form-group">
+              <label for="exampleInputEmail1">Description</label>
+              <input type="text" class="form-control" >
+             </div>
+             <div class="form-group">
+              <label for="exampleInputEmail1">Enter Role</label>
+              <input type="text" class="form-control" >
+             </div>
+
+             
+
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" ng-click="roleentry()">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right: 35% !important;">Exit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update model section -->
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Update Role Section</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="form-group">
+                  <label for="formGroupExampleInput">Role Name</label>
+                  <input type="text" class="form-control" ng-model="role">
+                  <input type="hidden" class="form-control" ng-model="idd">
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="role_update()">Update</button>
+  </div>
+</div>
+</div>
+</div>
+  

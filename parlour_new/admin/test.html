@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .menu-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .menu-item .details {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+        .menu-item .details h5 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .menu-item .details .price {
+            color: red;
+            font-size: 1.1rem;
+        }
+        .menu-item .details .qty {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .navbar-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+        .navbar-bottom a {
+            color: white;
+            text-align: center;
+        }
+        .navbar-bottom a.active {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- First menu item -->
+        <div class="menu-item">
+            <img src="spicy_noodles.jpg" alt="Spicy Noodle">
+            <div class="details">
+                <h5>Spicy Noodle</h5>
+                <span class="price">₹25</span>
+                <div class="qty">Qty: 0</div>
+            </div>
+        </div>
+        
+        <!-- Second menu item -->
+        <div class="menu-item">
+            <img src="spicy_noodles_wrap.jpg" alt="Spicy Noodle Wrap">
+            <div class="details">
+                <h5>Spicy Noodle</h5>
+                <span class="price">₹25</span>
+                <div class="qty">Qty: 0</div>
+            </div>
+        </div>
+        
+        <!-- Third menu item -->
+        <div class="menu-item">
+            <div class="placeholder d-flex justify-content-center align-items-center" style="width: 80px; height: 80px; background-color: #f0f0f0; border-radius: 8px;">
+                <span>80 x 80</span>
+            </div>
+            <div class="details">
+                <h5>Spicy Noodle</h5>
+                <span class="price">₹25</span>
+                <div class="qty">Qty: 0</div>
+            </div>
+        </div>
+
+        <!-- Fourth menu item (another placeholder) -->
+        <div class="menu-item">
+            <div class="placeholder d-flex justify-content-center align-items-center" style="width: 80px; height: 80px; background-color: #f0f0f0; border-radius: 8px;">
+                <span>80 x 80</span>
+            </div>
+            <div class="details">
+                <h5>Spicy Noodle</h5>
+                <span class="price">₹25</span>
+                <div class="qty">Qty: 0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="navbar-bottom">
+        <a href="#" class="active">
+            <div>Home</div>
+        </a>
+        <a href="#">
+            <div>Categories</div>
+        </a>
+        <a href="#">
+            <div>Cart</div>
+        </a>
+        <a href="#">
+            <div>Profile</div>
+        </a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

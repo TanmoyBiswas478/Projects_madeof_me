@@ -1,0 +1,212 @@
+
+
+
+<div class="container-fluid" style="padding-top: 40px !important;" ng-init="staffview();roleview();">
+
+    <div class="card">
+      <h5 class="card-header d-flex" style="background:rgb(82, 70, 159) !important; color: aliceblue !important;">Staff Details Entry<a href="" class="btn btn-info" style="margin-left: 80% !important;" data-toggle="modal" data-target=".bd-example-modal-lg"> <i class="fa-solid fa-plus"></i> Add Staff</a></h5>
+
+      <div class="card-body">
+        
+
+        <table class="table table-bordered" style="font-size: 11.5px !important;">
+          <thead>
+            <tr>
+              <th class="text-center">#</th>
+              <th class="text-center">Staff Name</th>
+              <th class="text-center">Phone No</th>
+              <th class="text-center">Address</th>
+              <th class="text-center">Gender</th>
+              <th class="text-center">Email</th>
+              <th class="text-center">Role</th>
+              <th class="text-center">Job Location</th>
+              <th class="text-center">Qualification</th>
+              <th class="text-center">Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in staff_data"> 
+              <th class="text-center">{{$index+1}}</th>
+              <td class="text-center">{{x.name}}</td>
+              <td class="text-center">{{x.ph}}</td>
+              <td class="text-center">{{x.address}}</td>
+              <td class="text-center">{{x.gender}}</td>
+              <td class="text-center">{{x.email}}</td>
+              <td class="text-center">{{x.role}}</td>
+              <td class="text-center">{{x.location}}</td>
+              <td class="text-center">{{x.qualification}}</td>
+              <td class="text-center">
+                <button class="btn-success" ng-click="staff_edit(x.id)" data-toggle="modal" data-target=".bd-example-modal-lg1"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button class="btn-danger" ng-click="staff_delete(x.id)"><i class="fa-solid fa-trash-can"></i></button>
+
+              </td>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="card">
+          <div class="card-header">Staff Entry Section</div>
+          </div>
+          <div class="card-body">
+            <h class="card-title">
+           <form>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Phone No</label>
+                <input type="text" class="form-control" id="inputEmail4" maxlength="10" ng-model="ph">
+              </div>
+              <div class="form-group col-md-8">
+                <label for="inputPassword4">Staff Name</label>
+                <input type="text" class="form-control" id="inputPassword4" ng-model="name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAddress">Address</label>
+              <input type="text" class="form-control" id="inputAddress" ng-model="address">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="inputEmail4">Gender</label>
+                <select id="inputState" class="form-control" ng-model="gender">
+                  
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Others</option>
+                </select>
+              </div>
+              <div class="form-group col-md-8">
+                <label for="inputPassword4">Email</label>
+                <input type="email" class="form-control" id="inputPassword4" ng-model="email">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Role</label>
+                <select class="form-control" id="inputEmail4" ng-model="role">
+                  <option></option>
+                  <option ng-repeat="x in role_data">{{x.role}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Job Location</label>
+                <input class="form-control" type="text" ng-model="location" readonly>
+              </div>
+              
+              
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label for="inputEmail4">Qualification</label>
+                <input type="text" class="form-control" id="inputEmail4" ng-model="qualification">
+              </div>
+            </div>
+            
+          </form>
+          <!-- End form  -->
+
+            </h> <br>
+            <div style="text-align: center !important;">
+            <button type="button" class="btn btn-success" ng-click="staffentry()">Save</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
+            </div>
+            
+            
+          </div>
+        </div>
+      
+      </div>
+    </div>
+
+
+   <!--Update Modal-->
+   <div class="modal fade bd-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="card">
+          <div class="card-header">Staff Entry Section</div>
+          </div>
+          <div class="card-body">
+            <h class="card-title">
+              <form>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="inputEmail4">Phone No</label>
+                    <input type="text" class="form-control" id="inputEmail4" maxlength="10" ng-model="ph">
+                  </div>
+                  <div class="form-group col-md-8">
+                    <label for="inputPassword4">Staff Name</label>
+                    <input type="text" class="form-control" id="inputPassword4" ng-model="name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputAddress">Address</label>
+                  <input type="text" class="form-control" id="inputAddress" ng-model="address">
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="inputEmail4">Gender</label>
+                    <select id="inputState" class="form-control" ng-model="gender">
+                      
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Others</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-8">
+                    <label for="inputPassword4">Email</label>
+                    <input type="email" class="form-control" id="inputPassword4" ng-model="email">
+                  </div>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">Role</label>
+                    <select class="form-control" id="inputEmail4" ng-model="role">
+                      <option></option>
+                      <option ng-repeat="x in role_data">{{x.role}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputPassword4">Job Location</label>
+                    <input class="form-control" type="text" ng-model="location" readonly>
+                  </div>
+                  
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="inputEmail4">Qualification</label>
+                    <input type="text" class="form-control" id="inputEmail4" ng-model="qualification">
+                  </div>
+                </div>
+                
+              </form>
+          <!-- End form  -->
+
+            </h><br>
+            <div style="text-align: center !important;">
+            <button type="button" class="btn btn-success" style="background-color: rgb(5, 30, 111);" id="myBtn" ng-click="staff_update()">Update</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button> -->
+            </div>
+            
+            
+          </div>
+        </div>
+      
+      </div>
+    </div>
+
+
+
+   

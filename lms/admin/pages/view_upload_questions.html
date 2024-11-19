@@ -1,0 +1,126 @@
+<br>
+<div class="container-fluid" style="background: #fff;border: 2px solid #EAEAEC;" ng-init="trainingview();">
+   <div class="row">
+      <div class="col-md-12"
+         style="background:blueviolet; height: 60px; color: #fff !important; display: flex; align-items: center;">
+         <div class="mr-auto p-3"><i class="fa-solid fa-bars"></i> View Upload
+            Question Bank
+         </div>
+      </div>
+   </div>
+   <div class="row" style="padding-top: 10px !important;">
+   </div>
+   <div class="row" style="padding-top: 10px !important;">
+      <div class="col-md-12">
+         <div class="form-group">
+            <label for="exampleInputEmail1">Training Name</label>
+            <select class="form-control" ng-model="tname" ng-change="question_view()">
+               <option></option>
+               <option ng-repeat="x in training_data">{{x.tname}}</option>
+            </select>
+         </div>
+      </div>
+      <div class="col-md-12">
+            <table class="table table-bordered text-center">
+               <thead class="table-info">
+                  <tr>
+                     <th>#</th>
+                     <th>Question</th>
+                     <th>Option A</th>
+                     <th>Option B</th>
+                     <th>Option C</th>
+                     <th>Option D</th>
+                     <th>Answer</th>
+                     <th>Actions</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-repeat="y in quetions_bank">
+                     <td>{{$index+1}}</td>
+                     <td>{{y.question}}</td>
+                     <td>{{y.option1}}</td>
+                     <td>{{y.option2}}</td>
+                     <td>{{y.option3}}</td>
+                     <td>{{y.option4}}</td>
+                     <td class="font-weight-bold">{{y.answer}}</td>
+                     <td>
+                        <a href ng-click="question_edit(y.id)" data-toggle="modal" data-target=".bd-example-modal-lg"
+                           class="btn btn-primary">
+                           <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a href ng-click="question_delete(y.id)" class="btn btn-danger">
+                           <i class="fa-solid fa-trash"></i>
+                        </a>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+
+      </div>
+   </div>
+</div>
+<!-- Update Questions Section -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="container" style="background: #fff; height: 750px !important; border: 2px solid #EAEAEC;"
+            ng-init="trainingview();">
+            <div class="row">
+               <div class="col-md-12"
+                  style="background:blueviolet; height: 60px; color: #fff !important; display: flex; align-items: center;">
+                  <div class="mr-auto p-3"><i class="fa-solid fa-bars"></i> Upload
+                     Question Bank
+                  </div>
+               </div>
+            </div>
+            <div class="row" style="padding-top: 10px !important;">
+            </div>
+            <div class="row" style="padding-top: 10px !important;">
+               <div class="col-md-12">
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Training Name</label>
+                     <select class="form-control" ng-model="tname" name="tname">
+                        <option></option>
+                        <option ng-repeat="x in training_data">{{x.tname}}</option>
+                     </select>
+                     <input type="hidden" class="form-control" ng-model="idd">
+                  </div>
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Question</label>
+                     <textarea class="form-control" ng-model="question"></textarea>
+                  </div>
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Option A</label>
+                     <input type="text" class="form-control" ng-model="option1">
+                  </div>
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Option B</label>
+                     <input type="text" class="form-control" ng-model="option2">
+                  </div>
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Option C</label>
+                     <input type="text" class="form-control" ng-model="option3">
+                  </div>
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Option D</label>
+                     <input type="text" class="form-control" ng-model="option4">
+                  </div>
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Answer</label>
+                     <input type="text" class="form-control" ng-model="answer">
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12 text-center">
+                  <div class="form-group">
+                     <button type="submit" class="btn btn-success" ng-click="question_update()"><i
+                           class="fa-solid fa-floppy-disk"></i> Update</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

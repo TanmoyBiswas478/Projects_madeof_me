@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>E-Parlour
+    </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/s1.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="../../assets/fw/css/all.css">
+
+  </head>
+  <body>
+      
+    <!-- <nav class="navbar navbar-light bg-light" style="background-color: coral !important;">
+        <a class="navbar-brand" href="#" style="color: #fff !important;">
+            <i class="fa-solid fa-scissors"></i> E-Salon
+        </a>
+        <div class="ml-auto" style="color: #fff !important;">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+    </nav> -->
+    <!-- Appoinment Section  -->
+    <div class="container">
+        <!-- First Part: Up to Customer Name -->
+        <div id="first-part">
+            <h6 style="padding-top: 10px;">
+                <u><i class="fa-solid fa-users"></i> Bill Section</u>
+            </h6>
+
+            <!-- bill No Card -->
+            <div class="container">
+                <div class="row">
+                    <!-- Bill No Card -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Bill No</div>
+                            <div class="card-body">
+                                <input type="text" class="form-control" id="billNo" placeholder="Enter Bill No" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bill Date Card -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Bill Date</div>
+                            <div class="card-body">
+                                <input type="date" class="form-control" id="billDate" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        // Generate Bill No
+                        function generateBillNo() {
+                            const timestamp = Date.now().toString();
+                            const randomNum = Math.floor(1000 + Math.random() * 9000); // Random 4-digit number
+                            return `BILL-${randomNum}-${timestamp}`;
+                        }
+                    
+                        // Set Bill No and Bill Date
+                        document.addEventListener("DOMContentLoaded", () => {
+                            document.getElementById("billNo").value = generateBillNo();
+                            
+                            // Set Bill Date to today
+                            const today = new Date().toISOString().split("T")[0];
+                            document.getElementById("billDate").value = today;
+                        });
+                    </script>
+                    
+                </div>
+            
+                <div class="row mt-3">
+                    <!-- Customer Phone Card -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Customer Phone</div>
+                            <div class="card-body">
+                                <input type="tel" class="form-control" maxlength="10" id="customerPhone" placeholder="Enter Customer Phone">
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Customer Name Card -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Customer Name</div>
+                            <div class="card-body">
+                                <input type="text" class="form-control" id="customerName" placeholder="Enter Customer Name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Next Button -->
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button class="btn btn-secondary" onclick="showSecondPart()">Next</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Second Part: Services and Payment Mode -->
+        <div id="second-part" class="hidden" style="padding-bottom: 70px;">
+            <!-- Services Section -->
+            <h6><u>Services</u></h6>
+
+            <!-- Service Cards with Dynamic Quantities -->
+            <div class="service-card">
+                <div class="service-name">Hair Cut</div>
+                <div class="service-cost">Cost: &#8377; 200.00</div>
+                <div class="service-control-row">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity('hairCut', -1)">-</button>
+                        <input type="number" class="quantity-input" id="hairCut" value="0" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity('hairCut', 1)">+</button>
+                    </div>
+                    <div class="service-total">Total: &#8377; <span id="totalHairCut">0.00</span></div>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-name">Hair Shampoo</div>
+                <div class="service-cost">Cost: &#8377; 300.00</div>
+                <div class="service-control-row">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity('hairShampoo', -1)">-</button>
+                        <input type="number" class="quantity-input" id="hairShampoo" value="0" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity('hairShampoo', 1)">+</button>
+                    </div>
+                    <div class="service-total">Total: &#8377; <span id="totalHairShampoo">0.00</span></div>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-name">Baby Hair Cut</div>
+                <div class="service-cost">Cost: &#8377; 100.00</div>
+                <div class="service-control-row">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity('babyHairCut', -1)">-</button>
+                        <input type="number" class="quantity-input" id="babyHairCut" value="0" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity('babyHairCut', 1)">+</button>
+                    </div>
+                    <div class="service-total">Total: &#8377; <span id="totalBabyHairCut">0.00</span></div>
+                </div>
+            </div>
+            
+
+            <!-- Grand Total -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <b>Grand Total:</b>
+                        <span>&#8377; <span id="grandTotal">0.00</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Mode Card -->
+            <div class="card">
+                <div class="card-header">Payment Mode</div>
+                <div class="card-body">
+                    <select class="form-control" id="paymentMode">
+                        <option>Cash</option>
+                        <option>Card</option>
+                        <option>UPI</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-secondary btn-block" onclick="showfirstPart()">Back</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-secondary btn-block">Bill</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer Section  -->
+    <!-- <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-bottom;padding-top:20px" >
+        <ul class="navbar-nav w-100 d-flex flex-row justify-content-between">
+            <li class="nav-item text-center">
+                <a class="nav-link" href="#!/index">
+                    <i class="fas fa-home"></i>
+                    <span class="d-block">Home</span>
+                </a>
+            </li>
+           
+            <li class="nav-item text-center">
+                <a class="nav-link" href="#!/bill">
+                    <i class="fas fa-plus"></i>
+                    <span class="d-block">Bill </span>
+                </a>
+            </li>
+            <li class="nav-item text-center">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-bell"></i>
+                    <span class="d-block">Notifications</span>
+                </a>
+            </li>
+            <li class="nav-item text-center">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-user"></i>
+                    <span class="d-block">Profile</span>
+                </a>
+            </li>
+        </ul>
+    </nav> -->
+
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        const prices = {
+            hairCut: 200.00,
+            hairShampoo: 300.00,
+            babyHairCut: 100.00
+        };
+
+        function updateQuantity(service, change) {
+            const input = document.getElementById(service);
+            let quantity = parseInt(input.value);
+            quantity = isNaN(quantity) ? 0 : quantity;
+            quantity += change;
+
+            if (quantity < 0) quantity = 0; // Prevent negative values
+
+            input.value = quantity;
+            updateTotal(service, quantity);
+        }
+
+        function updateTotal(service, quantity) {
+            const cost = prices[service];
+            const totalElement = document.getElementById('total' + capitalizeFirstLetter(service));
+            const total = cost * quantity;
+            totalElement.textContent = total.toFixed(2);
+            updateGrandTotal();
+        }
+
+        function updateGrandTotal() {
+            let grandTotal = 0;
+            Object.keys(prices).forEach(service => {
+                const quantity = parseInt(document.getElementById(service).value);
+                grandTotal += prices[service] * quantity;
+            });
+            document.getElementById('grandTotal').textContent = grandTotal.toFixed(2);
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        function showSecondPart() {
+            document.getElementById('first-part').classList.add('hidden');
+            document.getElementById('second-part').classList.remove('hidden');
+        }
+
+        function showfirstPart() {
+            document.getElementById('first-part').classList.remove('hidden');
+            document.getElementById('second-part').classList.add('hidden');
+        }
+    </script>
+  
+</body>
+</html>

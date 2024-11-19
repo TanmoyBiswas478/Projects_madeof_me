@@ -1,0 +1,173 @@
+<br>
+<div class="container" style="background: #fff; border: 2px solid #EAEAEC;" ng-init="trainingview();categoryview();">
+  <div class="row">
+    <div class="col-md-12" style="background:blueviolet; height: 60px; color: #fff !important; display: flex; align-items: center;">
+        <div class="mr-auto p-3"><i class="fa-solid fa-bars"></i> Training Section</div>
+        <div class="p-2">
+            <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
+                <i class="fa-solid fa-plus"></i> Add Training
+            </button>
+        </div>
+    </div>
+</div>
+
+
+  <div class="row" style="padding-top: 10px !important;">
+    <div class="col-md-12 text-right">
+        Search: <input type="text" ng-model="search" placeholder="Search by any index">
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 10px !important;">
+    <div class="col-md-12 text-right">
+      <table width="100%" class="table table-bordered table-striped" style="font-size: 11.5px!important;">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Training Category</th>
+                <th class="text-center">Training Name</th>
+                <th class="text-center">Short From</th>
+                <th class="text-center">Training Duration</th>
+                <th class="text-center">Fees</th>
+                <th class="text-center">Unit</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="x in training_data">
+                <td class="text-center">{{$index+1}}</td>
+                <td class="text-center">{{x.category}}</td>
+                <td class="text-center">{{x.tname}}</td>
+                <td class="text-center">{{x.sform | uppercase}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.duration}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.fees}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.unit}}</td>
+                <td class="text-center">
+                    <button class="btn-success" title="edit" data-toggle="modal"
+                    data-target="#exampleModalCenter"><i class="fa-solid fa-pen-to-square" ng-click="training_edit(x.id)"></i></button>
+                    <button class="btn-danger" title="Delete" ng-click="training_delete(x.id)"><i
+                            class="fa-sharp fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Section  -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Training Entry Section</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Category Name</label>
+              <select class="form-control" id="recipient-name" ng-model="category">
+                <option ng-repeat="x in category_data">{{x.catagory}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Training Name</label>
+                <input type="text" class="form-control" id="recipient-name" ng-model="tname">
+                  
+            </div>
+            
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Short Form</label>
+                <input type="text" class="form-control" id="recipient-name" ng-model="sform">
+                  
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Duration</label>
+                <input type="text" class="form-control" id="recipient-name" ng-model="duration">
+                  
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Fees</label>
+                <input type="text" class="form-control" id="recipient-name" ng-model="fees">
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Unit</label>
+                <input type="text" class="form-control" id="recipient-name" ng-model="unit">   
+            </div>
+        
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="trainingentry()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Update model section -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Update Training Section</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Category Name</label>
+              <select class="form-control" id="recipient-name" ng-model="category">
+                <option ng-repeat="x in category_data">{{x.catagory}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Training Name</label>
+                <input type="text" class="form-control" id="recipient-name" ng-model="tname">
+                  
+            </div>
+            
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Short Form</label>
+                <input type="text" class="form-control" id="recipient-name" ng-model="sform">
+                  
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Duration</label>
+                <input type="text" class="form-control" id="recipient-name" ng-model="duration">
+                  
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Fees</label>
+                <input type="text" class="form-control" id="recipient-name" ng-model="fees">
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Unit</label>
+                <input type="text" class="form-control" id="recipient-name" ng-model="unit">   
+            </div>
+        
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="training_update()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>

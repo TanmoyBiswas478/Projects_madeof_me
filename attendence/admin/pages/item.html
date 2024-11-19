@@ -1,0 +1,136 @@
+<div style="padding-top:20px !important; padding-left:20px !important; padding-right:20px !important;" ng-init="itemview()">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex">
+                <div class="mr-auto p-2">Item Entry Section</div>
+                <div class="p-2">
+                   <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <i class="fas fa-plus"></i>
+                    Add ITEM
+                </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+    <div class="row">
+      <div class="col-12">
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th width="10%" class="text-center">Sl No</th>
+                      <th width="40%" class="text-center">Item Name</th>
+                      <th width="10%" class="text-center">Price</th>
+                      <th width="20%" class="text-center">GST%</th>
+                      <th width="20%" class="text-center">Remove</th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                  <!-- <tr>
+                      <td class="text-center">#</td>
+                      <td>
+                          
+                      </td>
+                      <td class="text-center">
+                          <input type="tel" list="pdata" ng-model="price" style="border: transparent; outline:none; width: 100%; height: 30px;"> 
+                      </td>
+                      <td class="text-center">
+                          <select ng-model="gst" style="border: transparent; outline:none; width: 100%; height: 30px;"> 
+                              <option></option>
+                              <option>0</option>
+                              <option>3</option>
+                              <option>5</option>
+                              <option>12</option>
+                              <option>18</option>
+                              <option>28</option>
+
+                          </select>
+                      </td>
+                      <td class="text-center">
+                          <button class="btn btn-success btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#ExtralargeModal" title="Edit" style="color:#fff !important" ng-click="itementry()">
+                              <i class="fa-solid fa-plus"></i>
+                            </button>
+                      </td>
+                  </tr> -->
+
+                  <tr ng-repeat="x in item_data">
+                      <td class="text-center">{{$index+1}}</td>
+                      <td>
+                          {{x.iname}}
+                      </td>
+                      <td  class="text-center">
+                         {{x.price}}
+                      </td>
+                      <td  class="text-center">
+                          {{x.gst}}
+                      </td>
+                      <td class="text-center">
+                          <button class="btn btn-danger btn-circle btn-sm" title="Delete" style="color:#fff !important" ng-click="item_delete(x.id)">
+                              <i class="fa-solid fa-trash"></i>
+                            </button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+    </div>
+</div>
+
+<!-- Client Model Section -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <h2 class="text-center"><u>Item Entry Section</u></h2>
+            <div class="container" style="padding-bottom: 20px !important;">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Item Name</label>
+                            <input type="text" ng-model="iname" class="form-control">  
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Price</label>
+                            <input type="text"  ng-model="price" class="form-control"> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">GST%</label>
+                            <select ng-model="gst" class="form-control"> 
+                                <option></option>
+                                <option>0</option>
+                                <option>3</option>
+                                <option>5</option>
+                                <option>12</option>
+                                <option>18</option>
+                                <option>28</option>
+  
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-success" ng-click="itementry()">Submit</button> &nbsp;
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button> &nbsp;
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

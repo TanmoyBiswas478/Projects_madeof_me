@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Training Registration Portal</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/fw/css/all.css">
+    <style>
+        body{
+            background: #F0F0F0 !important;
+            height: 100%;
+        }
+        .curved-bottom {
+            /* Curved corners */
+            border-bottom-left-radius: 50% 40%;
+            border-bottom-right-radius: 50% 40%; 
+            background: indigo;
+            height: 150px;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Custom CSS for background image */
+        .background-image {
+            background-image: url('images/login.png'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            height: 100vh; /* Adjust as needed */
+        }
+       </style>
+  </head>
+  <body>
+    <form method="post" action="assets/api/login.php" enctype="multipart/form-data">
+    <div class="curved-bottom"><br>
+        <h4>Software World,Agartala</h4>
+        A Division of Research & Development Society
+    </div><br><br>
+
+    <div class="card container" style="height: 570px !important;">
+        
+            <div class="row">
+                <div class="col-md-6" style="padding: 40px !important;">
+                    <div class="card" style="height: 500px !important; border-radius: 15px !important; box-shadow: 0 0 0.25em rgba(67,71,85,.27), 0 0.25em 1em rgba(90,125,188,.05) !important;  padding: 3%;  width: 100%;">
+                        <div class="card-body">
+                            <h5 class="card-title">Login</h5>
+                            <small id="emailHelp" class="form-text text-muted">Doesn't have an account yet?<a href="registration.html"> Register</a></small>
+                            
+                    <br><br>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="font-weight-bold">User Name</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                            </div>
+                        <input type="text" class="form-control" placeholder="Enter Username" name="user" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputEmail1" class="font-weight-bold">Password</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
+                            </div>
+                        <input type="password" class="form-control" placeholder="Enter Password" name="pass" required>
+                        </div>
+                      </div>
+                      <br>
+
+                      <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button><br><br>
+
+                      
+
+
+                        </div>
+                    </div> 
+                    
+
+                </div>
+                <div class="col-md-6">
+                    <img src="assets/images/login1.png" class="card-img" alt="...">
+                </div>
+            </div>
+       
+
+    </div>
+
+   
+    
+    
+
+    
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </form>
+  </body>
+</html>

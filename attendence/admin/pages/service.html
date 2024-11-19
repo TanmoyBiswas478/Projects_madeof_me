@@ -1,0 +1,122 @@
+<div style="padding-top:20px !important; padding-left:20px !important; padding-right:20px !important;" ng-init="serviceview()">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex">
+                <div class="mr-auto p-2">Service Entry Section</div>
+                <div class="p-2">
+                   <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <i class="fas fa-plus"></i>
+                    Add Service
+                </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+    <div class="row">
+      <div class="col-12">
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th width="10%" class="text-center">Sl No</th>
+                      <th width="40%" class="text-center">Category Name</th>
+                      <th width="10%" class="text-center">Service Name</th>
+                      <th width="10%" class="text-center">Type</th>
+                      <th width="20%" class="text-center">Price</th>
+                      <th width="20%" class="text-center">Edit/Remove</th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                  <tr ng-repeat="x in idata">
+                      <td class="text-center">{{$index+1}}</td>
+                      <td>
+                          {{x.cname}}
+                      </td>
+                      <td>
+                          {{x.iname}}
+                      </td>
+                      <td>
+                          {{x.type}}
+                      </td>
+                      <td>
+                          {{x.price}}
+                      </td>
+                      <td class="text-center">
+                          <button class="btn btn-danger btn-circle btn-sm" title="Delete" style="color:#fff !important" ng-click="service_delete(x.id)">
+                              <i class="fa-solid fa-trash"></i>
+                            </button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+    </div>
+</div>
+
+<!-- Client Model Section -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <h2 class="text-center"><u>Service Entry Section</u></h2>
+            <div class="container" style="padding-bottom: 20px !important;">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Category Name</label>
+                            <select ng-model="cname" class="form-control">  
+                              <option ng-repeat="x in cdata">{{x.cname}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Service Name</label>
+                            <input type="text" ng-model="iname" class="form-control">  
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Type of User</label>
+                            <select ng-model="type" class="form-control">  
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Baby Boy</option>
+                            <option>Baby Girl</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Price</label>
+                            <input type="text" ng-model="price" class="form-control">  
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-success" ng-click="serviceentry()">Submit</button> &nbsp;
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button> &nbsp;
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

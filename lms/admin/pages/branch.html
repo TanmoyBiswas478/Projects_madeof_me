@@ -1,0 +1,158 @@
+<br>
+<div class="container" style="background: #fff; height: 500px !important; border: 2px solid #EAEAEC;"
+  ng-init="branchview()">
+  <div class="row">
+    <div class="col-md-12" style="background:blueviolet; height: 60px; color: #fff !important;">
+
+
+      <div class="d-flex">
+        <div class="mr-auto p-3"><i class="fa-solid fa-bars"></i> Branch Section</div>
+        <div class="p-2">
+          <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i
+              class="fa-solid fa-plus"></i> Add Branch</button>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 10px !important;">
+    <div class="col-md-12 text-right">
+      Search: <input type="text" ng-model="search" placeholder="Search by any index">
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 10px !important;">
+    <div class="col-md-12 text-right">
+
+      <table class="table table-bordered table-striped" style="font-size: 11.5px !important;">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Branch Name</th>
+            <th class="text-center">Branch Location</th>
+            <th class="text-center">Phone No</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Cordination Name</th>
+            <th class="text-center">Edit/Delete</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="x in branch_data">
+            <td class="text-center" style="height: 40px;">{{$index+1}}</td>
+            <td style="text-transform: capitalize; text-align: justify;">{{x.bname}}</td>
+            <td style="text-transform: capitalize; text-align: justify;">{{x.location}}</td>
+            <td style="text-transform: capitalize;text-align: justify;">{{x.ph}}</td>
+            <td style="text-transform: lowercase; text-align: justify;">{{x.email}}</td>
+            <td style="text-transform: capitalize; text-align: justify;">{{x.cordinator}}</td>
+            <td class="text-center">
+              <button class="btn-warning" style="color: #fff  !important;" data-toggle="modal"
+              data-target="#exampleModalCenter" ng-click="branch_edit(x.id)"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn-danger" ng-click="branch_delete(x.id)"><i class="fa-solid fa-trash-can"></i></button>
+            </td>
+          </tr>
+
+
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Section  -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Branch Entry Section</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Branch Name</label>
+            <input type="text" class="form-control" style="text-transform: capitalize;" ng-model="bname">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Branch Location</label>
+            <input type="text" class="form-control" style="text-transform: capitalize;" ng-model="location">
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Phone No</label>
+            <input type="text" class="form-control" ng-model="ph">
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Email</label>
+            <input type="text" class="form-control" style="text-transform: lowercase;" ng-model="email">
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Cordinator Name</label>
+            <input type="text" class="form-control" style="text-transform: capitalize;" ng-model="cordinator">
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="branchentry()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Update Branch Section</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Branch Name</label>
+            <input type="text" class="form-control" style="text-transform: capitalize;" ng-model="bname">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Branch Location</label>
+            <input type="text" class="form-control" style="text-transform: capitalize;" ng-model="location">
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Phone No</label>
+            <input type="text" class="form-control" ng-model="ph">
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Email</label>
+            <input type="text" class="form-control" style="text-transform: lowercase;" ng-model="email">
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Cordinator Name</label>
+            <input type="text" class="form-control" style="text-transform: capitalize;" ng-model="cordinator">
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="branch_update()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

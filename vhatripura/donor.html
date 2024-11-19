@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fw/css/all.min.css">
+    <script src="assets/js/angular.min.js"></script>
+</head>
+
+<body ng-controller="dashCtrl" ng-init="donor_view()">
+    <div class="container" style="padding-top: 20px;">
+        <h2 class="text-center"><u>Donor Details Section</u></h2>
+        <p class="text-right">
+            <button class="btn btn-info" data-toggle="modal" data-target=".donor-entry-modal">
+                <i class="fa-solid fa-plus"></i> Add Donor
+            </button>
+        </p>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="table-warning text-dark">
+                    <th class="text-center">#</th>
+                    <th class="text-center">Donor Name</th>
+                    <th class="text-center">Mobile Number</th>
+                    <th class="text-center">Amount (INR)</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="donor in donor_view_data">
+                    <td class="text-center">{{$index + 1}}</td>
+                    <td class="text-center">{{donor.name}}</td>
+                    <td class="text-center">{{donor.mobile}}</td>
+                    <td class="text-center">{{donor.amount}}</td>
+                    <td class="text-center">
+                        <button class="btn-success" title="edit" data-toggle="modal" data-target="#donorEditModal"
+                            ng-click="donor_edit(donor.id)">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn-danger" title="delete" ng-click="donor_delete(donor.id)">
+                            <i class="fa-sharp fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Donor Entry Modal -->
+    <div class="modal fade donor-entry-modal" tabindex="-1" donor="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <h2 class="text-center">Donor Entry Section</h2>
+                <div class="container" style="padding-bottom: 20px !important;">
+                    <div class="form-group">
+                        <label for="donorNameInput">Donor Name</label>
+                        <input type="text" class="form-control" ng-model="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="donorPinCodeInput">PIN Code</label>
+                        <input type="text" class="form-control" ng-model="pincode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="donorMobileInput">Mobile Number</label>
+                        <input type="text" class="form-control" ng-model="mobile" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="donorEmailInput">E-mail ID (if available)</label>
+                        <input type="email" class="form-control" ng-model="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="donorPANInput">PAN (required for tax exemption)</label>
+                        <input type="text" class="form-control" ng-model="pan">
+                    </div>
+                    <div class="form-group">
+                        <label for="donorAmountInput">Amount (INR)</label>
+                        <input type="number" class="form-control" ng-model="amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="donorRemarksInput">Remarks</label>
+                        <input type="text" class="form-control" ng-model="remarks">
+                    </div>
+                    <div class="form-group">
+                        <label for="donorAddressInput">Full Address</label>
+                        <input type="text" class="form-control" ng-model="address" required>
+                    </div>
+
+                    <button type="button" class="btn btn-success" ng-click="donor_entry()">Submit</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Donor Edit Modal -->
+    <div class="modal fade" id="donorEditModal" tabindex="-1" donor="dialog" aria-labelledby="donorEditModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" donor="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Donor Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="donorNameInput">Donor Name</label>
+                        <input type="text" class="form-control" ng-model="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="donorPinCodeInput">PIN Code</label>
+                        <input type="text" class="form-control" ng-model="pincode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="donorMobileInput">Mobile Number</label>
+                        <input type="text" class="form-control" ng-model="mobile" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="donorEmailInput">E-mail ID (if available)</label>
+                        <input type="email" class="form-control" ng-model="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="donorPANInput">PAN (required for tax exemption)</label>
+                        <input type="text" class="form-control" ng-model="pan">
+                    </div>
+                    <div class="form-group">
+                        <label for="donorAmountInput">Amount (INR)</label>
+                        <input type="number" class="form-control" ng-model="amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="donorRemarksInput">Remarks</label>
+                        <input type="text" class="form-control" ng-model="remarks">
+                    </div>
+                    <div class="form-group">
+                        <label for="donorAddressInput">Full Address</label>
+                        <input type="text" class="form-control" ng-model="address" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="donor_update()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+
+    <!-- AngularJS Controller -->
+    <script>
+        var app = angular.module("myApp", []);
+
+        app.controller('dashCtrl', function ($scope, $http) {
+
+            $scope.donor_entry = function () {
+                $http({
+                    url: "assets/api/donor.php",
+                    method: "POST",
+                    data: {
+                        "name": $scope.name,
+                        "pincode": $scope.pincode,
+                        "mobile": $scope.mobile,
+                        "email": $scope.email,
+                        "pan": $scope.pan,
+                        "amount": $scope.amount,
+                        "remarks": $scope.remarks,
+                        "address": $scope.address,
+                        "op": "insert"
+                    }
+                }).then(function (response) {
+                    alert(response.data);
+                    $scope.donor_view();
+                    $scope.name = null;
+                    $scope.pincode = null;
+                    $scope.mobile = null;
+                    $scope.email = null;
+                    $scope.pan = null;
+                    $scope.amount = null;
+                    $scope.remarks = null;
+                    $scope.address = null;
+                }, function () {
+                    alert("Error adding donor.");
+                });
+            };
+            $scope.donor_view = function () {
+                $http({
+                    url: "assets/api/donor.php",
+                    method: "POST",
+                    data: { "op": "view" }
+                }).then(function (response) {
+                    console.log(response.data);  // Fix: Use 'response.data' instead of 'data.data'
+                    $scope.donor_view_data = response.data;
+                }, function () {
+                    alert("Error fetching donor data.");
+                });
+            };
+
+
+            $scope.donor_edit = function (id) {
+    $http({
+        url: "assets/api/donor.php",
+        method: "POST",
+        data: {
+            "op": "select_condition",
+            "idd": id  // Ensure you're passing the correct ID
+        }
+    }).then(function (response) {
+        console.log(response.data);  // Log the response to inspect it
+        if (response.data.length > 0) {  // Assuming the response is an array
+            var donor = response.data[0];  // Access the first item if it's an array
+            $scope.name = donor.name;
+            $scope.pincode = donor.pincode;
+            $scope.mobile = donor.mobile;
+            $scope.email = donor.email;
+            $scope.pan = donor.pan;
+            $scope.amount = donor.amount;
+            $scope.remarks = donor.remarks;
+            $scope.address = donor.address;
+            $scope.idd = id;  // Save the donor ID for later use
+        } else {
+            alert("No donor data found for the given ID.");
+        }
+    }, function () {
+        alert("Error fetching donor details.");
+    });
+};
+
+
+
+
+            $scope.donor_update = function () {
+                $http({
+                    url: "assets/api/donor.php",
+                    method: "POST",
+                    data: {
+                        "id": $scope.idd,
+                        "name": $scope.name,
+                        "pincode": $scope.pincode,
+                        "mobile": $scope.mobile,
+                        "email": $scope.email,
+                        "pan": $scope.pan,
+                        "amount": $scope.amount,
+                        "remarks": $scope.remarks,
+                        "address": $scope.address,
+                        "op": "edit"
+                    }
+                }).then(function (response) {
+                    console.log(response.data);
+                    alert(response.data);
+                    $scope.donor_view();
+                }, function () {
+                    alert("Error updating donor.");
+                });
+            };
+
+            $scope.donor_delete = function (type) {
+                $http({
+                    url: "assets/api/donor.php",
+                    method: "POST",
+                    data: {
+                        "id": type,  // Change 'idd' to 'id'
+                        "op": "delete"
+                    }
+                }).then(
+                    function (data) {
+                        console.log(data.data);
+                        $scope.donor_view();
+                    },
+                    function () {
+                        alert("Error! Fetching Problem in sendData()");
+                    });
+            };
+
+        });
+    </script>
+</body>
+
+</html>

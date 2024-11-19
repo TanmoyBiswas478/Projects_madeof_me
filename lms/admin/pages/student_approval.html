@@ -1,0 +1,64 @@
+<br>
+<div class="container" style="background: #fff; border: 2px solid #EAEAEC;" ng-init="student_view()">
+  <div class="row">
+    <div class="col-md-12" style="background:blueviolet; height: 60px; color: #fff !important; display: flex; align-items: center;">
+        <div class="mr-auto p-3"><i class="fa-solid fa-bars"></i> Students Approval Section</div>
+        <!-- <div class="p-2">
+            <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" data-whatever="@mdo">
+                <i class="fa-solid fa-plus"></i> Create Batch
+            </button>
+        </div> -->
+    </div>
+</div>
+
+
+  <div class="row" style="padding-top: 10px !important;">
+    <div class="col-md-12 text-right">
+        Search: <input type="text" ng-model="search" placeholder="Search by any index">
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 10px !important;">
+    <div class="col-md-12 text-right">
+      <table width="100%" class="table table-bordered table-striped" style="font-size: 11.5px!important;">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Traning Name</th>
+                <th class="text-center">Student Name</th>
+                <th class="text-center">Father Name</th>
+                <th class="text-center">Fees</th>
+                <th class="text-center">Mode of Class</th>
+                <th class="text-center">Application Date</th>
+                <th class="text-center">Image</th>
+                <th class="text-center">Pay receipt</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="x in approval_data">
+                <td class="text-center">{{$index+1}}</td>
+                <td class="text-center">{{x.tname}}</td>
+                <td class="text-center">{{x.cname | uppercase}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.fname}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.fees}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.tmode}}</td>
+                <td class="text-center" style="text-transform: capitalize;">{{x.doe}}</td>
+                <td class="text-center">
+                    <img src="../../img/{{x.img}}" width="100" height="100">
+                </td>
+                <td class="text-center" style="text-transform: capitalize;">
+                    <img src="../../receipt/{{x.receipt }}" width="100" height="100">
+                </td>
+                <td class="text-center">
+                    <button class="btn-success" title="Approval" data-toggle="modal"
+                    data-target="#exampleModalCenter"><i class="fa-solid fa-pen-to-square" ng-click="approval(x.id)"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+

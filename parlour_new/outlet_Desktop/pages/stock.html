@@ -1,0 +1,43 @@
+<div style="padding:20px;">
+  <div class="card" ng-init="stockview()">
+    <div class="card-header">
+      Stock Section
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <p class="text-right">Search: <input type="text" ng-model="search"></p>
+          <table class="table table-bordered" style="font-size:11.5px !important;">
+            <thead>
+              <tr>
+                <th scope="col" width="5%" class="text-center" style="position: sticky !important; top: 0 !important;">Sl</th>
+                <th scope="col" width="20%" class="text-center" style="position: sticky !important; top: 0 !important;">Product Name</th>
+                <th scope="col" width="10%" class="text-center" style="position: sticky !important; top: 0 !important;">HSN Code</th>
+                <th scope="col" width="5%" class="text-center" style="position: sticky !important; top: 0 !important;">Qty</th>
+                <th scope="col" width="10%" class="text-center" style="position: sticky !important; top: 0 !important;">Unit</th>
+                <th scope="col" width="10%" class="text-center" style="position: sticky !important; top: 0 !important;">Expairy Date</th>
+                <th scope="col" width="10%" class="text-center" style="position: sticky !important; top: 0 !important;">Rate</th>
+                <th scope="col" width="10%" class="text-center" style="position: sticky !important; top: 0 !important;">Sales Rate</th>
+                <th scope="col" width="10%" class="text-center" style="position: sticky !important; top: 0 !important;">GST%</th>
+                <th scope="col" width="25%" class="text-center" style="position: sticky !important; top: 0 !important;">Stock Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in stock_data | filter : search" ng-class="{'alert alert-danger': x.status==='Expair'}">
+                <td class="text-center"><b>{{$index+1}}</b></td>
+                <td><b>{{x.product}}</b></td>
+                <td class="text-center">{{x.hsn}}</td>
+                <td class="text-center">{{x.qty}}</td>
+                <td class="text-center">{{x.unit}}</td>
+                <td class="text-center">{{x.expdate | date :  "dd-MM-yyyy" }}</td>
+                <td class="text-center">&#8377;{{x.rate}}</td>
+                <td class="text-center">&#8377;{{x.srate}}</td>
+                <td class="text-center">{{x.gst}}%</td>
+                <td class="text-center">&#8377;{{x.stock_value}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

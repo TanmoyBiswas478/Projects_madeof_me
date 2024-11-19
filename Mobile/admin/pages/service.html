@@ -1,0 +1,203 @@
+   
+     <div style="padding: 10px;" ng-init="serviceview();client_typeview();catagoryview();"> 
+
+        <div class="container">
+          <p class="text-right">
+              
+          </p>
+    
+          <div class="card">
+              <div class="card-header" style="background:  rgb(82, 70, 159) !important;color:white !important;">
+                  Service Section <button class="btn btn-info" style="margin-left: 76% !important;"  data-toggle="modal" data-target=".bd-example-modal-lg"><i
+                    class="fa-solid fa-plus"></i> Add Service</button>
+              </div>
+              <div class="card-body">
+                  
+                  <table class="table table-bordered" style="font-size: 12.5px !important;">
+                      <thead>
+                          <tr>
+                              <th  class="text-center">#</th>
+                              <th  class="text-center">Service Name</th>
+                              <th  class="text-center">Category Name</th>
+                              <th  class="text-center">Client Type</th>
+                              <th  class="text-center">Charges</th>
+                              <th  class="text-center">Description</th>
+                              <th  class="text-center">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="x in service_data">
+                              <td  class="text-center">{{$index+1}}</td>
+                              <td  class="text-center">{{x.service}}</td>
+                              <td  class="text-center">{{x.category}}</td>
+                              <td  class="text-center">{{x.ctype}}</td>
+                              <td  class="text-center">{{x.charge}}</td>
+                              <td  class="text-center">{{x.description}}</td>
+                              
+                            <td class="text-center">
+                             <button class="btn-success" title="edit" ng-click="service_edit(x.id)" data-toggle="modal" data-target="#exampleModalCenter1"><i class="fa-solid fa-pen-to-square"></i></i></button>
+                             <button class="btn-danger" title="edit" ng-click="service_delete(x.id)"><i class="fa-solid fa-trash-can"></i></button>
+    
+                              </td>
+                      <tbody>
+                  </table>
+              </div>
+          </div>
+    
+      </div>
+    
+    
+    
+        <!-- Modal -->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- card -->
+              
+    <div class="card">
+      <h5 class="card-header">Service Section</h5>
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+          <!--form -->
+    
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Category Name</label>
+                  <select class="form-control" ng-model="category" ng-change="manager_type()">
+                    <option></option>
+                    <option ng-repeat="x in catagory_data">{{x.catagory}}</option>
+                  </select>
+                  <input type="hidden" class="form-control" ng-model="idd">
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Client Type</label>
+                  <select class="form-control" ng-model="ctype">
+                    <option></option>
+                    <option ng-repeat="x in client_type_data">{{x.ctype}}</option>
+                  </select>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Manager Type</label>
+                 <input type="text" class="form-control" ng-model="manager" readonly>
+            </div>
+          </div>
+    
+    
+    
+          
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Service Name</label>
+                  <input type="text" class="form-control" ng-model="service">
+            </div>
+          </div>
+    
+         
+    
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Charges</label>
+                  <input type="text" class="form-control" ng-model="charge">
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Description(if any)</label>
+              <textarea class="form-control" ng-model="description"></textarea>
+              <input type="hidden" ng-model="manager">
+            </div>
+          </div>
+    
+        </div>
+        
+        <div class="row">
+          <div class="col-md-12 text-right">
+          <button class="btn btn-success" ng-click="serviceentry()">Submit</button>
+          <button class="btn btn-danger" data-dismiss="modal">Exit</button>
+         </div>
+      </div>
+    </div>
+            </div>
+          </div>
+        </div>
+    
+        
+          <!-- Update model section -->
+    <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Update Service Section</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+               <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Category Name</label>
+                  <select class="form-control" ng-model="category" ng-change="manager_type()">
+                    <option>{{category}}</option>
+                    <option ng-repeat="x in catagory_data">{{x.catagory}}</option>
+                  </select>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Client Type</label>
+                  <select class="form-control" ng-model="ctype">
+                    <option>{{ctype}}</option>
+                    <option ng-repeat="x in client_type_data">{{x.ctype}}</option>
+                  </select>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Manager Type</label>
+                 <input type="text" class="form-control" ng-model="manager" readonly>
+            </div>
+          </div>
+    
+    
+          
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Service Name</label>
+                  <input type="text" class="form-control" ng-model="service">
+            </div>
+          </div>
+    
+         
+    
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Charges</label>
+                  <input type="text" class="form-control" ng-model="charge">
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col-md-12">
+              <label for="exampleInputEmail1">Description(if any)</label>
+              <textarea class="form-control" ng-model="description"></textarea>
+              <input type="hidden" ng-model="manager">
+            </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+            <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="service_update()">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+       

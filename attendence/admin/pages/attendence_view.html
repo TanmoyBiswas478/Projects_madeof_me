@@ -1,0 +1,54 @@
+<div style="padding-top:20px !important; padding-left:20px !important; padding-right:20px !important;"
+    ng-init="attendence_view()">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex">
+                <div class="mr-auto p-2">Visitor Details</div>
+                <div class="p-2">
+                    <!-- <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">
+                        <i class="fas fa-plus"></i>
+                        Add Category
+                    </button> -->
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="10%" class="text-center">Sl No</th>
+                                <th width="20%" class="text-center">Employee Code</th>
+                                <th width="20%" class="text-center">Employee Name</th>
+                                <th width="20%" class="text-center">Date of Date of Attendence</th>
+                                
+                                                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="x in adata">
+                                <td class="text-center">{{$index+1}}</td>
+                                <td>
+                                    {{x.cid}}
+                                </td>
+                                <td>
+                                    {{x.name}}
+                                </td>
+                                <td class="text-center">
+                                    {{x.doe}}
+                                </td>
+                                <td class="text-center">
+                                    <img src=../{{x.img}} width='100' height=100>
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

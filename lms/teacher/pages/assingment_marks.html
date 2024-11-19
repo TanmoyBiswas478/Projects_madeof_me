@@ -1,0 +1,127 @@
+<br>
+<style>
+    .table-custom {
+        width: 100%;
+        font-size: 11.5px !important;
+    }
+
+    .table-custom th,
+    .table-custom td {
+        text-align: center;
+        text-transform: capitalize;
+    }
+
+    .table-custom th {
+        width: auto;
+    }
+
+    .btn-edit {
+        background-color: rgb(5, 30, 111);
+        color: white;
+    }
+
+    .modal-lg {
+        max-width: 80% !important;
+    }
+</style>
+<div class="container" style="background: #fff; border: 2px solid #EAEAEC;" ng-init="batchview();">
+    <div class="row">
+        <div class="col-md-12"
+            style="background:blueviolet; height: 60px; color: #fff !important; display: flex; align-items: center;">
+            <div class="mr-auto p-3"><i class="fa-solid fa-bars"></i> Assingment Marks </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 10px !important;">
+    </div>
+    <div class="row" style="padding-top: 10px !important;" ng-show="var">
+        <div class="col-md-12">
+            <table width="100%" class="table table-bordered table-striped" style="font-size: 11.5px !important;">
+                <thead>
+                    <tr class="text-center">
+                        <th>Sl No</th>
+                        <th>Training Name</th>
+                        <th>Batch No</th>
+                        <!-- <th>No of Student Register</th> -->
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th width="5%">View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in batch_data">
+                        <td class="text-center">{{$index+1}}</td>
+                        <td class="text-center" style="text-transform: capitalize;">{{x.tname}}</td>
+                        <td class="text-center" style="text-transform: capitalize;">{{x.bno}}</td>
+                        <td class="text-center" style="text-transform: capitalize;">{{x.sdate | date : 'dd-MM-yyyy'}}
+                        </td>
+                        <td class="text-center" style="text-transform: capitalize;">{{x.edate | date : 'dd-MM-yyyy'}}
+                        </td>
+                        <td class="text-center">
+                            <button style="background-color:rgb(5, 30, 111);color: white;"
+                                ng-click=student_view(x.tname,x.bno);><i class="fa-solid fa-eye"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- View the student details -->
+    <div class="row" style="padding-top: 10px !important;" ng-show="var1">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-custom">
+                <thead>
+                    <tr>
+                        <th width="1%">Sl No</th>
+                        <th width="22%">Student Name</th>
+                        <th width="22%">Training Name</th>
+                        <th width="12%">Reg No</th>
+                        <th width="9.5%">Batch No</th>
+                        <th>Update Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in student_data">
+                        <td>{{$index+1}}</td>
+                        <td>{{x.cname}}</td>
+                        <td>{{x.tname}}</td>
+                        <td>{{x.regno}}</td>
+                        <td>{{x.bno}}</td>
+                        <td>
+                            <button style="background-color:rgb(5, 30, 111);color: white;" title="edit"
+                                data-toggle="modal" data-target="#exampleModalCenter" ng-click="mark_edit(x.id)">
+                                <i class="fa-solid fa-upload"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mark Entry Section</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleModalLabel">Assignment Marks</label>
+                                <input type="text" class="form-control" ng-model="mark" maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" style="background-color: rgb(5, 30, 111);" id="myBtn"
+                            ng-click="assignment_mark_entry()">Submit</button> &nbsp;
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

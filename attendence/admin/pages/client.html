@@ -1,0 +1,231 @@
+<div style="padding-top: 20px;" ng-init="clientview()">
+    <div style="padding: 20px !important;">
+    <div class="card">
+        <div class="card-header">
+            Client Registration Section
+        </div>
+        <div class="card-body">
+        <p class="text-right">
+            <button class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa-solid fa-plus" ></i> Add Client</button>
+        </p>
+        <table class="table table-bordered" style="font-size: 12.5px !important;">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Customer Name</th>
+                    <th class="text-center">Customer Type</th>
+                    <th class="text-center">Date of Birth</th>
+                    <th class="text-center">Phone No</th>
+                    <th class="text-center">email</th>
+                    <th class="text-center">PAN No</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="x in client_data">
+                    <td class="text-center">{{$index+1}}</td>
+                    <td>{{x.name | uppercase}}</td>
+                    <td class="text-center">{{x.ctype}}</td>
+                    <td class="text-center">{{x.dob | date : 'dd-MM-yyyy'}}</td>
+                    <td class="text-center">{{x.ph}}</td>
+                    <td class="text-center">{{x.email | lowercase}}</td>
+                    <td class="text-center">{{x.pan | uppercase}}</td>
+                    <td class="text-center">
+                        <button class="btn-primary" title="edit" data-toggle="modal" data-target="#myModal" ng-click="client_edit(x.id)"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="btn-success" title="email" data-toggle="modal" data-target="#exampleModalCenter" ng-click="emaild(x.email)"><i class="fas fa-envelope"></i></button>
+                        <button class="btn-danger" title="Delete" ng-click="client_delete(x.id)"><i class="fa-sharp fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<!-- Client Model Section -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <h2 class="text-center"><u>Client Entry Section</u></h2>
+        <div class="container" style="padding-bottom: 20px !important;">
+    
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Customer Phone</label>
+                        <input type="text" class="form-control" name="ph" ng-model="ph" maxlength="10" onkeypress="return isphone(event)">
+                       
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Customer Name</label>
+                        <input type="text" class="form-control" name="name" ng-model="name" style="text-transform: uppercase;" onkeypress="return isTextKey(event)">
+                    </div>
+                </div>
+    
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Customer Type</label>
+                        <input type="text" class="form-control" name="ctype" ng-model="ctype" onkeypress="return isTextKey(event)">
+                    </div>
+                </div>
+    
+            </div>
+    
+    
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Date of Birth</label>
+                        <input type="date" class="form-control" name="dob" ng-model="dob"  ng-model-options="{timezone: 'utc'}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="text" class="form-control" name="email" ng-model="email" style="text-transform: lowercase;">
+                    </div>
+                </div>
+    
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">PAN No</label>
+                        <input type="text" class="form-control" name="pan" ng-model="pan" maxlength="10" style="text-transform: uppercase;" onkeypress="return addresskey(event)">
+                    </div>
+                </div>
+    
+            </div>
+    
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <button type="button" class="btn btn-success" ng-click="clientsave()">Submit</button> &nbsp;
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button> &nbsp;
+                </div>
+            </div>
+    
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Model Section -->
+
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="width: 100% !important;">
+    <!--form method="POST" action="model/email_client.php" enctype="multipart/form-data"-->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Email Section</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Client Email</label>
+                <input type="text" class="form-control" name="to" ng-model="to" readonly required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Subject</label>
+                <input type="text" class="form-control" ng-model="subject" name="subject" required>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <textarea type="text" class="form-control" ng-model="txt" name="email" required rows="10" cols="10">
+
+                </textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="email_send()">Send Mail</button>
+        </div>
+      </div>
+    </div>
+<!--/form-->
+  </div>
+
+
+  <!-- Edit model section  -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+    
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Customer Edit Section</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Customer email</label>
+                        <input type="text" class="form-control" name="email" ng-model="email">
+                        <input type="hidden" name="idd" ng-model="idd">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Customer Name</label>
+                        <input type="text" class="form-control" name="name" ng-model="name" style="text-transform: uppercase;" onkeypress="return isTextKey(event)">
+                    </div>
+                </div>
+    
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Customer Type</label>
+                        <input type="text" class="form-control" name="ctype" ng-model="ctype" onkeypress="return isTextKey(event)">
+                    </div>
+                </div>
+    
+            </div>
+    
+    
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Date of Birth</label>
+                        <input type="text" class="form-control" name="dob" ng-model="dob"  ng-model-options="{timezone: 'utc'}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Customer Phone</label>
+                        <input type="text" class="form-control" name="ph" ng-model="ph" style="text-transform: lowercase;">
+                    </div>
+                </div>
+    
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">PAN No</label>
+                        <input type="text" class="form-control" name="pan" ng-model="pan" maxlength="10" style="text-transform: uppercase;" onkeypress="return addresskey(event)">
+                    </div>
+                </div>
+    
+            </div>
+    
+            <!-- <div class="row">
+                <div class="col-md-12 text-center">
+                    <button type="button" class="btn btn-success" ng-click="clientsave()">Submit</button> &nbsp;
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button> &nbsp;
+                </div>
+            </div> -->
+    
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="client_update()">Update</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  

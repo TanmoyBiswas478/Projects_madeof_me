@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>E-Parlour</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="../../assets/fw/css/all.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+    
+        .card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            padding: 15px;
+        }
+    
+        .card-header {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+    
+        .card-body {
+            padding: 0;
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        .footer-icons {
+            font-size: 18px;
+        }
+    
+        .service-card {
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+        }
+    
+        .service-name {
+            font-weight: bold;
+        }
+    
+        .service-cost,
+        .service-total {
+            font-size: 14px;
+        }
+    
+        .service-control-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+    
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+    
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background-color: #e0e0e0;
+            color: #333;
+            font-size: 18px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+    
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+    
+        @media (max-width: 576px) {
+            .container {
+                padding: 10px;
+            }
+    
+            .card {
+                margin-bottom: 15px;
+            }
+    
+            .btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+    
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light" style="background-color: coral !important;">
+        <a class="navbar-brand" href="#" style="color: #fff !important;">
+            <i class="fa-solid fa-scissors"></i> E-Salon
+        </a>
+        <div class="ml-auto" style="color: #fff !important;">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+    </nav>
+    
+    <!-- Appoinment Section  -->
+    <div class="container">
+        <!-- First Part: Up to Customer Name -->
+        <div id="first-part">
+            <h6 style="padding-top: 10px;">
+                <u><i class="fa-solid fa-users"></i> Appoinment Section</u>
+            </h6>
+
+            <!-- Appointment No Card -->
+            <div class="card">
+                <div class="card-header">Appoinment No</div>
+                <div class="card-body">
+                    <input type="text" class="form-control" id="appointmentNo" placeholder="Enter Appointment No">
+                </div>
+            </div>
+
+            <!-- Appointment Date Card -->
+            <div class="card">
+                <div class="card-header">Appoinment Date</div>
+                <div class="card-body">
+                    <input type="date" class="form-control" id="appointmentDate">
+                </div>
+            </div>
+
+            <!-- Customer Phone Card -->
+            <div class="card">
+                <div class="card-header">Customer Phone</div>
+                <div class="card-body">
+                    <input type="tel" class="form-control" maxlength="10" id="customerPhone" placeholder="Enter Customer Phone">
+                </div>
+            </div>
+
+            <!-- Customer Name Card -->
+            <div class="card">
+                <div class="card-header">Customer Name</div>
+                <div class="card-body">
+                    <input type="text" class="form-control" id="customerName" placeholder="Enter Customer Name">
+                </div>
+            </div>
+
+            <!-- Next Button -->
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button class="btn btn-secondary" onclick="showSecondPart()">Next</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Second Part: Services and Payment Mode -->
+        <div id="second-part" class="hidden">
+            <!-- Services Section -->
+            <h6><u>Services</u></h6>
+
+            <!-- Service Cards with Dynamic Quantities -->
+            <div class="service-card">
+                <div class="service-name">Hair Cut</div>
+                <div class="service-cost">Cost: &#8377; 200.00</div>
+                <div class="service-control-row">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity('hairCut', -1)">-</button>
+                        <input type="number" class="quantity-input" id="hairCut" value="0" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity('hairCut', 1)">+</button>
+                    </div>
+                    <div class="service-total">Total: &#8377; <span id="totalHairCut">0.00</span></div>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-name">Hair Shampoo</div>
+                <div class="service-cost">Cost: &#8377; 300.00</div>
+                <div class="service-control-row">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity('hairShampoo', -1)">-</button>
+                        <input type="number" class="quantity-input" id="hairShampoo" value="0" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity('hairShampoo', 1)">+</button>
+                    </div>
+                    <div class="service-total">Total: &#8377; <span id="totalHairShampoo">0.00</span></div>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-name">Baby Hair Cut</div>
+                <div class="service-cost">Cost: &#8377; 100.00</div>
+                <div class="service-control-row">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity('babyHairCut', -1)">-</button>
+                        <input type="number" class="quantity-input" id="babyHairCut" value="0" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity('babyHairCut', 1)">+</button>
+                    </div>
+                    <div class="service-total">Total: &#8377; <span id="totalBabyHairCut">0.00</span></div>
+                </div>
+            </div>
+            
+
+            <!-- Grand Total -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <b>Grand Total:</b>
+                        <span>&#8377; <span id="grandTotal">0.00</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Mode Card -->
+            <div class="card">
+                <div class="card-header">Payment Mode</div>
+                <div class="card-body">
+                    <select class="form-control" id="paymentMode">
+                        <option>Cash</option>
+                        <option>Card</option>
+                        <option>UPI</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-secondary btn-block" onclick="showfirstPart()">Back</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-secondary btn-block">Appoinment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section  -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <ul class="navbar-nav w-100 d-flex flex-row justify-content-between">
+            <li class="nav-item text-center">
+                <a class="nav-link footer-icons" href="../index.html">
+                    <i class="fas fa-home"></i>
+                    <span class="d-block">Home</span>
+                </a>
+            </li>
+            <li class="nav-item text-center">
+                <a class="nav-link footer-icons" href="appoinment.html">
+                    <i class="fas fa-plus"></i>
+                    <span class="d-block">Appoinment</span>
+                </a>
+            </li>
+            <li class="nav-item text-center">
+                <a class="nav-link footer-icons" href="#">
+                    <i class="fas fa-wrench"></i>
+                    <span class="d-block">Settings</span>
+                </a>
+            </li>
+            <li class="nav-item text-center">
+                <a class="nav-link footer-icons" href="#">
+                    <i class="fas fa-users"></i>
+                    <span class="d-block">Contact Us</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- JavaScript for Dynamic Functionality -->
+    <script>
+        const prices = {
+            hairCut: 200.00,
+            hairShampoo: 300.00,
+            babyHairCut: 100.00
+        };
+
+        function updateQuantity(service, change) {
+            const input = document.getElementById(service);
+            let quantity = parseInt(input.value);
+            quantity = isNaN(quantity) ? 0 : quantity;
+            quantity += change;
+
+            if (quantity < 0) quantity = 0; // Prevent negative values
+
+            input.value = quantity;
+            updateTotal(service, quantity);
+        }
+
+        function updateTotal(service, quantity) {
+            const cost = prices[service];
+            const totalElement = document.getElementById('total' + capitalizeFirstLetter(service));
+            const total = cost * quantity;
+            totalElement.textContent = total.toFixed(2);
+            updateGrandTotal();
+        }
+
+        function updateGrandTotal() {
+            let grandTotal = 0;
+            Object.keys(prices).forEach(service => {
+                const quantity = parseInt(document.getElementById(service).value);
+                grandTotal += prices[service] * quantity;
+            });
+            document.getElementById('grandTotal').textContent = grandTotal.toFixed(2);
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        function showSecondPart() {
+            document.getElementById('first-part').classList.add('hidden');
+            document.getElementById('second-part').classList.remove('hidden');
+        }
+
+        function showfirstPart() {
+            document.getElementById('first-part').classList.remove('hidden');
+            document.getElementById('second-part').classList.add('hidden');
+        }
+    </script>
+  </body>
+</html>

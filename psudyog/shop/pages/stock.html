@@ -1,0 +1,47 @@
+<div style="padding:20px;">
+  <div class="card" ng-init="stockview()">
+    <div class="card-header">
+      Stock Section
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+        <p class='text-right'>Search: <input type="text" ng-model="Search"></p>
+          <table class="table table-bordered" style="font-size:11.5px">
+            <thead>
+              <tr>
+                <th scope="col" width="5%" class="text-center">Sl</th>
+                <th scope="col" width="10%" class="text-center">Company Name</th>
+                <th scope="col" width="10%" class="text-center">Product Name</th>
+                <th scope="col" width="10%" class="text-center">HSN Code</th>
+                <th scope="col" width="10%" class="text-center">Qty</th>
+                <th scope="col" width="10%" class="text-center">Unit</th>
+                <th scope="col" width="10%" class="text-center">Batch No</th>
+                <th scope="col" width="10%" class="text-center">Exp Date</th>
+                <th scope="col" width="10%" class="text-center">Purchase Rate</th>
+                <th scope="col" width="10%" class="text-center">Sales Rate</th>
+                <th scope="col" width="10%" class="text-center">GST%</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in stock_data | filter : Search" ng-class="{'alert alert-danger': x.status==='Expair'}">
+                <td class="text-center">{{$index+1}}</td>
+                <td>{{x.category}}</td>
+                <td>{{x.product}}</td>
+                <td class="text-center">{{x.hsn}}</td>
+                <td class="text-center">{{x.qty}}</td>
+                <td class="text-center">{{x.unit}}</td>
+                <td class="text-center">{{x.bno}}</td>
+                <td class="text-center">{{x.expdate | date : 'dd-MM-yyyy'}}</td>
+                <td class="text-center">&#8377;{{x.rate}}</td>
+                <td class="text-center">&#8377;{{x.srate}}</td>
+                <td class="text-center">{{x.gst}}%</td>
+                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

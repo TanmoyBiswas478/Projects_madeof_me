@@ -1,0 +1,74 @@
+<div style="padding-top:20px !important; padding-left:20px !important; padding-right:20px !important;">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex">
+                <div class="mr-auto p-2">Customer Appoinment View</div>
+                <!-- <div class="p-2">
+
+                </div> -->
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><b>Appoinment Date</b></label>
+                        <input type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><b>Customer Phone No</b></label>
+                        <input type="text" class="form-control" ng-model="ph" maxlength="10" onkeypress="return isphone(event)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered" style="font-size: 11.5px !important;">
+                        <thead>
+                            <tr>
+                                <th class="text-center" width="2%">Sl</th>
+                                <th class="text-center" width="20%">Description of Service</th>
+                                <th class="text-center" width="10%">Staff Name</th>
+                                <th class="text-center" width="10%">Appionment Time</th>
+                                <th class="text-center" width="10%">Total</th>
+                                <th class="text-center" width="5%">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="text-center" width="2%">Sl</td>
+                                <td class="text-center" width="20%">Description of Service</td>
+                                <td class="text-center" width="10%">Staff Name</td>
+                                <td class="text-center" width="10%">Appionment Time</td>
+                                <td class="text-center" width="10%">Total</td>
+                                <td class="text-center">
+                                    <button class="btn-danger" title="Delete">
+                                        <i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4" class="text-right"><b>Grand Total:</b></td>
+
+                                <td class="text-center">&#8377;{{tax1}}</td>
+                                <td></td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-info" title="save"> Accept Appoinment
+                        </button>
+                </div>
+            </div>
+
+        </div>
+    </div>

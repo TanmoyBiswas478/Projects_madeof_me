@@ -1,0 +1,170 @@
+<div style="padding: 20px;" ng-init="roleview()">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex">
+                    <div class="mr-auto p-2">Bill Entry Section</div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Invoice No</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Invoice Date</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Order Received</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Customer Phone</label>
+                            <input type="text" class="form-control" maxlength="10">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Customer Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Whatsapp No</label>
+                            <input type="text" class="form-control" maxlength="10">
+                        </div>
+                    </div>
+                </div>
+
+                <table width="100%" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-center">Description of Good</th>
+                            <th class="text-center">HSN Code</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-center">Unit</th>
+                            <th class="text-center">Rate</th>
+                            <th class="text-center">Taxable Value</th>
+                            <th class="text-center">GST%</th>
+                            <th class="text-center">GST Amount</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td class="text-center">#</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center">
+                                
+                                <button class="btn-success" title="Add" ng-click="role_delete(x.id)">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        
+
+                        <tr>
+                            <td class="text-center">#</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center">
+                                
+                                <button class="btn-danger" title="Delete" ng-click="role_delete(x.id)">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-right" colspan="6"><b>Grand Total</b></th>
+                           
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center">
+                                
+                            </td>
+                            <td class="text-center">
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Total Paid</label>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Received Payment</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Total Pending</label>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Payment Mode</label>
+                            <select class="form-control">
+                                <option></option>
+                                <option>Cash</option>
+                                <option>Card Payment</option>
+                                <option>UPI</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-info">Submit</button>
+                    </div>
+                </div>
+              
+        </div>
+   
+</div>
+

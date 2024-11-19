@@ -1,0 +1,39 @@
+<div style="padding-top:20px !important; padding-left:20px !important; padding-right:20px !important;" ng-init="appoinment_details()">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex">
+                <div class="mr-auto p-2">Appoinment Details Section</div>
+                
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered" style="font-size: 12.5px !important;">
+                    <thead>
+                        <tr>
+                            <th width="10%" class="text-center">Sl No</th>
+                            <th width="20%" class="text-center">Customer Code</th>
+                            <th width="20%" class="text-center">Name</th>
+                            <th width="10%" class="text-center">Gender</th>
+                            <th width="10%" class="text-center">Status</th>
+                            <th width="10%" class="text-center">Total Payment</th>
+                            <th width="10%" class="text-center">Description of Service</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in apdata">
+                            <td height="40" class="text-center">{{$index+1}}</td>
+                            <td height="40">{{x.cid}}</td>
+                            <td height="40">{{x.name}}</td>
+                            <td height="40">{{x.gender}}</td>
+                            <td height="40" class="text-center">{{x.pay}}</td>
+                            <td height="40" class="text-center">{{x.total}}</td>
+                            <td class="text-center"></td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>

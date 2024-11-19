@@ -1,0 +1,122 @@
+<br>
+<div class="container" style="background: #fff;  border: 2px solid #EAEAEC;" ng-init="roleview()">
+  <div class="row">
+    <div class="col-md-12" style="background:blueviolet; height: 60px; color: #fff !important;">
+        
+
+        <div class="d-flex">
+            <div class="mr-auto p-3"><i class="fa-solid fa-bars"></i>  Students Examination Portal</div> 
+    </div>    
+  </div>
+  </div>
+
+  
+
+  <div class="row" style="padding-top: 20px !important;padding-bottom: 20px !important;">
+    <div class="col-md-12">
+
+    
+            <div class="card-group">
+          
+              <div class="card">
+                <div class="card-header">
+                  Important Gudelines
+                </div>
+                <div class="card-body">
+                  <blockquote class="blockquote mb-0">
+                     <ul style="font-size: 12px;">
+                      <li>The test will comprise of Objective type Multiple Choice Questions (MCQs)</li>
+                      <li>All questions are compulsory with equal weightage of marks for each question.</li>
+                      <li>There will be NO NEGATIVE MARKING for the wrong answers.</li>
+                      <li>The test does not require using any paper, pen, pencil and calculator.</li>
+                      <li>Every user will take the test on a Laptop/Desktop/Smart Phone.</li>
+                      <li>On computer screen every candidate will be given objective type Multiple Choice Questions (MCQs).</li>
+                      <li>Each user will get questions and answers in different order selected randomly from a fixed Question Databank.</li>
+                      <li>The users just need to click on the Right Choice / Correct option from the multiple choices /options given with each question. For Multiple Choice Questions, each question has four options, and the candidate has to click the appropriate option.</li>
+                      <li>The Time of the test begins only when the ‘Start Test’ button is pressed.</li>
+                      <li>The answers can be changed at any time during the test and are saved automatically.</li>
+                     </ul>
+                  </blockquote>
+                </div>
+              </div>
+          
+              <div class="card">
+                <div class="card-header">
+                  Training Name
+                </div>
+                <div class="card-body">
+                  <blockquote class="blockquote mb-0">
+                    <label for="exampleInputEmail1"><b>Please select the Training Name</b></label>
+                    <select class="form-control" name="gender" ng-model="cat">
+                      <option ng-repeat="x in cat_data">{{x.category}}</option>
+                    </select>
+                    <br>
+                    <span style="text-align:center;">
+                      <button class="btn btn-primary" ng-click="teststart()">Start Test</button>
+                    </span>
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Examination Row section -->
+          <div style="padding: 20px !important;" ng-show="var1">
+            <form method="post" action="../api/submit_exam.php" enctype="multipart/form-data" id="form">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <span style="color: red;">All Quesions are multiple choice option and mandotary. Please select the correct
+                        one. You have one hour to complete the test. All the Best.
+                        <div class="d-flex flex-row-reverse">
+                        <h3>Time Left: <span id="timer">25:00</span></h3>
+          </div>
+                      
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <input type="hidden" name="category" value="{{cat}}" readonly>
+                      <span ng-repeat="x in qset">
+                        <p>{{$index+1}}. &nbsp;{{x.question}}
+                          <input type="hidden" name="q{{$index+1}}" value="{{x.question}}">
+                          
+                        </p>
+                          <input type="radio" name="var{{$index+1}}" id={{x.option1}} value={{x.option1}}
+                          style=" margin-left:10px !important;">
+                          <label for="html" style=" margin-left: 10px;min-width: 120px;">{{x.option1}}</label><br>
+                          <input type="radio" name="var{{$index+1}}" id={{x.option2}} value={{x.option2}}
+                          style=" margin-left:10px !important;">
+                          <label for="css" style=" margin-left: 10px;min-width: 120px;">{{x.option2}}</label><br>
+                          <input type="radio" name="var{{$index+1}}" id={{x.option3}} value={{x.option3}}
+                          style=" margin-left:10px !important;">
+                          <label for="javascript" style=" margin-left: 10px;min-width: 120px;">{{x.option3}}</label><br>
+                        &nbsp;&nbsp;<input type="radio" name="var{{$index+1}}" id={{x.option4}} value={{x.option4}}
+                          style=" margin-left:10px !important;">
+                          <label for="javascript" style=" margin-left: 10px;min-width: 120px;">{{x.option4}}</label>
+                      </span>
+          
+                    </div>
+                  </div>
+                  <p style="text-align:center; padding-top:20px;">
+                    <button class="btn btn-success">Submit Paper</button>
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+          
+          
+
+          
+    </div>
+  </div>
+
+

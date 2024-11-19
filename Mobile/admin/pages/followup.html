@@ -1,0 +1,210 @@
+   
+     <div style="padding: 10px;" ng-init="serviceview();client_typeview();catagoryview();"> 
+
+        <div class="container">
+          <p class="text-right">
+              
+          </p>
+    
+          <div class="card">
+              <div class="card-header" style="background:  rgb(82, 70, 159) !important;color:white !important;">
+                <h5>  Service Follow-Up Section </h5>      
+               </div>
+
+              <div class="card-body">
+                  
+                <form>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4" style="font-weight: bold;">Service Request No</label>
+                      <input type="text" class="form-control" readonly >
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4" style="font-weight: bold;">Service Request Date</label>
+                      <input type="text" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4" style="font-weight: bold;">Customer Phone No</label>
+                      <input type="text" class="form-control" readonly >
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4" style="font-weight: bold;">Customer Name</label>
+                      <input type="text" class="form-control"  readonly>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4" style="font-weight: bold;">Follow-Up Date</label>
+                      <input type="date" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4" style="font-weight: bold;">Description</label>
+                      <textarea class="form-control"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <button class="btn btn-success" >Submit</button>
+                    <button class="btn btn-danger" data-dismiss="modal">Exit</button>
+                </div> <br>
+
+                  </form>
+                   
+              </div>
+          </div>
+    
+      </div>
+    
+    
+    
+        <!-- Modal -->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                
+              <div class="card">
+                  <div class="card-header">
+                  Bill Entry
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div class="form-row">
+                        <div class="form-group col-md-4">
+                          <label for="inputEmail4">Followup Id</label>
+                          <input type="text" class="form-control" id="inputEmail4" >
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="inputPassword4">Service Name</label>
+                          <input type="text" class="form-control" id="inputPassword4" >
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="inputPassword4">Category Name</label>
+                          <input type="text" class="form-control" id="inputPassword4" >
+                        </div>
+                      </div>
+                
+                      <div class="form-row">
+                          <div class="form-group col-md-4">
+                            <label for="inputEmail4">Client Name</label>
+                            <input type="text" class="form-control" id="inputEmail4" >
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputPassword4">Client Phone</label>
+                            <input type="text" class="form-control" id="inputPassword4" maxlength="10">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputPassword4">Followup Status</label>
+                            <select class="form-control">
+                              <option>Completed</option>
+                              <option>Pending</option>
+                              <option>No Response</option>
+                            </select>
+                          </div>
+                        </div>
+                      
+                      <div class="form-row">
+                        <div class="form-group col-md-4">
+                          <label for="inputPassword4">Folloup Date</label>
+                          <input type="date" class="form-control" id="inputPassword4" >
+                        </div>
+
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">Charges</label>
+                              <input type="text" class="form-control" id="inputPassword4">
+                            </div>
+
+                        <div class="form-group col-md-4">
+                          <label for="inputState">Description</label>
+                          <textarea class="form-control"></textarea>
+                          
+                        </div>
+                      </div>
+                      <div class="text-center">
+                          <button class="btn btn-success" >Submit</button>
+                          <button class="btn btn-danger" data-dismiss="modal">Exit</button>
+                      </div>
+                      
+                    </form>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+  
+      
+        <!-- Update model section -->
+  
+      
+      <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              
+            <div class="card">
+                <div class="card-header">
+                 Update Bill Entry
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label for="inputEmail4">Bill Id</label>
+                        <input type="text" class="form-control" id="inputEmail4" placeholder="Email">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputPassword4">Bill Date</label>
+                        <input type="text" class="form-control" id="inputPassword4" placeholder="Password">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputPassword4">Vendor Name</label>
+                        <input type="text" class="form-control" id="inputPassword4" placeholder="Password">
+                      </div>
+                    </div>
+              
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                          <label for="inputEmail4">Due Date</label>
+                          <input type="date" class="form-control" id="inputEmail4" placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="inputPassword4">Total Amount</label>
+                          <input type="text" class="form-control" id="inputPassword4" placeholder="Password">
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="inputPassword4">Payment Status</label>
+                          <select class="form-control">
+                            <option>Paid</option>
+                            <option>Pending</option>
+                            <option>Overdue</option>
+                          </select>
+                        </div>
+                      </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Payment Status</label>
+                            <select class="form-control">
+                              <option>online</option>
+                              <option>Offline</option>
+                             
+                            </select>
+                          </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputState">Description</label>
+                        <textarea class="form-control"></textarea>
+                        
+                      </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-success" >Submit</button>
+                        <button class="btn btn-danger" data-dismiss="modal">Exit</button>
+                    </div>
+                    
+                  </form>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>

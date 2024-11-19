@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>VHA DASHBOARD</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS (via CDN) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- FontAwesome (via CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Angular JS (via CDN) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            margin-bottom: 0 !important;
+
+        }
+
+        .container {
+            margin-top: 0 !important;
+            padding-top: 20px !important;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" style="background:#D8D8DA !important">
+
+    <nav class="navbar navbar-expand-lg navbar-light" style="background: #25B4B0 !important;">
+        <a class="navbar-brand" href="#" style="color: #fff !important;">Admin Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="dashboard1.html" style="color: #fff !important;"><i
+                            class="fa-solid fa-donate"></i> Donate View</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#!/collection" style="color: #fff !important;"><i
+                            class="fa-solid fa-hand-holding-dollar"></i> Today's Collection</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: #fff !important;" href="index.html">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div ng-view=""></div> <!-- AngularJS view will load here -->
+
+    <!-- Optional JavaScript (CDNs) -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- AngularJS Script -->
+    <script>
+        var app = angular.module('myApp', ['ngRoute']);
+
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when("/", {
+                    templateUrl: "dashboard.php",
+                    controller: 'dashCtrl'
+                })
+                .when("/collection", {
+                    templateUrl: "collection.php",
+                    controller: 'dashCtrl'
+                })
+                .otherwise({
+                    redirectTo: "/"
+                });
+        });
+
+        app.controller('dashCtrl', function ($scope) {
+            $(document).ready(function () {
+                // Handle the click event for the Edit button
+                $(document).on('click', '.edit-btn', function () {
+                    // Retrieve data from button attributes
+                    var donorId = $(this).data('id');
+                    var donorName = $(this).data('name');
+                    var donorEmail = $(this).data('email');
+                    var donorAddress = $(this).data('address');
+                    var donorPhone = $(this).data('phone');
+                    var donorPin = $(this).data('pin');
+                    var donorPan = $(this).data('pan');
+                    var donorAmount = $(this).data('amount');
+                    var donorRemarks = $(this).data('remarks');
+                    var donorPaymentMode = $(this).data('payment_mode');
+
+                    // Populate modal fields with retrieved data
+                    $('#donorId').val(donorId);
+                    $('#name').val(donorName);
+                    $('#email').val(donorEmail);
+                    $('#address').val(donorAddress);
+                    $('#phone').val(donorPhone);
+                    $('#pin').val(donorPin);
+                    $('#pan').val(donorPan);
+                    $('#amount').val(donorAmount);
+                    $('#remarks').val(donorRemarks);
+                    $('#payment_mode').val(donorPaymentMode);
+
+                    // Show the modal
+                    $('#editModal').modal('show');
+                });
+
+                // Handle form submission via AJAX
+                $('#editForm').on('submit', function (e) {
+                    e.preventDefault(); // Prevent default form submission
+
+                    // Serialize form data
+                    var formData = $(this).serialize();
+
+                    $.ajax({
+                        url: 'dashboard.php', // Send data to the same page
+                        type: 'POST',
+                        data: formData, // Data to be sent
+                        success: function (response) {
+                            // Show a success message
+                            alert('Donation amount updated successfully!');
+
+                            // Close the modal
+                            $('#editModal').modal('hide');
+
+                            // Optionally, reload the page to reflect changes
+                            // location.reload();
+                        },
+                        error: function () {
+                            // Show an error message
+                            alert('Error updating donation amount. Please try again.');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

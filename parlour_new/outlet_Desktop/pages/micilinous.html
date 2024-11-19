@@ -1,0 +1,126 @@
+<div style="padding-top:20px !important; padding-left:20px !important; padding-right:20px !important;">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex">
+                <div class="mr-auto p-2">Expenditure Section</div>
+                <div class="p-2">
+                    <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">
+                        <i class="fas fa-plus"></i>
+                        Add Expenditure
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered" style="font-size:11.5px">
+                <thead>
+                  <tr>
+                    <th scope="col" width="5%" class="text-center">Sl</th>
+                    <th scope="col" width="20%" class="text-center">Invoice No</th>
+                    <th scope="col" width="20%" class="text-center">Invoice Date</th>
+                    <th scope="col" width="10%" class="text-center">Product Name</th>
+                    <th scope="col" width="10%" class="text-center">Total Paid</th>
+                    <th scope="col" width="10%" class="text-center">Mode of Payment</th>
+                    <th scope="col" width="10%" class="text-center">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1.</td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center">
+                      <button class="btn-danger" title="View List" ng-click="req_item(x.reqno)">
+                        <i class="fas fa-list"></i>
+                      </button>
+    
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <h2 class="text-center"><u>Expenditure Entry Section</u></h2>
+            <div class="container" style="padding-bottom: 20px !important;">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Invoice No</label>
+                            <input type="text" class="form-control" ng-model="role">
+                        </div>
+                    </div>
+               
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Invoice Date</label>
+                            <input type="text" class="form-control" ng-model="role">
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Product Name</label>
+                            <input type="text" class="form-control" ng-model="role">
+                        </div>
+                    </div>
+               
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Qty</label>
+                            <input type="text" class="form-control" ng-model="role">
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Total Price</label>
+                            <input type="text" class="form-control" ng-model="role">
+                        </div>
+                    </div>
+               
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Mode of Payment</label>
+                            <input type="text" class="form-control" ng-model="role">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Remarks</label>
+                            <textarea  class="form-control" ng-model="role"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-success" ng-click="roleentry()">Submit</button> &nbsp;
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button> &nbsp;
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

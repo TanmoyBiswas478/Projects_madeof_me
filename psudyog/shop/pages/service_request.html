@@ -1,0 +1,296 @@
+<div style="padding-top: 20px;" ng-init="workview();typeview();">
+
+    <div style="padding: 30px !important;">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex">
+                    <div class="mr-auto p-2">Work Entry Section</div>
+                    <div class="p-2">
+                       <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">
+                        <i class="fas fa-plus"></i>
+                        Add Service Request
+                    </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table width="100%" class="table table-bordered" style="font-size: 11.5px !important;">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-center">Work Order No</th>
+                            <th class="text-center">Work Order Date</th>
+                            <th class="text-center">Custoemr Name</th>
+                            <th class="text-center">Phone No</th>
+                            <th class="text-center">email</th>
+                            <th class="text-center">State</th>
+                            <th class="text-center">Item Name</th>
+                            <th class="text-center">Serial No</th>
+                            <th class="text-center">Service Type</th>
+                            <th class="text-center">Address</th>
+                            <th class="text-center">Work Status</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="x in work_data">
+                            <td class="text-center">{{$index+1}}</td>
+                            <td>{{x.wno}}</td>
+                            <td>{{x.wdate | date : 'd-M-y'}}</td>
+                            <td style="text-transform: uppercase;">{{x.cname}}</td>
+                            <td>{{x.ph}}</td>
+                            <td>{{x.email}}</td>
+                            <td style="text-transform: capitalize !important;">{{x.state}}</td>
+                            <td style="text-transform: capitalize !important;">{{x.iname}}</td>
+                            <td>{{x.iserial}}</td>
+                            <td style="text-transform: capitalize !important;">{{x.stype}}</td>
+                            <td style="text-transform: capitalize !important;">{{x.caddress}}</td>
+                            <td style="text-transform: capitalize !important;">{{x.status}}</td>
+                            <td class="text-center">
+                                <button class="btn-success" title="email" data-toggle="modal" data-target=".bd-example-modal-lg1" ng-click="work_edit(x.id)"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="btn-danger" title="Delete" ng-click="work_delete(x.id)"><i
+                                    class="fa-sharp fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+              
+        </div>
+    </div>
+</div>
+
+<!-- Client Model Section -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" work="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-xl" style="max-width: 70% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title text-center"><u>Work Order Entry Section</u></h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="padding-bottom: 20px !important;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Works Order No</label>
+                                <input type="text" class="form-control" ng-model="wno">
+        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Works Order Date</label>
+                                <input type="date" class="form-control" ng-model="wdate" ng-model-options="{timezone: 'utc'}">
+        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Customer Name</label>
+                                <input class="form-control" list="cli" ng-model="cname" ng-blur="clientsearch();">
+                                <datalist id="browsers">
+                                  <option ng-repeat="x in cdata">{{x.cname}}</option>
+                                </datalist>
+        
+                            </div>
+                        </div>
+                    </div>
+        
+                   
+        
+        
+                    <div class="row">
+                         <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Phone No</label>
+                                <input type="text" class="form-control" ng-model="ph" >
+        
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">email</label>
+                                <input type="text" class="form-control" ng-model="email" >
+        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">State</label>
+                                <input type="text" class="form-control" ng-model="state" >
+        
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Item Name</label>
+                                <input type="text" class="form-control" ng-model="iname" >
+        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Item Serial No</label>
+                                <input type="text" class="form-control" ng-model="iserial" >
+        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Servie Type</label>
+                                <select class="form-control" ng-model="stype" style="text-transform: capitalize !important;">
+                                    <option ng-repeat="x in type_data" style="text-transform: capitalize !important;">{{x.stype}}</option>
+                                </select>
+        
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                             <label for="exampleInputEmail1">Customer Address</label>
+                             <textarea class="form-control" ng-model="caddress"></textarea>
+                            </div>
+                        </div>
+                    </div>
+        
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            
+                            <button type="button" class="btn btn-success" ng-click="workentry()">Submit</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Update model section -->
+<div class="modal fade bd-example-modal-lg1" tabindex="-1" work="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-xl" style="max-width: 70% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title text-center"><u>Work Order Entry Section</u></h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="padding-bottom: 20px !important;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Works Order No</label>
+                                <input type="text" class="form-control" ng-model="wno">
+                                <input type="text" class="form-control" ng-model="idd">
+        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Works Order Date</label>
+                                <input type="date" class="form-control" ng-model="wdate" ng-model-options="{timezone: 'utc'}">
+        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Customer Name</label>
+                                <input class="form-control" list="cli" ng-model="cname" ng-blur="clientsearch();">
+                                <datalist id="browsers">
+                                  <option ng-repeat="x in cdata">{{x.cname}}</option>
+                                </datalist>
+        
+                            </div>
+                        </div>
+                    </div>
+        
+                   
+        
+        
+                    <div class="row">
+                         <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Phone No</label>
+                                <input type="text" class="form-control" ng-model="ph" >
+        
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">email</label>
+                                <input type="text" class="form-control" ng-model="email" >
+        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">State</label>
+                                <input type="text" class="form-control" ng-model="state" >
+        
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Item Name</label>
+                                <input type="text" class="form-control" ng-model="iname" >
+        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Item Serial No</label>
+                                <input type="text" class="form-control" ng-model="iserial" >
+        
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Servie Type</label>
+                                <select class="form-control" ng-model="stype" style="text-transform: capitalize !important;">
+                                    <option ng-repeat="x in type_data" style="text-transform: capitalize !important;">{{x.stype}}</option>
+                                </select>
+        
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                             <label for="exampleInputEmail1">Customer Address</label>
+                             <textarea class="form-control" ng-model="caddress"></textarea>
+                            </div>
+                        </div>
+                    </div>
+        
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            
+                            <button type="button" class="btn btn-warning" ng-click="workupdate()">Update</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,210 @@
+<div style="padding-top: 20px;" ng-init="vendorview()">
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header" style="background:rgb(82, 70, 159) !important; color: aliceblue !important;">
+                <div class="d-flex">
+                    <div class="mr-auto p-2"><b>Vendor Section</b></div>
+                    <div class="p-2">
+                       <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">
+                        <i class="fas fa-plus"></i> Add Vendor
+                    </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table width="100%" class="table table-bordered" style="font-size: 11.5px!important;">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-center">Vendor Name</th>
+                            <th class="text-center">Address</th>
+                            <th class="text-center">Pan No</th>
+                            <th class="text-center">GST No</th>
+                            <th class="text-center">Mobile No</th>
+                            <th class="text-center">State</th>
+                            <th class="text-center">No of Days</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="x in vdata">
+                            <td class="text-center">{{$index+1}}</th>
+                            <td>{{x.vname}}</td>
+                            <td>{{x.address}}</td>
+                            <td>{{x.gstno}}</td>
+                            <td>{{x.panno}}</td>
+                            <td>{{x.phone}}</td>
+                            <td>{{x.state}}</td>
+                            <td class="text-center">{{x.nod}} Days</td>
+                            <td class="text-center">
+                                <button class="btn-success" title="edit" data-toggle="modal"
+                                    data-target="#exampleModalCenter"><i class="fa-solid fa-pen-to-square" ng-click="vendor_edit(x.id)"></i></button>
+                                <button class="btn-danger" title="Delete" ng-click="vendor_delete(x.id)"><i
+                                        class="fa-sharp fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+              
+        </div>
+    </div>
+</div>
+
+<!-- Client Model Section -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <h2 class="text-center"><u>Vendor Section</u></h2>
+            <div class="container" style="padding-bottom: 20px !important;">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Vendor Name</label>
+                            <input type="text" class="form-control" ng-model="vname">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Address</label>
+                            <textarea class="form-control" ng-model="address"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">GST No</label>
+                            <input type="text" class="form-control" ng-model="gstno" ng-blur="pan_data();">                       </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">PAN No</label>
+                            <input type="text" class="form-control" ng-model="panno" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Phone No</label>
+                            <input type="text" class="form-control" ng-model="phone">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">State</label>
+                            <input type="text" class="form-control" ng-model="state" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">No of Days</label>
+                            <input type="text" class="form-control" ng-model="nod">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-success" ng-click="vendore_entry()">Submit</button> &nbsp;
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button> &nbsp;
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Update model section -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Update Vendor Section</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Vendor Name</label>
+                        <input type="text" class="form-control" ng-model="vname">
+                        <input type="hidden" class="form-control" ng-model="idd">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Address</label>
+                        <textarea class="form-control" ng-model="address"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">GST No</label>
+                        <input type="text" class="form-control" ng-model="gstno" ng-blur="pan_data()">                       </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">PAN No</label>
+                        <input type="text" class="form-control" ng-model="panno" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Phone No</label>
+                        <input type="text" class="form-control" ng-model="phone">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">State</label>
+                        <input type="text" class="form-control" ng-model="state" readonly>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">No of Days</label>
+                        <input type="text" class="form-control" ng-model="nod">
+                    </div>
+                </div>
+            </div>
+
+            
+                
+        </div>
+        <div class="modal-footer">
+          <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vendor_update()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>

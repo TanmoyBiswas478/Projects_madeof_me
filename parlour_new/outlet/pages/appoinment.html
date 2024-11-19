@@ -1,0 +1,186 @@
+<!-- Appointment Section -->
+<div class="container" ng-show="var" ng-init="loading();">
+    <h6 style="padding-top: 10px;">
+        <u><i class="fa-solid fa-users"></i> Appointment Section</u>
+    </h6>
+    <!-- Form Fields Here -->
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="exampleInputEmail1"><b>Appointment No</b></label>
+                <input type="text" class="form-control" ng-model="apno" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="exampleInputEmail1"><b>Appointment Date</b></label>
+                <input type="date" class="form-control" ng-model="apdate">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="exampleInputEmail1"><b>Customer Phone No</b></label>
+                <input type="text" class="form-control" ng-model="phoneNo">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="exampleInputEmail1"><b>Customer Name</b></label>
+                <input type="text" class="form-control" ng-model="custName">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="exampleInputEmail1"><b>Customer Type</b></label>
+                <select type="text" class="form-control" ng-model="custType">
+                    <option></option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="exampleInputEmail1"><b>Choose Service Man</b></label>
+                <select class="form-control" ng-model="serviceMan">
+                    <option></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- Your Appointment form fields -->
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-success" ng-click="next()">Next</button> <!-- Transition to next section -->
+        </div>
+    </div>
+</div>
+
+<!-- View Product & Cart Section (var1) -->
+<div class="container mt-5" ng-show="var1">
+    <!-- Toggle between Product View and Cart View -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <button class="btn btn-secondary" ng-click="showProducts = true">View Products</button>
+            <button class="btn btn-secondary" ng-click="showProducts = false">View Cart</button>
+        </div>
+    </div>
+
+    <!-- View Product Section -->
+    <div ng-show="showProducts">
+        <div class="row mb-3">
+            <div class="col-12">
+                <input type="text" class="form-control" placeholder="Search items..." ng-model="searchQuery">
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Items filtered by searchQuery -->
+            <div class="col-6" ng-repeat="x in idata | filter:searchQuery">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img src="../assets/img/4.png" alt="{{x.iname}}" width="50" height="50">
+                    </div>
+                    <div class="service-text">{{x.iname}} - &#8377;{{x.price}}</div>
+                    <div class="add-control">
+                        <button ng-click="addToCart(x)">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Section -->
+    <div ng-show="!showProducts" class="mt-5">
+        <h6><u>Cart</u></h6>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in cart">
+                    <td>{{item.iname}}</td>
+                    <td>&#8377;{{item.price}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>&#8377;{{item.price * item.quantity}}</td>
+                    <td>
+                        <button ng-click="increaseQuantity(item)">+</button>
+                        <button ng-click="decreaseQuantity(item)">-</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h6>Total Bill: &#8377;{{calculateTotal()}}</h6>
+
+        <!-- Button to proceed to billing section -->
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-success" ng-click="goToBilling()">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Billing Section -->
+<div class="container mt-5" ng-show="var3">
+    <h6><u>Billing Section</u></h6>
+
+    <!-- Payment Method Selection -->
+    <div class="form-group">
+        <label for="paymentMethod"><b>Select Payment Method</b></label>
+        <select class="form-control" ng-model="paymentMethod" id="paymentMethod" required>
+            <option value="" disabled selected>Select Payment Method</option>
+            <option value="CARD">CARD</option>
+            <option value="UPI">UPI</option>
+            <option value="CASH">CASH</option>
+        </select>
+    </div>
+
+    <!-- Cart Summary -->
+    <h6><u>Cart Summary</u></h6>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in cart">
+                <td>{{item.iname}}</td>
+                <td>&#8377;{{item.price}}</td>
+                <td>{{item.quantity}}</td>
+                <td>&#8377;{{item.price * item.quantity}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h6>Total Bill: &#8377;{{calculateTotal()}}</h6>
+
+    <!-- Submit Button -->
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-success" ng-click="addAppointment()">Submit</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,250 @@
+<div style="padding-top:20px !important; padding-left:20px !important; padding-right:20px !important;" ng-init="invauto()">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex">
+                <div class="mr-auto p-2">Customer Appoinment Section</div>
+                <div class="p-2">
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><b>Invoice No</b></label>
+                        <input type="text" class="form-control" ng-model="invno" maxlength="10" readonly>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><b>Invoice Date</b></label>
+                        <input type="text" class="form-control" ng-model="invdate" readonly>
+                        <input type="hidden" class="form-control" ng-model="fy" readonly>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><b>Client Phone No</b></label>
+                        <input type="text" class="form-control" ng-model="ph" maxlength="10" onkeypress="return isphone(event)" ng-blur="search1()">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><b>Client Name</b></label>
+                        <input type="text" class="form-control" ng-model="name" onkeypress="return isTextKey(event)">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><b>Client Code</b></label>
+                        <input type="text" class="form-control" ng-model="ccode" readonly>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><b>Gender</b></label>
+                        <input type="text" list="gen" class="form-control" ng-model="gender">
+                        <datalist id="gen">
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Baby Boy</option>
+                            <option>Baby Girl</option>
+                        </datalist>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><b>Address</b></label>
+                        <textarea class="form-control" ng-model="address"  onkeypress="return addresskey(event)"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <table class="table table-bordered" style="font-size: 11.5px !important;">
+                        <!--table class="table table-bordered table-responsive" style="font-size:11.5px; width:200% !importnat;"-->
+                        <thead>
+                            <tr>
+                                <th class="text-center" width="2%">Sl</th>
+                                <th class="text-center" width="20%">Description of Service</th>
+                                <th class="text-center" width="10%">HSN No</th>
+                                <th class="text-center" width="10%">Staff Name</th>
+                                <th class="text-center" width="10%">Appionment Time</th>
+                                <th class="text-center" width="10%">Rate</th>
+                                <th class="text-center" width="10%">Taxable Values</th>
+                                <th class="text-center" width="5%">GST%</th>
+                                <th class="text-center" width="10%">GST Amt</th>
+                                <th class="text-center" width="10%">Total</th>
+                                <th class="text-center" width="5%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center" height="40">#</td>
+                                <td class="text-center" height="40">
+                                    <input type="text" list="pro" ng-model="product"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" ng-blur="service_data(product)">
+                                    <datalist id="pro">
+                                        <option ng-repeat="x in sdata">{{x.iname}} - {{x.type}}</option>
+                                    </datalist>
+                                </td>
+                                <td class="text-center" height="40">
+                                    <input type="text" ng-model="hsn"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                </td>
+                                <td class="text-center" height="40">
+                                    <select ng-model="sname"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;">
+                                            <option ng-repeat="y in stdata">{{y.sname}}</option>
+                                    </select>
+                                </td>
+                                <td class="text-center" height="40">
+                                    <select type="text" ng-model="atime"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" ng-blur="gstcalc1()">
+                                            <option>9:00 AM</option>
+                                            <option>10:00 AM</option>
+                                            <option>11:00 AM</option>
+                                            <option>12:00 PM</option>
+                                            <option>1:00 PM</option>
+                                            <option>2:00 PM</option>
+                                            <option>3:00 PM</option>
+                                            <option>4:00 PM</option>
+                                            <option>5:00 PM</option>
+                                            <option>6:00 PM</option>
+                                            <option>7:00 PM</option>
+                                            <option>8:00 PM</option>
+                                            <option>9:00 PM</option>
+                                    </select>
+                                </td>
+                                <td class="text-center" height="40">
+                                    <input type="text" ng-model="rate"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                </td>
+                                <td class="text-center" height="40">
+                                    <input type="text" ng-model="tax"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                </td>
+                                <td class="text-center" height="40">
+                                    <input type="text" ng-model="gst"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                </td>
+                                <td class="text-center" height="40">
+                                    <input type="text" ng-model="gstamt"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                            <input type="hidden" ng-model="cgst"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                            <input type="hidden" ng-model="cgstp"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                            <input type="hidden" ng-model="sgst"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                            <input type="hidden" ng-model="sgstp"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                            <input type="hidden" ng-model="igst"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                            <input type="hidden" ng-model="igstp"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                </td>
+                                <td class="text-center" height="40">
+                                    <input type="text" ng-model="total"
+                                            style="border: transparent; outline:none; width: 100%; height: 30px;" readonly>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn-success" title="Add" ng-click="sales_entry()" id="myBtn">
+                                        <i class="fas fa-plus"></i></button>
+                                </td>
+                            </tr>
+                            
+                                <tr ng-repeat="x in adata">
+                                    <td class="text-center" height="50">{{$index+1}}</td> 
+                                    <td>{{x.product}}</td>
+                                    <td class="text-center">{{x.hsn}}</td>
+                                    <td class="text-center">{{x.sname}}</td>
+                                    <td class="text-center">{{x.asloat}}</td>
+                                    <td class="text-center">&#8377; {{x.rate}}</td>
+                                    <td class="text-center">&#8377; {{x.tax}}</td>
+                                    <td class="text-center">{{x.gstper}}%</td>
+                                    <td class="text-center">&#8377; {{x.gstamt}}</td>
+                                    <td class="text-center">&#8377; {{x.total}}</td>
+                                    <td>
+                                        <button class="btn-danger" title="Delete">
+                                            <i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" class="text-right"><b>Grand Total:</b></td>
+
+                                    <td class="text-center">&#8377;{{tax1}}</td>
+                                    <td></td>
+                                    <td class="text-center">&#8377;{{gstamt1}}</td>
+                                    <td class="text-center">&#8377;{{total1}}</td>
+                                    <td></td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Total Payable</label>
+                        <input type="text" ng-model="total1" class="form-control" readonly>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Received Payment</label>
+                        <input type="text" class="form-control" ng-model="rcv" ng-change="pen()">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Total Return</label>
+                        <input type="text" class="form-control" readonly ng-model="pending" readonly>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Payment Mode</label>
+                        <select class="form-control" ng-model="tmode">
+                            <option></option>
+                            <option>Cash</option>
+                            <option>Card</option>
+                            <option>UPI</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+           <br><br>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-info" title="save" id="myBtn1" ng-click="book_appoinment()"> Book Appoinment
+                        </button>
+                </div>
+            </div>
+        </div>
+    </div>

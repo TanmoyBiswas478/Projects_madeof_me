@@ -1,0 +1,218 @@
+   
+     <div style="padding: 10px;" ng-init="serviceview();client_typeview();catagoryview();"> 
+
+        <div class="container-fluid">
+          <p class="text-right">
+              
+          </p>
+    
+          <div class="card">
+              <div class="card-header" style="background:  rgb(82, 70, 159) !important;color:white !important;">
+                  Purchase Entry Section <button class="btn btn-info" style="margin-left: 78% !important;" data-toggle="modal" data-target=".bd-example-modal-lg"><i
+                    class="fa-solid fa-plus"></i> Add Purchase</button>
+              </div>
+              <div class="card-body">
+                  
+                  <table class="table table-bordered" style="font-size: 12.5px !important;">
+                      <thead>
+                          <tr>
+                              <th  class="text-center">#</th>
+                              <th  class="text-center">Purchase Id</th>
+                              <th  class="text-center">Purchase Date</th>
+                              <th  class="text-center">Vendor Name</th>
+                              <th  class="text-center">Service Name</th>
+                              <th  class="text-center">Total Amount</th>
+                              <th  class="text-center">Mode of Payment</th>
+                              <th  class="text-center">Purchase Status</th>
+                              <th  class="text-center">Category</th>
+                              <th  class="text-center">Decription</th>
+                              <th  class="text-center">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="x in service_data">
+                              <td  class="text-center">{{$index+1}}</td>
+                              <td  class="text-center">{{x.service}}</td>
+                              <td  class="text-center">{{x.category}}</td>
+                              <td  class="text-center">{{x.ctype}}</td>
+                              <td  class="text-center">{{x.charge}}</td>
+                              <td  class="text-center">{{x.description}}</td>
+                              <td  class="text-center">{{x.description}}</td>
+                              <td  class="text-center">{{x.description}}</td>
+                              <td  class="text-center">{{x.description}}</td>
+                              <td  class="text-center">{{x.description}}</td>
+                              
+                            <td class="text-center">
+                             <button class="btn-success" title="edit" ng-click="service_edit(x.id)" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa-solid fa-pen-to-square"></i></i></button>
+                             <button class="btn-danger" title="edit" ng-click="service_delete(x.id)"><i class="fa-solid fa-trash-can"></i></button>
+    
+                              </td>
+                      <tbody>
+                  </table>
+              </div>
+          </div>
+    
+      </div>
+    
+    
+    
+        <!-- Modal -->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                  
+                <div class="card">
+                    <div class="card-header">
+                    Purchase Entry
+                    </div>
+                    <div class="card-body">
+                      <form>
+                        <div class="form-row">
+                          <div class="form-group col-md-4">
+                            <label for="inputEmail4">Purchase Id</label>
+                            <input type="text" class="form-control" id="inputEmail4" >
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputPassword4">Puchase Date</label>
+                            <input type="text" class="form-control" id="inputPassword4" >
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputPassword4">Vendor Name</label>
+                            <input type="text" class="form-control" id="inputPassword4" >
+                          </div>
+                        </div>
+                  
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                              <label for="inputEmail4">Service Name</label>
+                              <input type="text" class="form-control" id="inputEmail4" >
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">Total Amount</label>
+                              <input type="text" class="form-control" id="inputPassword4" >
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">Payment Status</label>
+                              <select class="form-control">
+                                <option></option>
+                                <option>Paid</option>
+                                <option>Pending</option>
+                                <option>Overdue</option>
+                              </select>
+                            </div>
+                          </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Mode of Payment</label>
+                                <select class="form-control">
+                                  <option></option>
+                                  <option>online</option>
+                                  <option>Offline</option>
+                                 
+                                </select>
+                              </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputState">Category</label>
+                            <input type="text" class="form-control" id="inputEmail4" >
+                            
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="inputState">Description</label>
+                            <textarea class="form-control"></textarea>
+                            
+                          </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-success" >Submit</button>
+                            <button class="btn btn-danger" data-dismiss="modal">Exit</button>
+                        </div>
+                        
+                      </form>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+    
+        
+          <!-- Update model section -->
+    
+        
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                  
+                <div class="card">
+                    <div class="card-header">
+                    Update Purchase Entry
+                    </div>
+                    <div class="card-body">
+                      <form>
+                        <div class="form-row">
+                          <div class="form-group col-md-4">
+                            <label for="inputEmail4">Purchase Id</label>
+                            <input type="text" class="form-control" id="inputEmail4" >
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputPassword4">Puchase Date</label>
+                            <input type="text" class="form-control" id="inputPassword4" >
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputPassword4">Vendor Name</label>
+                            <input type="text" class="form-control" id="inputPassword4" >
+                          </div>
+                        </div>
+                  
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                              <label for="inputEmail4">Service Name</label>
+                              <input type="date" class="form-control" id="inputEmail4" >
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">Total Amount</label>
+                              <input type="text" class="form-control" id="inputPassword4" >
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">Payment Status</label>
+                              <select class="form-control">
+                                <option>Paid</option>
+                                <option>Pending</option>
+                                <option>Overdue</option>
+                              </select>
+                            </div>
+                          </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Mode of Payment</label>
+                                <select class="form-control">
+                                  <option>online</option>
+                                  <option>Offline</option>
+                                 
+                                </select>
+                              </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputState">Category</label>
+                            <input type="text" class="form-control" id="inputEmail4" >
+                            
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="inputState">Description</label>
+                            <textarea class="form-control"></textarea>
+                            
+                          </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-success" >Submit</button>
+                            <button class="btn btn-danger" data-dismiss="modal">Exit</button>
+                        </div>
+                        
+                      </form>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>

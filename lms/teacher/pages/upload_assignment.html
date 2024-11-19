@@ -1,0 +1,53 @@
+<br>
+<div class="container" style="background: #fff; height: 500px !important; border: 2px solid #EAEAEC;"
+  ng-init="teacher_training_allot();">
+  <div class="row">
+    <div class="col-md-12"
+      style="background:blueviolet; height: 60px; color: #fff !important; display: flex; align-items: center;">
+      <div class="mr-auto p-3"><i class="fa-solid fa-bars"></i> Upload Assignment </div>
+      <!-- <div class="p-2">
+            <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg" data-whatever="@mdo">
+                <i class="fa-solid fa-plus"></i> Create Batch
+            </button>
+        </div> -->
+    </div>
+  </div>
+
+
+  <div class="row" style="padding-top: 10px !important;">
+
+  </div>
+
+  <div class="row" style="padding-top: 10px !important;">
+    <div class="col-md-12">
+      <form method="post" enctype="multipart/form-data" action="../assets/api/upload_assignment.php">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Training Name</label>
+          <select class="form-control" ng-model="tname" name="tname" ng-change="batch_section()">
+            <option></option>
+            <option ng-repeat="x in training_allot_data">{{x.tname}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Batch No</label>
+          <select class="form-control" ng-model="bno" name="bno">
+            <option ng-repeat="x in batch_data">{{x.bno}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Teacher Name</label>
+          <input type="text" class="form-control" ng-model="teacher" name="teacher" style="text-transform: uppercase;"
+            readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Upload Assignemnt</label>
+          <input type="file" class="form-control" name="file">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

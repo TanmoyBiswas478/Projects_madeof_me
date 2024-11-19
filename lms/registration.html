@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Training Registration Portal</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="fw/css/all.css">
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/validation.js"></script>
+    <style>
+        .curved-bottom {
+            /* Curved corners */
+            border-bottom-left-radius: 50% 40%;
+            border-bottom-right-radius: 50% 40%;
+            background: indigo;
+            height: 100px;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post" action="assets/api/registration.php" enctype="multipart/form-data">
+    <div ng-app="myApp" ng-controller="personCtrl">
+        <div class="curved-bottom">
+            <h4>Software World,Agartala</h4>
+        A Division of Research & Development Society
+        </div><br><br>
+
+        <div class="container" ng-init="trainingview()">
+            <div class="row">
+                <div class="col-md-12">
+                    <br><br>
+                    <h3 class="text-center"><u>STUDENT REGISTRATION FORM</u></h3>
+                </div>
+            </div><br><br>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Training Name*</label>
+                        <select class="form-control" ng-model="tname" name="tname" required ng-change="trainingdata()">
+                            <option></option>
+                            <option ng-repeat="x in cdata" value="{{x.sform}}">{{x.tname}}</option>
+                        </select>
+
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Duration</label>
+                        <input type="tel" class="form-control" name="duration" ng-model="duration" readonly>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Training Fees</label>
+                        <input type="tel" class="form-control" name="fees" ng-model="fees" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Institute Name*</label>
+                        <input type="text" class="form-control" name="iname" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Department Name*</label>
+                        <input type="text" class="form-control" name="dept" required>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Year of Student*</label>
+                        <select class="form-control" name="year" ng-model="year" ng-change="trainingview()" required>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="F">Final Year</option>
+                        </select>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Name of Candidate*</label>
+                        <input type="text" class="form-control" name="name" style="text-transform: uppercase;" required onkeypress="return isTextKey(event)">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Father's Name*</label>
+                        <input type="text" class="form-control" name="fname" onkeypress="return isTextKey(event)" style="text-transform: capitalize;" required>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Mother's Name*</label>
+                        <input type="text" class="form-control" name="mname" onkeypress="return isTextKey(event)" style="text-transform: capitalize;" required>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Date of Birth*</label>
+                        <input type="date" class="form-control" name="dob" required>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Gender*</label>
+                        <select class="form-control" required name="gender">
+                            <option></option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Transgender</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Contact No*</label>
+                        <input type="tel" class="form-control" name="ph" onkeypress="return isNumber(event)" maxlength="10" required>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="font-weight-bold">WhatsApp No*</label>
+                        <input type="tel" class="form-control" name="wph" onkeypress="return isNumber(event)" maxlength="10" required>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="font-weight-bold">email</label>
+                        <input type="email" class="form-control" name="email" style="text-transform: lowercase;" onkeypress="return emailkey(event)" required>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Training Mode</label>
+                        <select class="form-control" name="tmode" required>
+                            <option></option>
+                            <option>Online</option>
+                            <option>Offline</option>
+                        </select>
+
+                    </div>
+                </div>
+
+               
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Address</label>
+                        <textarea class="form-control" name="address" rows="5" style="text-transform: capitalize;" onkeypress="return addresskey(event)" required></textarea></textarea>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Upload Aadhaar*</label>
+                        <input type="file" name="aadhaar_img" class="form-control" required>
+                    </div>
+            </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Madhyamik Admit</label>
+                        <input type="file" name="admit_img" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Last Marksheet</label>
+                        <input type="file" name="marksheet_img" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Upload Passport Size Photo*</label>
+                        <input type="file" name="img" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Upload Signature*</label>
+                        <input type="file" name="sig" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Payment Mode*</label>
+                        <select class="form-control" name="pay" ng-model="pay" required ng-change="checkpay()">
+                            <option></option>
+                            <option>Online</option>
+                            <!-- <option>Offline</option> -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label class="font-weight-bold">Upload Screenshoot*</label>
+                        <input type="file" name="receipt" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-show="upi">
+                <div class="col-md-12">
+                    <img src="assets/images/upi.png" width="300" height="300">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-success" id="myBtn">Submit</button>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('personCtrl', function ($scope, $http) {
+
+            $scope.trainingview = function () {
+                $http({
+                    url: "assets/api/view_course.php",
+                    method: "GET"
+                }).then(
+                    function (data) {
+                        console.log(data.data);
+                        $scope.cdata = data.data;
+                        $scope.checkpay();
+                    },
+                    function () {
+                        alert("Error! Fetching Problem in sendData()");
+                    });
+            };
+
+            $scope.trainingdata = function () {
+                $http({
+                    url: "assets/api/training_data.php",
+                    method: "POST",
+                    data:{
+                        "tname":$scope.tname
+                    }
+                }).then(
+                    function (data) {
+                        console.log(data.data);
+                        $scope.duration=data.data[0]['duration'];
+                        var fees=data.data[0]['fees'];
+                        var unit=data.data[0]['unit'];
+                        $scope.fees=fees+" "+unit;
+
+                    },
+                    function () {
+                        alert("Error! Fetching Problem in sendData()");
+                    });
+            };
+
+            $scope.checkpay = function () {
+                var pay=$scope.pay;
+                if(pay==='Online')
+                {
+                  $scope.upi=true;
+                }
+                else{
+                    $scope.upi=false;
+                }
+            };
+
+        });
+
+
+    </script>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    </form>
+</body>
+
+</html>
