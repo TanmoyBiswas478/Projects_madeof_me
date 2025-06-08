@@ -1,0 +1,51 @@
+<div style="padding: 20px;" ng-init="order_view()">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex">
+                    <div class="mr-auto p-2">Today Order Section</div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table width="100%" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-center">Order No</th>
+                            <th class="text-center">Order Date</th>
+                            <th class="text-center">Received Date</th>
+                            <th class="text-center">Phone No</th>
+                            <th class="text-center">Customer Name</th>
+                            <th class="text-center">Product Name</th>
+                            <th class="text-center">Total Payment</th>
+                            <th class="text-center">Paid</th>
+                            <th class="text-center">Pending</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="x in order_data">
+                            <td class="text-center">{{$index+1}}</th>
+                            <td>{{x.ono}}</td>
+                            <td>{{x.odate}}</td>
+                            <td>{{x.rdate}} </td>
+                            <td>{{x.ph}}</td>
+                            <td>{{x.name}}</td>
+                            <td>{{x.product}}</td>
+                            <td>{{x.total}}</td>
+                            <td>{{x.recv}}</td>
+                            <td>{{x.pending }}</td>
+                            <td class="text-center">
+                                <span ng-class="{'text-danger': x.status==='Pending','text-success':x.status==='Delivered'}">{{x.status}}</span>
+                            </td>
+                        </tr>
+
+                        
+                    </tbody>
+                </table>
+
+               
+</div>
+

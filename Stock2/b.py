@@ -1,0 +1,16 @@
+import cv2
+import matplotlib.pyplot as plt
+image = cv2.imread("rupa_img.jpg")
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+rotated_image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+rotated_rgb = cv2.cvtColor(rotated_image, cv2.COLOR_BGR2RGB)
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.imshow(image_rgb)
+plt.axis("off")
+plt.title("Original Image")
+plt.subplot(1, 2, 2)
+plt.imshow(rotated_rgb)
+plt.axis("off")
+plt.title("Rotated Image (90° Clockwise)")
+plt.show()

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student Registration Portal</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="assets/fw/css/all.css" />
+    <script src="assets/js/angular.min.js"></script>
+    <script src="controller/validation.js"></script>
+    <style>
+        .curved-bottom {
+            /* Curved corners */
+            border-bottom-left-radius: 50% 40%;
+            border-bottom-right-radius: 50% 40%;
+            background: rgb(82, 70, 159);
+            height: 100px;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post" action="assets/api/student_registration.php" enctype="multipart/form-data">
+        <div ng-app="myApp" ng-controller="personCtrl">
+            <div class="curved-bottom">
+                <h4 style="padding-top: 20px">Software World,Agartala</h4>
+                A Division of Research & Development Society
+            </div>
+
+            <div class="container" ng-init="trainingview();courseview()">
+                <div class="row">
+                    <div class="col-md-12">
+                        <br /><br />
+                        <h3 class="text-center"><u>STUDENT REGISTRATION FORM</u></h3>
+                    </div>
+                </div>
+                <br /><br />
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Course Name*</label>
+                            <select class="form-control" ng-model="course_name" name="course_name" required>
+                                <option></option>
+                                <option ng-repeat="x in course_data">
+                                    {{x.course_name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Student Name*</label>
+                            <input type="tel" class="form-control" name="sname" ng-model="sname" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Father Name*</label>
+                            <input type="tel" class="form-control" name="fname" ng-model="fname" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Course Fees*</label>
+                            <input type="text" class="form-control" name="c_fees" ng-model="c_fees" required />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Registration Number*</label>
+                            <input type="text" class="form-control" id="regNumber" name="regno" ng-model="regno"
+                                readonly required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Application Date*</label>
+                            <input type="date" class="form-control" name="app_date" ng-model="app_date" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Date of Birth*</label>
+                            <input type="date" class="form-control" name="dob" ng-model="dob" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Gender*</label>
+                            <select class="form-control" required name="gender" ng-model="gender">
+                                <option></option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Transgender</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Contact No*</label>
+                            <input type="tel" class="form-control" name="s_ph" ng-model="s_ph"
+                                onkeypress="return isNumber(event)" maxlength="10" required />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Upload Photo*</label>
+                            <input type="file" name="img" ng-model="img" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Payment Mode*</label>
+                            <select class="form-control" name="pay" ng-model="pay" required ng-change="checkpay()">
+                                <option></option>
+                                <option>Online</option>
+                                <option>Offline</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Upload Screenshot*</label>
+                            <input type="file" name="pay_ss" class="form-control" ng-model="pay_ss" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="upi">
+                    <div class="col-md-12">
+                        <img src="assets/img/MY_QR.jpg" width="300" height="300" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-success" id="myBtn">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var app = angular.module("myApp", []);
+
+app.controller("personCtrl", function ($scope, $http) {
+    // Generate Registration Number
+    $scope.generateRegNumber = function () {
+        let timestamp = Date.now(); // Unique based on time
+        let randomNum = Math.floor(Math.random() * 9000) + 1000; // 4-digit random number
+        $scope.regno = `REG-${timestamp}-${randomNum}`;
+    };
+
+    // Call generateRegNumber() when controller initializes
+    $scope.generateRegNumber();
+
+    // Fetch course data
+    $scope.courseview = function () {
+        $http({
+            url: "assets/api/course_section.php",
+            method: "POST",
+            data: { "op": "view" },
+            headers: { "Content-Type": "application/json" }
+        }).then(
+            function (response) {
+                console.log(response.data); // Debugging: Check API response
+                $scope.course_data = response.data;
+            },
+            function (error) {
+                console.error("Error fetching course data:", error);
+                alert("Error! Fetching Problem in courseview()");
+            }
+        );
+    };
+
+    // Payment mode selection
+    $scope.checkpay = function () {
+        $scope.upi = ($scope.pay === "Online");
+    };
+
+    // Automatically call courseview() when the page loads
+    $scope.courseview();
+});
+
+        </script>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    </form>
+</body>
+
+</html>

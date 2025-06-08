@@ -1,0 +1,93 @@
+<div class="container" style="padding-top: 40px !important;" ng-init="courseview()">
+    <div class="card">
+        <h5 class="card-header" style="background:rgb(82, 70, 159) !important; color: aliceblue !important; ">New Course Section<a href="" class="btn btn-info" style="margin-left: 81% !important;" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fa-solid fa-plus"></i>Add Course</a></h5>
+
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+
+            <table class="table table-bordered" style="font-size: 12.5px !important;">
+              <thead>
+                <tr>
+                    <th class="text-center" width="10%">#</th>
+                    <th class="text-center" width="35%">Course Name</th>
+                    <th class="text-center" width="20%">Action</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="x in course_data">
+                    <td class="text-center">{{$index+1}}</td>
+                    <td class="text-center">{{x.course_name}}</td>
+                    <td class="text-center">
+                        <button class="btn-success" title="Edit" data-toggle="modal" data-target="#exampleModalCenter1" ng-click="course_edit(x.id)"><i class="fa-solid fa-pen-to-square" ></i></button>
+                        <button class="btn-danger" title="Delete" ng-click="course_delete(x.id)"><i class="fa-solid fa-trash-can"></i></i></button>
+                    </td>
+
+                    
+                  </tr>
+                  
+                </tbody>
+              </table>
+
+        </div>
+    </div>
+</div>
+
+<!-- Client Modal -->
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="margin-left: 35% !important;"><U>Course Entry Section</U></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Enter Course Name</label>
+              <input type="text" class="form-control" ng-model="course_name">
+              
+            </div>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" ng-click="courseentry()">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-right: 35% !important;">Exit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update model section -->
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Update Course Section</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="form-group">
+                  <label for="formGroupExampleInput">Enter Course Name</label>
+                  <input type="text" class="form-control" ng-model="course_name">
+                  <input type="hidden" class="form-control" ng-model="idd">
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="course_update()">Update</button>
+  </div>
+</div>
+</div>
+</div>
+  

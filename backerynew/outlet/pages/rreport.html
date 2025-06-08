@@ -1,0 +1,73 @@
+<!-- Page Heading -->
+<form method="post" action="model/purchae_excel.php">
+<h1 class="h3 mb-4 text-gray-800">Requsition Report Section</h1>
+
+<div class="card" ng-init="req_report()">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                  <div class="input-group mb-12">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Form Date</span>
+                    </div>
+                    <input type="date" class="form-control" name="fdate" ng-model="fdate" class="form-control" ng-model-options="{timezone: 'utc'}">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">To Date</span>
+                      </div>
+                      <input type="date" class="form-control" name="tdate" ng-model="tdate" class="form-control" ng-model-options="{timezone: 'utc'}" ng-blur="req_report1()">
+                      <div class="input-group-prepend">
+                        <button type="submit" class="btn btn-primary text-capitalize"><i class="fas fa-download"></i></button>
+                      </div>
+                      
+                  </div>
+            </div>
+            <br><br>
+            <!-- <div class="col-md-3 text-right align-self-center">
+                <button class="btn btn-primary text-capitalize" data-toggle="modal" data-target="#addStaff"><i class="fas fa-plus"></i> Add Service</button>
+            </div> -->
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered" style="font-size: 11.5px;">
+            <thead>
+                <tr>
+                    <th class="text-center" width="5%">SL No</th>
+                    <th class="text-center" width="10%">Requsition No</th>
+                    <th class="text-center" width="10%">Requsition Date</th>
+                    <th class="text-center" width="15%">Requsition Received</th>
+                    <th class="text-center" width="10%">Status</th>
+                    <th class="text-center" width="10%">View</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in reqdata">
+                    <td height="30 " class="text-center ">
+                        {{$index+1}}
+                    </td>
+                    <td  height="30 " class="text-center ">
+                        {{user.reqno}}
+                    </td>
+                    <td  height="30 " class="text-center ">
+                        {{user.reqdate}}
+                    </td>
+                    <td  height="30 " class="text-center ">
+                        {{user.doa}}
+                    </td>
+                    <td  height="30 " class="text-center ">
+                        {{user.status}}
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-warning" ng-click="preport_view(user.pinv)" alt="view" data-toggle="modal" data-target="#exampleModalCenter">
+                            <i class="fas fa-eye" style="color: #fff;">
+                        </i></button>
+                        </div>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+      
+    </div>
+
+</div>
+</form>

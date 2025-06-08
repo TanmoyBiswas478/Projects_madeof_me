@@ -1,0 +1,90 @@
+<div style="padding: 20px;" >
+
+        <div class="card" ng-show="var" ng-init="rcv_req()">
+            <div class="card-header">
+                <div class="d-flex">
+                    <div class="mr-auto p-2">Requsition Received Section</div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <table width="100%" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-center">Req No</th>
+                            <th class="text-center">Req Date</th>
+                            <th class="text-center">Received Date</th>
+                            <th class="text-center">No Of Product Submit</th>
+                            <th class="text-center">No of Product Received</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr ng-repeat="x in req_data">
+                            <td class="text-center">{{$index+1}}</th>
+                            <td class="text-center">{{x.reqno}}</td>
+                            <td class="text-center">{{x.reqdate}}</td>
+                            <td>{{x.doa}}</td>
+                            <td>{{x.item_count}}</td>
+                            <td>{{x.item_cancel}}</td>
+                            <td class="text-center">
+                                <button class="btn-success" title="Complete Order" ng-click="req_item(x.reqno)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        
+                    </tbody>
+                </table>     
+</div>
+</div>
+
+
+<div class="card" ng-show="var1">
+    <div class="card-header">
+      Product List
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered" style="font-size:11.5px">
+        <thead>
+          <tr>
+            <th scope="col" width="10%" class="text-center">Sl</th>
+            <th scope="col" width="40%" class="text-center">Description of Goods</th>
+            <th scope="col" width="10%" class="text-center">Qty Required</th>
+            <th scope="col" width="10%" class="text-center">Qty Received</th>
+            <th scope="col" width="10%" class="text-center">Unit</th>
+            <th scope="col" width="10%" class="text-center">Remarks</th>
+            <th scope="col" width="10%" class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in req_data">
+            <td class="text-center">{{$index+1}}</td>
+            <td>{{x.item}}</td>
+            <td class="text-center">{{x.qty}}</td>
+            <td class="text-center">{{x.sqty}}</td>
+            <td class="text-center">{{x.unit}}</td>
+            <td class="text-center">{{x.cancel}}</td>
+            <!-- <td></td> -->
+            <td class="text-center">
+              <button class="btn-success" title="Accept" ng-click="req_accept(x.reqno,x.item,x.qty)">
+                <i class="fas fa-check"></i>
+              </button>
+              <button class="btn-danger" title="Cancel" ng-click="req_cancel(x.reqno,x.item)">
+                <i class="fas fa-times"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+</div>
+

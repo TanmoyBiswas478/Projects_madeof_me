@@ -1,0 +1,64 @@
+<div style="padding-top: 20px;" ng-init="venpay_ledger();vendorview();">
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex">
+                    <div class="mr-auto p-2">Vendore Ledger Section</div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="">Search By Vendor and Month:</span>
+                            </div>
+                            <select class="form-control" ng-model="vname">
+                                <option ng-repeat="x in vdata">{{x.vname}}</option>
+                            </select>
+                            <select class="form-control" ng-model="month">
+                                <option ng-repeat="x in mdata">{{x.month}}</option>
+                            </select>
+                          </div>
+                    </div>
+                    
+                </div><br> -->
+
+                <table width="100%" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-center">Vendor Name</th>
+                            <th class="text-center">GST No</th>
+                            <th class="text-center">Debit</th>
+                            <th class="text-center">Credit</th>
+                            <th class="text-center">Month</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="x in pay_data">
+                            <td class="text-center">{{$index+1}}</th>
+                            <td>{{x.vname}}</th>
+                            <td class="text-center">
+                                {{x.gstno}}</td>
+                            </td>
+                            <td class="text-center">
+                                {{x.debit}}</td>
+                            
+                            <td class="text-center">
+                                {{x.credit}}
+                            </td>
+                            <td class="text-center">
+                                {{x.month}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+              
+        </div>
+    </div>
+</div>
+
