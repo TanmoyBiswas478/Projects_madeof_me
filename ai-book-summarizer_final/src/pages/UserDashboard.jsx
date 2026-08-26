@@ -1,0 +1,830 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './UserDashboard.css';
+
+export default function UserDashboard() {
+  const [user, setUser] = useState(null);
+  const [summaries, setSummaries] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortBy, setSortBy] = useState('date');
+  const [viewMode, setViewMode] = useState('grid');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    if (!userData) {
+      navigate('/login');
+      return;
+    }
+    
+    setUser(userData);
+    loadUserSummaries(userData.email);
+  }, [navigate]);
+
+  const loadUserSummaries = (userEmail) => {
+    const userKey = `summaries_${userEmail}`;
+    const savedSummaries = JSON.parse(localStorage.getItem(userKey) || '[]');
+    setSummaries(savedSummaries);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('isLoggedIn');
+    navigate('/login');
+    // Clear cache and refresh after navigation completes
+    setTimeout(() => {
+      window.location.href = '/login';
+    }, 200);
+  };
+
+  const handleDeleteAccount = () => {
+    if (window.confirm('Are you sure you want to delete your account? This action cannot be undone and will permanently delete all your saved summaries.')) {
+      if (window.confirm('This is your final warning. All your data will be permanently deleted. Are you absolutely sure?')) {
+        // Add email to deleted accounts list
+        const deletedAccounts = JSON.parse(localStorage.getItem('deletedAccounts') || '[]');
+        if (!deletedAccounts.includes(user.email.toLowerCase())) {
+          deletedAccounts.push(user.email.toLowerCase());
+          localStorage.setItem('deletedAccounts', JSON.stringify(deletedAccounts));
+        }
+        
+        // Delete all user data
+        const userKey = `summaries_${user.email}`;
+        localStorage.removeItem(userKey); // Delete user summaries
+        localStorage.removeItem('user'); // Delete user info
+        localStorage.removeItem('isLoggedIn'); // Delete login status
+        
+        // Navigate to login page
+        navigate('/login');
+        // Clear cache and refresh after navigation completes
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 200);
+      }
+    }
+  };
+
+  const deleteSummary = (summaryId) => {
+    const userKey = `summaries_${user.email}`;
+    const updatedSummaries = summaries.filter(s => s.id !== summaryId);
+    localStorage.setItem(userKey, JSON.stringify(updatedSummaries));
+    setSummaries(updatedSummaries);
+  };
+
+  // Simple export functions
+  const exportAsTXT = (summary) => {
+    const content = `Title: ${summary.title}
+Date: ${new Date(summary.date).toLocaleDateString()}
+Language: ${summary.language}
+Tone: ${summary.tone}
+
+=== ORIGINAL TEXT ===
+${summary.originalText}
+
+=== SUMMARY ===
+${summary.summary}
+
+=== METADATA ===
+Created: ${summary.date}
+Accuracy: ${summary.accuracy || 'N/A'}%
+`;
+    
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${summary.title.replace(/[^a-z0-9]/gi, '_')}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const exportAsPDF = (summary) => {
+    // Create print-friendly HTML
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>${summary.title}</title>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+          h1 { color: #333; border-bottom: 2px solid #e11d48; padding-bottom: 10px; }
+          .meta { color: #666; font-style: italic; margin-bottom: 20px; background: #f9f9f9; padding: 10px; border-radius: 5px; }
+          .section { margin-bottom: 30px; }
+          .section h2 { color: #e11d48; margin-bottom: 15px; }
+          .section p { text-align: justify; }
+          .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; font-size: 12px; color: #999; }
+          @media print { body { margin: 15px; } }
+        </style>
+      </head>
+      <body>
+        <h1>${summary.title}</h1>
+        <div class="meta">
+          <strong>Date:</strong> ${new Date(summary.date).toLocaleDateString()} | 
+          <strong>Language:</strong> ${summary.language} | 
+          <strong>Tone:</strong> ${summary.tone}
+        </div>
+        
+        <div class="section">
+          <h2>Summary</h2>
+          <p>${summary.summary}</p>
+        </div>
+        
+        <div class="section">
+          <h2>Original Text</h2>
+          <p>${summary.originalText}</p>
+        </div>
+        
+        <div class="footer">
+          Generated by AI Summarizer Pro | ${new Date().toLocaleDateString()}
+        </div>
+      </body>
+      </html>
+    `;
+    
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    printWindow.focus();
+    
+    // Wait for content to load, then print
+    setTimeout(() => {
+      printWindow.print();
+      printWindow.close();
+    }, 500);
+  };
+
+  const exportAsDOCX = (summary) => {
+    // Create RTF format (works as DOCX alternative)
+    const rtfContent = `{\rtf1\ansi\deff0
+{\\fonttbl{\\f0\\fnil\\fcharset0 Arial;}}
+{\\colortbl;\\red0\\green0\\blue0;}
+\\viewkind4\\uc1\\pard\\cf1\\f0\\fs24
+
+{\\b\\fs32 ${summary.title}\\b0\\fs24\\par}
+\\par
+{\\i Date: ${new Date(summary.date).toLocaleDateString()} | Language: ${summary.language} | Tone: ${summary.tone}\\i0\\par}
+\\par
+{\\b\\fs28 Summary:\\b0\\fs24\\par}
+${summary.summary}\\par
+\\par
+{\\b\\fs28 Original Text:\\b0\\fs24\\par}
+${summary.originalText}\\par
+\\par
+{\\i Generated by AI Summarizer Pro - ${new Date().toLocaleDateString()}\\i0\\par}
+}`;
+    
+    const blob = new Blob([rtfContent], { type: 'application/rtf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${summary.title.replace(/[^a-z0-9]/gi, '_')}.docx`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const exportToCanva = (summary) => {
+    // Format content for Canva
+    const content = `${summary.title}
+
+${summary.summary}
+
+---
+Original Text: ${summary.originalText.substring(0, 300)}${summary.originalText.length > 300 ? '...' : ''}
+Date: ${new Date(summary.date).toLocaleDateString()}
+Language: ${summary.language}`;
+    
+    // Open Canva with the content
+    const canvaUrl = `https://www.canva.com/create/infographics/`;
+    window.open(canvaUrl, '_blank');
+    
+    // Copy content to clipboard for easy pasting
+    navigator.clipboard.writeText(content).then(() => {
+      alert('Content copied to clipboard! You can paste it into Canva.');
+    });
+  };
+
+  const exportToGoogleDocs = (summary) => {
+    // Create Google Docs URL with pre-filled content
+    const content = `${summary.title}
+
+${summary.summary}
+
+Original Text:
+${summary.originalText}
+
+---
+Date: ${new Date(summary.date).toLocaleDateString()}
+Language: ${summary.language}
+Tone: ${summary.tone}`;
+    
+    const docsUrl = `https://docs.google.com/document/create?title=${encodeURIComponent(summary.title)}&body=${encodeURIComponent(content)}`;
+    window.open(docsUrl, '_blank');
+  };
+
+  // Export dropdown state
+  const [showExportMenu, setShowExportMenu] = useState(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showExportMenu && !event.target.closest('.export-dropdown')) {
+        setShowExportMenu(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showExportMenu]);
+
+  // Main export function
+  const exportSummary = (summary, format = 'txt') => {
+    switch (format) {
+      case 'txt':
+        exportAsTXT(summary);
+        break;
+      case 'pdf':
+        exportAsPDF(summary);
+        break;
+      case 'docx':
+        exportAsDOCX(summary);
+        break;
+      case 'canva':
+        exportToCanva(summary);
+        break;
+      case 'googledocs':
+        exportToGoogleDocs(summary);
+        break;
+      default:
+        exportAsTXT(summary);
+    }
+    setShowExportMenu(null);
+  };
+
+  const shareSummary = (summary) => {
+    const shareText = `Check out this summary: ${summary.title}\n\n${summary.summary}`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: summary.title,
+        text: shareText
+      });
+    } else {
+      navigator.clipboard.writeText(shareText);
+      alert('Summary copied to clipboard!');
+    }
+  };
+
+  const filteredSummaries = summaries
+    .filter(summary => 
+      summary.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      summary.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      summary.originalText.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'date':
+          return new Date(b.date) - new Date(a.date);
+        case 'title':
+          return a.title.localeCompare(b.title);
+        case 'language':
+          return a.language.localeCompare(b.language);
+        default:
+          return 0;
+      }
+    });
+
+  return (
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <div className="header-left">
+          <button 
+            className="back-button"
+            onClick={() => navigate('/main')}
+            title="Back to Summarizer"
+          >
+            <span>×</span>
+          </button>
+          <h1 className="dashboard-title">My Summaries</h1>
+          <p className="dashboard-subtitle">Manage your AI-generated summaries</p>
+        </div>
+        
+        <div className="header-right">
+          <div className="user-info">
+            <div className="user-avatar-container">
+              {user?.picture ? (
+                <img 
+                  src={user.picture} 
+                  alt="Profile" 
+                  className="user-avatar"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextElementSibling.style.display = 'flex';
+                  }}
+                />
+              ) : null}
+              <div 
+                className="user-avatar-fallback"
+                style={{ display: user?.picture ? 'none' : 'flex' }}
+              >
+                {user?.name ? user.name.charAt(0).toUpperCase() : user?.email?.charAt(0).toUpperCase() || 'U'}
+              </div>
+            </div>
+            <div className="user-details">
+              <span className="user-name">{user?.name || 'User'}</span>
+              <span className="user-email">{user?.email}</span>
+            </div>
+          </div>
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
+          <button className="delete-account-button" onClick={handleDeleteAccount}>
+            Delete Account
+          </button>
+        </div>
+      </div>
+
+      <div className="dashboard-controls">
+        <div className="controls-left">
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Search summaries..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+          </div>
+          
+          <select 
+            value={sortBy} 
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-select"
+          >
+            <option value="date">Sort by Date</option>
+            <option value="title">Sort by Title</option>
+            <option value="language">Sort by Language</option>
+          </select>
+        </div>
+
+        <div className="controls-right">
+          <button 
+            className="create-new-button"
+            onClick={() => navigate('/main')}
+          >
+            Create New Summary
+          </button>
+          
+          <div className="view-toggle">
+            <button 
+              className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              onClick={() => setViewMode('grid')}
+            >
+              Grid
+            </button>
+            <button 
+              className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+              onClick={() => setViewMode('list')}
+            >
+              List
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="summaries-container">
+        {filteredSummaries.length === 0 ? (
+          <div className="empty-state">
+            <div className="empty-icon">.</div>
+            <h3>No summaries found</h3>
+            <p>
+              {searchTerm ? 'Try adjusting your search terms' : 'Start by creating your first summary'}
+            </p>
+            {!searchTerm && (
+              <button 
+                className="create-first-button"
+                onClick={() => navigate('/main')}
+              >
+                Create Your First Summary
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className={`summaries-grid ${viewMode}`}>
+            {filteredSummaries.map((summary) => (
+              <div key={summary.id} className="summary-card">
+                <div className="summary-header">
+                  <h3 className="summary-title">{summary.title}</h3>
+                  <div className="summary-meta">
+                    <span className="summary-date">{new Date(summary.date).toLocaleDateString()}</span>
+                    <span className="summary-language">{summary.language}</span>
+                    <span className="summary-tone">{summary.tone}</span>
+                  </div>
+                </div>
+                
+                <div className="summary-content">
+                  <p className="summary-text">
+                    {summary.summary.substring(0, 150)}
+                    {summary.summary.length > 150 && '...'}
+                  </p>
+                </div>
+                
+                <div className="summary-stats">
+                  <span className="stat">
+                    <strong>{summary.originalText.length}</strong> chars
+                  </span>
+                  <span className="stat">
+                    <strong>{summary.summary.length}</strong> summary
+                  </span>
+                </div>
+                
+                <div className="summary-actions">
+                  <button 
+                    className="action-btn view-btn"
+                    onClick={() => navigate('/main', { state: { summary } })}
+                  >
+                    View
+                  </button>
+                  <button 
+                    className="action-btn edit-btn"
+                    onClick={() => navigate('/main', { state: { summary, edit: true } })}
+                  >
+                    Edit
+                  </button>
+                  <div className="export-dropdown">
+                    <button 
+                      className="action-btn export-btn"
+                      onClick={() => setShowExportMenu(showExportMenu === summary.id ? null : summary.id)}
+                      title="Export summary in multiple formats"
+                    >
+                      <span className="btn-text">Export</span>
+                      <span className="btn-icon">↓</span>
+                    </button>
+                    {showExportMenu === summary.id && (
+                      <div className="export-menu">
+                        <div className="export-menu-header">Export Options</div>
+                        
+                        <div className="export-section">
+                          <div className="export-section-title">File Formats</div>
+                          <button 
+                            className="export-option"
+                            onClick={() => exportSummary(summary, 'txt')}
+                          >
+                            <div className="export-icon-wrapper">
+                              <span className="export-icon">📄</span>
+                            </div>
+                            <div className="export-content-wrapper">
+                              <div className="export-label">Text File</div>
+                              <div className="export-desc">Plain text format</div>
+                            </div>
+                          </button>
+                          <button 
+                            className="export-option"
+                            onClick={() => exportSummary(summary, 'pdf')}
+                          >
+                            <div className="export-icon-wrapper">
+                              <span className="export-icon">📋</span>
+                            </div>
+                            <div className="export-content-wrapper">
+                              <div className="export-label">PDF Document</div>
+                              <div className="export-desc">Print-ready format</div>
+                            </div>
+                          </button>
+                          <button 
+                            className="export-option"
+                            onClick={() => exportSummary(summary, 'docx')}
+                          >
+                            <div className="export-icon-wrapper">
+                              <span className="export-icon">📝</span>
+                            </div>
+                            <div className="export-content-wrapper">
+                              <div className="export-label">Word Document</div>
+                              <div className="export-desc">Microsoft Word compatible</div>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <button 
+                    className="action-btn share-btn"
+                    onClick={() => shareSummary(summary)}
+                  >
+                    Share
+                  </button>
+                  <button 
+                    className="action-btn delete-btn"
+                    onClick={() => deleteSummary(summary.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Add CSS styles for export dropdown and back button
+const style = document.createElement('style');
+style.textContent = `
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .back-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #e11d48;
+    background: transparent;
+    color: #e11d48;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+  
+  .back-button:hover {
+    background: #e11d48;
+    color: white;
+    transform: scale(1.1);
+  }
+  
+  .dashboard-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #18080e;
+  }
+  
+  .dashboard-subtitle {
+    margin: 0;
+    font-size: 14px;
+    color: #b05070;
+    margin-top: 4px;
+  }
+  
+  .user-avatar-container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+  }
+  
+  .user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e11d48;
+  }
+  
+  .user-avatar-fallback {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e11d48, #be123c);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    border: 3px solid #e11d48;
+    cursor: default;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-name {
+    font-weight: 600;
+    color: #18080e;
+    font-size: 16px;
+  }
+  
+  .user-email {
+    font-size: 14px;
+    color: #b05070;
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Export Dropdown Styles */
+  .export-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .export-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 300px;
+    max-width: 350px;
+    margin-top: 12px;
+    overflow: hidden;
+    animation: slideIn 0.2s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .export-menu-header {
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #e11d48, #be123c);
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .export-section {
+    padding: 8px 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .export-section:last-child {
+    border-bottom: none;
+  }
+
+  .export-section-title {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #f9fafb;
+  }
+
+  .export-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    gap: 16px;
+    text-align: left;
+    border-radius: 8px;
+  }
+
+  .export-btn {
+    background: linear-gradient(135deg, #e11d48, #be123c);
+    color: white;
+    position: relative;
+  }
+
+  .export-btn:hover {
+    background: linear-gradient(135deg, #be123c, #991b1b);
+    transform: translateY(-1px);
+  }
+
+  .btn-text {
+    font-weight: 600;
+  }
+
+  .btn-icon {
+    font-size: 12px;
+    margin-left: 4px;
+  }
+
+  .export-option:hover {
+    background: #f8fafc;
+    transform: translateX(4px);
+    border: 1px solid #e11d48;
+  }
+
+  .export-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #e11d48, #be123c);
+    border-radius: 12px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(225, 29, 72, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .export-icon-wrapper:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
+  }
+
+  .export-option:hover {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f5);
+    transform: translateX(8px);
+    border: 1px solid #e11d48;
+    box-shadow: 0 6px 16px rgba(225, 29, 72, 0.2);
+  }
+
+  .export-option:active {
+    background: linear-gradient(135deg, #e11d48, #be123c);
+    transform: translateX(2px);
+    box-shadow: 0 2px 8px rgba(225, 29, 72, 0.3);
+  }
+
+  .export-icon {
+    font-size: 24px;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  .export-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .export-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+
+  .export-desc {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 400;
+    line-height: 1.3;
+    opacity: 0.8;
+  }
+
+  /* Mobile responsive export menu */
+  @media (max-width: 480px) {
+    .export-menu {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 95%;
+      max-width: 95%;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .export-option {
+      padding: 14px 16px;
+    }
+
+    .export-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 14px;
+    }
+
+    .export-label {
+      font-size: 16px;
+    }
+  }
+`;
+document.head.appendChild(style);
