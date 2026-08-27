@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Training Registration Portal</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/fw/css/all.css" />
+
+    <style>
+      body { background: #f0f0f0 !important; }
+      .curved-bottom {
+        border-bottom-left-radius: 50% 40%;
+        border-bottom-right-radius: 50% 40%;
+        background: indigo;
+        color: white; text-align: center; padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="curved-bottom">
+      <h4>TechMehfil</h4>
+      <small>A solution for all your tech needs</small>
+    </div>
+    <br /><br />
+
+    <div class="card container" style="max-width: 600px; padding: 30px;">
+      
+      <!-- ================= LOGIN FORM ================= -->
+      <div id="loginForm">
+        <h4 class="text-center">🔐 Login</h4>
+        <div class="text-center mb-3">
+          <small class="text-muted">
+            Don’t have an account? <a href="#" id="switchToRegister">Register</a>
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>User Name</label>
+          <input type="text" id="loginUsername" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" class="form-control" required />
+        </div>
+        <button class="btn btn-primary btn-block" onclick="login()">Login</button>
+        <p id="loginMessage" class="text-center mt-2"></p>
+      </div>
+
+      <!-- ================= REGISTER FORM ================= -->
+      <div id="registerForm" style="display:none;">
+        <h4 class="text-center">📝 Register</h4>
+        <div class="text-center mb-3">
+          <small class="text-muted">
+            Already have an account? <a href="#" id="switchToLogin">Login</a>
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>User Name</label>
+          <input type="text" id="regUsername" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="regPassword" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="regEmail" class="form-control" required />
+        </div>
+        <!-- 👈 Added Phone Field Here -->
+        <div class="form-group">
+          <label>WhatsApp Number (with +91)</label>
+          <input type="tel" id="regPhone" class="form-control" placeholder="For eg, +919876543210" required />
+        </div>
+        
+        <button class="btn btn-success btn-block" onclick="register()">Register</button>
+        <p id="registerMessage" class="text-center mt-2"></p>
+      </div>
+
+    </div>
+
+  <script>
+  // Switch to Register
+  document.getElementById("switchToRegister").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("registerForm").style.display = "block";
+    document.getElementById("loginMessage").textContent = ""; 
+  });
+
+  // Switch to Login
+  document.getElementById("switchToLogin").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("registerForm").style.display = "none";
+    document.getElementById("loginForm").style.display = "block";
+    document.getElementById("registerMessage").textContent = ""; 
+  });
+
+  // Register new user
+  function register() {
+    const username = document.getElementById("regUsername").value.trim();
+    const password = document.getElementById("regPassword").value.trim();
+    const email = document.getElementById("regEmail").value.trim();
+    const phone = document.getElementById("regPhone").value.trim(); // 👈 Grab Phone value
+
+    const msg = document.getElementById("registerMessage");
+
+    if (!username || !password || !email || !phone) {
+      msg.style.color = "red";
+      msg.textContent = "❌ Please fill all fields.";
+      return;
+    }
+
+    fetch("http://localhost:5000/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password, email, phone }) // 👈 Send phone to Flask
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        msg.style.color = "green";
+        msg.textContent = "✅ Registration successful! Redirecting...";
+        setTimeout(() => {
+          window.location.href = `streamlit_redirect.html?user=${encodeURIComponent(username)}`;
+        }, 1000);
+      } else {
+        msg.style.color = "red";
+        msg.textContent = data.message;
+      }
+    })
+    .catch(() => {
+      msg.style.color = "red";
+      msg.textContent = "❌ Could not connect to server.";
+    });
+  }
+
+  // Login function
+  function login() {
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+    const msg = document.getElementById("loginMessage");
+
+    if (!username || !password) {
+      msg.style.color = "red";
+      msg.textContent = "❌ Please enter both fields.";
+      return;
+    }
+
+    fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        msg.style.color = "green";
+        msg.textContent = "✅ Login successful! Redirecting...";
+        setTimeout(() => {
+          window.location.href = `streamlit_redirect.html?user=${encodeURIComponent(username)}`;
+        }, 1000);
+      } else {
+        msg.style.color = "red";
+        msg.textContent = "❌ " + data.message;
+      }
+    })
+    .catch(() => {
+      msg.style.color = "red";
+      msg.textContent = "❌ Could not connect to server.";
+    });
+  }
+</script>
+  </body>
+</html>

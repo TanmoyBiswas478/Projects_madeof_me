@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting to Dashboard...</title>
+</head>
+<body>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const user = params.get("user");
+
+    if (!user) {
+      alert("You must log in first!");
+      window.location.href = "index.html";
+    } else {
+      // ✅ Redirect to Streamlit app with username in URL
+      window.location.href = `http://localhost:8501/?user=${encodeURIComponent(user)}`;
+    }
+  </script>
+</body>
+</html>

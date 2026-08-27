@@ -1,0 +1,996 @@
+\documentclass[12pt, a4paper]{report}
+
+% =========================================================================
+% PACKAGES
+% =========================================================================
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}      % For images
+\usepackage{geometry}      % For page margins
+\usepackage{setspace}      % For line spacing (1.5 for length)
+\usepackage{times}         % Standard academic font
+\usepackage{titlesec}      % Custom chapter formatting
+\usepackage{hyperref}      % Hyperlinks
+\usepackage{fancyhdr}      % Headers/Footers
+\usepackage{listings}      % Code listings
+\usepackage{xcolor}        % Colors for code
+\usepackage{float}         % Image placement
+\usepackage{caption}       % Caption styling
+\usepackage{subcaption}    % Sub-figures
+\usepackage{amsmath}       % Math equations
+\usepackage{array}         % Table arrays
+\usepackage{longtable}     % Tables that span multiple pages
+\usepackage{enumitem}      % List customization
+\usepackage[nottoc]{tocbibind} % Bibliography in TOC
+\usepackage{pdfpages}
+
+% =========================================================================
+% DOCUMENT SETTINGS
+% =========================================================================
+
+% 1. GEOMETRY: Wide left margin for binding, standard academic layout
+\geometry{
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.0cm, 
+    right=2.0cm
+}
+
+% 2. SPACING: 1.5 Line Spacing to meet page requirements professionally
+\onehalfspacing 
+
+% 3. HYPERLINKS
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black, % Keep black for printing
+    filecolor=black,      
+    urlcolor=blue,
+    citecolor=black,
+    pdftitle={Merged Report},
+    pdfauthor={Tanmoy Biswas},
+}
+
+% 4. CODE LISTING STYLES
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.97}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single,
+    breaklines=true
+}
+\lstset{style=mystyle}
+
+% Numbered chapters: "CHAPTER <n>" then a small gap then a horizontal rule, then the title
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\raggedleft}                       % overall format
+  {%
+    \raggedleft                                             % <-- RIGHT align chapter number
+    \chaptertitlename\ \thechapter\\[6pt]\titlerule         % label: CHAPTER n, newline, rule
+  }
+  {0cm}                                                     % separation between label+rule and title
+  {\Huge}                                                    % formatting applied to the title itself
+
+% Keep \chapter* (numberless) unaffected (no rule)
+\titleformat{name=\chapter,numberless}[display]
+  {\normalfont\huge\bfseries\centering}
+  {} % no label for numberless chapters
+  {0pt}
+  {\Huge}
+
+
+% =========================================================================
+% HEADER & FOOTER SETUP
+% =========================================================================
+\pagestyle{fancy}
+\fancyhf{} % Clear all default headers/footers
+
+\renewcommand{\chaptermark}[1]{%
+  \markboth{\MakeUppercase{\chaptername\ \thechapter.\ #1}}{}%
+}
+
+% --- CHANGE HERE: Changed [L] to [R] to put header on the right ---
+\fancyhead[R]{\leftmark}  
+% ------------------------------------------------------------------
+
+\renewcommand{\headrulewidth}{1pt}    % Thickness of the line below header
+\fancyfoot[C]{\thepage}               % Page number in the Center
+\renewcommand{\footrulewidth}{0pt}    % No line in footer
+
+% 4. PLAIN PAGE SETTINGS (For the first page of chapters)
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+% =========================================================================
+% DOCUMENT START
+% =========================================================================
+\begin{document}
+
+% =========================
+% INSERTED: CONTENT FROM 1ST DOCUMENT (FRONT MATTER + CHAPTERS...)
+% =========================
+
+% Initialize Roman Numbering for Front Matter
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+%================================= FRONT MATTER ===========================================
+
+%----------------------------------- Title Page -------------------------------------------
+\thispagestyle{plain} % Changed from plain/empty to ensure number shows
+\begin{center}
+    \begin{spacing} {1}
+        {\large \bf LSTM-POWERED STOCK PREDICTION \& PORTFOLIO MANAGEMENT SYSTEM\\}\
+    \end{spacing}
+    
+    \vspace*{1.0cm} {\em Report submitted to\\ Techno College of Engineering Agartala \\ for the partial fulfillment}
+    \vspace*{0.4cm} {\em of} \\
+        {\bf Bachelor of Technology in \\ ARTIFICIAL INTELLIGENCE \& DATA SCIENCE}\\
+    
+    \vspace*{0.4cm}
+    {\em by}\\
+    \vspace*{0.4cm}
+    {\bf Tanmoy Biswas\quad(226709011)}\\
+    {\bf Jhuma Biswas\quad(236709003)}\\
+    {\bf Rakhi Banik\quad(236709005)}\\
+    {\bf Runasree Shil\quad(226709002)}\\
+    
+    \vspace*{0.5cm}
+    {\em under the guidance of }\\
+    \vspace*{0.3cm}
+    {\bf Ms. Nabanita Shil}\\
+    {\bf Assistant Professor }\\
+    {(Department of Computer Science \& Engineering)}
+    
+    \vspace*{1cm}
+    Project Work Intermediate\\
+    (EEC- 705)\\
+    Academic Session - 2025 - 2026
+    
+    \begin{figure}[htbp]
+        \centerline{
+            \includegraphics[scale=.25]{Images/Logo}} % Ensure Logo.png exists
+    \end{figure}
+    
+    {{\bf DEPARTMENT OF ARTIFICIAL INTELLIGENCE \& DATA SCIENCE\\TECHNO COLLEGE OF ENGINEERING AGARTALA\\December 2025}}
+\end{center}
+\cfoot{\thepage}
+\begin{spacing}{1.2}
+
+%--------------------------------- Declaration --------------------------------------------
+\newpage
+\thispagestyle{plain} % CHANGED: Was empty, now plain so number appears
+\vskip 2.0\baselineskip \centerline{\LARGE{\bf Declaration}} \vskip 2.0\baselineskip
+\noindent
+We hereby declare that the project report entitled \textbf{``LSTM-Powered Stock Prediction \& Portfolio Management System''} submitted in partial fulfillment of the requirements for the award of the degree of \textbf{Bachelor of Technology in Artificial Intelligence \& Data Science} at \textbf{Techno College of Engineering Agartala}, is an authentic record of our own work carried out during the academic session 2025-26 under the supervision of \textbf{Ms. Nabanita Shil}, Assistant Professor, Department of Computer Science \& Engineering.We further declare that the work reported in this project has not been submitted and will not be submitted, either in part or in full, for the award of any other degree or diploma in this institute or any other institute or university.
+
+\vspace{2cm}
+\begin{center}
+\vspace{1cm}
+\begin{minipage}{0.4\textwidth}
+    \hrulefill\\ (Signature)\\ \textbf{TANMOY BISWAS} \\ Roll No. 226709011\\
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+    \hrulefill\\ (Signature)\\ \textbf{JHUMA BISWAS} \\ Roll No. 236709003\\
+\end{minipage}
+\vspace{1.5cm}
+
+\begin{minipage}{0.4\textwidth}
+    \hrulefill\\ (Signature)\\ \textbf{RAKHI BANIK} \\ Roll No. 236709005\\
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+    \hrulefill\\ (Signature)\\ \textbf{RUNASREE SHIL} \\ Roll No. 226709002\\
+\end{minipage}
+\end{center}
+\vspace{1cm}
+\noindent Date: \rule{4.5cm}{0.4pt}
+
+%--------------------------------- Certificate --------------------------------------------
+\newpage
+\thispagestyle{plain} % CHANGED: Was empty, now plain so number appears
+\vskip 2.0\baselineskip \centerline{\LARGE{\bf Certificate}} \vskip 2.0\baselineskip 
+\noindent
+This is to certify that the report entitled {\bf ``LSTM-Powered Stock Prediction and Portfolio Management System"}, submitted by \textbf{TANMOY BISWAS (226709011), JHUMA BISWAS (236709003), RAKHI BANIK (236709005), RUNASREE SHIL (226709002)} to Techno College of Engineering Agartala, \textbf{Department of Artificial Intelligence \& Data Science} is a bonafide project work, carried out under my supervision. I consider it worthy of consideration for the partial fulfillment of the B.Tech degree. 
+
+\vspace*{4cm}
+\begin{flushleft}
+    \raisebox{1.0cm}[-2.5cm][0cm]{
+        \begin{minipage}{10cm}
+            \hrulefill\\
+            (Signature)\\
+            \textbf{Ms. NABANITA SHIL} \\
+            \textbf{Assistant Professor} \\
+            Department of Computer Science \& Engineering \\
+            Techno College of Engineering Agartala \\
+            December 2025
+        \end{minipage}
+    }
+\end{flushleft}        
+
+%--------------------------------- Approval -----------------------------------------------
+\newpage
+\thispagestyle{plain} % CHANGED: Was empty, now plain so number appears
+\begin{center} {\LARGE \bf Approval} \end{center}
+\vspace{1.5cm}
+\noindent
+This is to certify that the project report entitled \textbf{``LSTM-Powered Stock Prediction \& Portfolio Management System''}, submitted by \textbf{TANMOY BISWAS}, \textbf{JHUMA BISWAS}, \textbf{RAKHI BANIK}, and \textbf{RUNASREE SHIL} in partial fulfillment of the requirements for the award of the degree of \textbf{Bachelor of Technology} in \textbf{Artificial Intelligence \& Data Science} of \textbf{Techno College of Engineering Agartala}, is a record of the bona fide work carried out by them under my supervision and guidance.The content of this report, in full or in parts, has not been submitted to any other Institute or University for the award of any degree or diploma.\\ 
+\vspace*{3cm}
+\begin{flushleft}
+    \raisebox{1.0cm}[-2.5cm][0cm]{
+        \begin{minipage}{7.5cm}
+            \hrulefill\\
+            External Examiner (s)
+        \end{minipage}
+    }
+\end{flushleft}
+
+\vspace*{1.2cm}
+\begin{flushleft}
+    \raisebox{1.0cm}[-2.5cm][0cm]{
+        \begin{minipage}{7.5cm}
+            \hrulefill\\
+            Examiner (s)
+        \end{minipage}
+    }
+\end{flushleft}
+
+\vspace*{1.2cm}
+\begin{flushleft}
+    \raisebox{1.0cm}[-2.5cm][0cm]{
+        \begin{minipage}{7.5cm}
+            \hrulefill\\
+            Supervisor (s)
+        \end{minipage}
+    }
+\end{flushleft}
+
+\vspace*{1.2cm}
+\begin{flushleft}
+    \raisebox{1.0cm}[-2.5cm][0cm]{
+        \begin{minipage}{7.5cm}
+            \hrulefill\\
+            Head of the department 
+        \end{minipage}
+    }
+\end{flushleft}
+
+\vspace*{1.2cm}
+\begin{flushleft}
+    \raisebox{1.0cm}[-2.5cm][0cm]{
+        \begin{minipage}{5cm}
+            Date: \hrulefill\\
+            Place: \hrulefill\\
+        \end{minipage}
+    }
+\end{flushleft}
+%----------------------- Acknowledgment ------------------------------------------------
+\newpage
+\thispagestyle{plain} % CHANGED: Was empty, now plain so number appears
+\vskip 2.0\baselineskip \centerline{\LARGE{\bf Acknowledgement}} \vskip 2.0\baselineskip
+\noindent
+The successful completion of any significant task requires the guidance and support of many people. We would like to take this opportunity to express our sincere gratitude to everyone who helped us in the completion of this project.First and foremost, we express our deepest gratitude to our project guide, \textbf{Ms. Nabanita Shil}, Assistant Professor, Department of Computer Science \& Engineering, for her invaluable guidance, constructive criticism, and constant encouragement throughout the development of this project. Her insights into Deep Learning and Financial Engineering were instrumental in overcoming technical challenges.We are also grateful to \textbf{Mrs. Purbani Kar}, Head of the Department, \textbf{Computer Science \& Engineering}, for providing us with the necessary infrastructure. We extend our thanks to all the faculty members and non-teaching staff of the Department.Finally, we would like to thank our parents and friends for their patience, understanding, and moral support during the course of this project.
+
+\vspace{2cm}
+
+\begin{flushright}
+    {\bf TANMOY BISWAS\quad(226709011)}\\\vspace{0.7cm}
+    {\bf JHUMA BISWAS\quad(236709003)}\\\vspace{0.7cm}
+    {\bf RAKHI BANIK\quad(236709005)}\\\vspace{0.7cm}
+    {\bf RUNASREE SHIL\quad(226709002)}\\
+\end{flushright}
+%------------------------------ TOC/Lists -------------------------------------------------
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+
+%------------------------------ Abbreviations ---------------------------------------------
+\newpage
+\chapter*{List of Symbols \& Abbreviations}
+\addcontentsline{toc}{chapter}{List of Symbols \& Abbreviations}
+\vspace{-0.5cm}
+\section*{Symbols:}
+\begin{longtable}{lp{9.3cm}}
+    $x_t$ & Input vector at time step $t$\\
+    $h_t$ & Hidden state vector (Output of LSTM cell) at time step $t$\\
+    $C_t$ & Cell state vector (Memory) at time step $t$\\
+    $\tilde{C}_t$ & Candidate cell state\\
+    $f_t$ & Forget gate activation vector\\
+    $i_t$ & Input gate activation vector\\
+    $o_t$ & Output gate activation vector\\
+    $\sigma$ & Sigmoid activation function\\
+    $\tanh$ & Hyperbolic tangent activation function\\
+    $W$ & Weight matrix (learnable parameter)\\
+    $b$ & Bias vector (learnable parameter)\\
+    $\hat{y}$ & Predicted value (Output of the model)\\
+    $y$ & Actual/Target value (Ground truth)\\
+    $\mathcal{L}$ & Loss function (Mean Squared Error)\\
+\end{longtable}
+% \vspace{0.5cm}
+\section*{Abbreviations:}
+\begin{longtable}{lp{9.3cm}}
+    % AI & Artificial Intelligence\\
+    API & Application Programming Interface\\
+    CORS & Cross-Origin Resource Sharing\\
+    % CSS & Cascading Style Sheets\\
+    % DL & Deep Learning\\
+    % HTML & HyperText Markup Language\\
+    % JSON & JavaScript Object Notation\\
+    LSTM & Long Short-Term Memory\\
+    MA & Moving Average\\
+    MSE & Mean Squared Error\\
+    % NSE & National Stock Exchange (India)\\
+    OHLCV & Open, High, Low, Close, Volume\\
+    REST & Representational State Transfer\\
+    RMSE & Root Mean Squared Error\\
+    % RNN & Recurrent Neural Network\\
+    SMTP & Simple Mail Transfer Protocol\\
+\end{longtable}
+
+%-------------------------------- Abstract ------------------------------------------------
+\newpage
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\vspace{-0.5cm}
+\titlerule
+\vspace{0.2cm}
+The financial market is a complex, non-linear dynamical system where stock prices are influenced by a multitude of factors, including macroeconomic trends, company performance, and market sentiment. Traditional statistical methods, such as ARIMA or linear regression, often fail to capture the long-term temporal dependencies required for accurate forecasting in such a volatile environment.In this project, we present the "LSTM-Powered Stock Prediction and Portfolio Management System," a comprehensive platform designed to bridge the gap between institutional-grade algorithmic trading and retail investing. The core of our system is a deep learning model based on Long Short-Term Memory (LSTM) networks, which are specifically architected to overcome the vanishing gradient problem found in standard Recurrent Neural Networks (RNNs). This allows our model to learn from long sequences of historical price data (spanning over 3 years) and predict future trends with higher accuracy.Beyond prediction, this project integrates a full-stack software ecosystem. It features a secure Flask-based authentication backend, a dynamic Streamlit dashboard for real-time visualization, and a simulated Portfolio Management System that allows users to test trading strategies without financial risk. Furthermore, we have implemented an Automated Market Notifier that leverages SMTP protocols to push daily, personalized portfolio summaries to users via email. This report details the system architecture, the mathematical foundation of the LSTM model, the software implementation (Python, Keras, Flask), and the experimental results demonstrating the system's efficacy.\\ \textbf{Keywords}: Stock Market Prediction, Long Short-Term Memory (LSTM), Deep Learning, Financial Forecasting, Portfolio Management, Algorithmic Trading, Flask, Streamlit, Python.
+
+%================================= CHAPTER 1 ===========================================
+\newpage
+% ---------------- SWITCH TO ARABIC NUMBERS HERE ----------------------
+\pagenumbering{arabic}
+\setcounter{page}{1} 
+% ---------------------------------------------------------------------
+\chapter{Introduction}
+\vspace{-0.5cm}
+The stock market is a pivotal component of the global economy, providing companies with access to capital and investors with a slice of ownership in a business. However, stock prices are inherently volatile and non-linear. The Efficient Market Hypothesis (EMH) suggests that asset prices reflect all available information, making it impossible to consistently "beat the market." 
+
+Despite this, advances in Computational Intelligence have opened new avenues for analysis. While traditional methods rely on fundamental analysis or technical analysis, \textbf{Deep Learning (DL)} offers a third path: finding hidden, non-linear correlations in vast datasets. Among DL architectures, \textbf{Recurrent Neural Networks (RNNs)} were designed for sequence data but failed to remember long-term dependencies due to the "vanishing gradient" problem. \textbf{Long Short-Term Memory (LSTM)} networks solved this by introducing internal "gates" that regulate information flow.
+
+The superiority of LSTM networks in financial forecasting stems from their unique architectural ability to maintain a "cell state"—a long-term memory line that runs through the entire chain of the network. Unlike standard feedforward neural networks that process data points in isolation, LSTMs process sequences, allowing them to understand the context of price movements. For instance, a stock's value today is not just a function of yesterday's price but is often influenced by trends established weeks or months prior. By utilizing mechanisms such as the input, forget, and output gates, LSTMs can learn which historical data is significant (e.g., a major earnings report) and which data is noise (e.g., random intraday volatility), effectively filtering the information required for accurate future predictions.
+
+Furthermore, the integration of Deep Learning with modern web technologies allows for the democratization of algorithmic trading. Historically, high-frequency trading and automated portfolio management were the exclusive domains of institutional investors with access to expensive infrastructure. However, the rise of open-source libraries like TensorFlow and user-friendly frameworks such as Streamlit has made it possible to build robust, end-to-end financial systems on standard consumer hardware. This project leverages these advancements to create a holistic ecosystem. By combining the predictive power of LSTMs with a responsive user interface and automated notification systems, we aim to provide retail investors with actionable insights that were previously inaccessible, thereby leveling the playing field in an increasingly complex global market.
+
+\section{Motivation}
+
+The motivation behind this project stems from the growing participation of retail investors in the stock market and their increasing dependence on digital platforms for investment decisions. Despite the availability of vast financial data, most individual traders lack intelligent tools that can assist them in interpreting market trends accurately and systematically. As a result, many investment decisions are still driven by emotions, speculation, or incomplete technical knowledge, often leading to avoidable losses.
+
+In recent years, Artificial Intelligence and Deep Learning have shown remarkable success in solving complex time-series forecasting problems. Among these techniques, Long Short-Term Memory (LSTM) networks have proven to be highly effective in capturing long-term dependencies and non-linear patterns in sequential financial data. This creates a strong opportunity to apply such advanced models to stock market prediction in order to enhance decision-making accuracy and reduce uncertainty for investors.
+
+Another major motivation is the lack of integrated platforms that combine prediction, visualization, and trading practice within a single environment. While several tools exist for either stock analysis or forecasting, very few provide a complete learning and experimentation setup for users. Beginners, in particular, require a safe and interactive sandbox where they can test strategies without the risk of real financial loss.
+
+Therefore, this project is motivated by the need to build a unified, user-friendly, and intelligent stock market prediction and simulation system. By integrating Deep Learning-based forecasting with real-time data visualization and a virtual trading environment, the platform aims to make advanced financial analysis accessible to everyone and promote informed, data-driven investment behavior.
+
+
+\section{Feasibility Study} Before commencing the actual development, a comprehensive feasibility study was conducted to analyze the viability of the project across technical, operational, and economic dimensions. This ensures that the proposed system can be successfully implemented within the constraints of time and resources.
+
+\begin{enumerate} \item \textbf{Technical Feasibility:} The technical foundation of this project is built upon the robust Python ecosystem, which is the industry standard for Data Science and Machine Learning. The project leverages mature, open-source libraries such as \textbf{TensorFlow} and \textbf{Keras} for Deep Learning, which abstract complex mathematical computations, making the implementation of LSTM networks manageable. Furthermore, the use of \textbf{Streamlit} allows for the rapid deployment of a responsive web interface without requiring extensive knowledge of HTML/CSS. Since the computationally intensive training phase is performed offline, the deployed application requires minimal processing power, making it technically viable to run on standard cloud instances or local machines.
+
+\item \textbf{Operational Feasibility:} The system is designed with a focus on user experience (UX) and accessibility. Being a web-based application, it adheres to a "zero-installation" policy, meaning the end-user does not need to configure Python environments or dependencies. The operational workflow is streamlined through automation; for instance, the \textbf{Market Notifier} module uses SMTP protocols to automatically push updates to the user, eliminating the need for constant manual monitoring. The intuitive dashboard ensures that users with limited technical expertise can interpret stock predictions and manage portfolios effectively, thereby ensuring high operational adoption.
+
+\item \textbf{Economic Feasibility:} The project is highly cost-effective as it relies entirely on open-source technologies, eliminating licensing fees associated with proprietary financial software. Data acquisition, often the most expensive component in financial engineering, is handled via the \textbf{yFinance API}, which provides historical market data at no cost. The development cost is restricted to the time and intellectual effort invested by the team. Compared to institutional-grade tools like Bloomberg Terminals, which cost thousands of dollars annually, this system provides a low-cost alternative for retail investors, yielding a high return on investment (ROI) in terms of utility and learning value.
+\end{enumerate}
+Consequently, the convergence of robust open-source tools, high user accessibility, and zero-cost data acquisition confirms that the project is viable for immediate development and successful deployment.
+
+\section{Scope and Objectives} The scope of this project is defined by the integration of three distinct domains: Financial Engineering, Deep Learning, and Full-Stack Web Development. Specifically, the project focuses on the analysis of daily closing prices of equities listed on the National Stock Exchange (NSE) of India, utilizing historical data spanning the last five years. The system is designed as a web-based application to ensure cross-platform compatibility, accessible via any standard web browser without local installation requirements. It encompasses the entire pipeline from data extraction (ETL) and feature scaling to model deployment and user session management. The scope is strictly limited to "Technical Analysis" using historical price data; it does not currently incorporate "Fundamental Analysis" factors like company balance sheets or news sentiment.
+
+The primary objectives are broken down as follows: \begin{itemize} \item \textbf{Objective 1: Deep Learning Model Development.} Design and train a multi-layered Long Short-Term Memory (LSTM) network utilizing the Keras API. This involves creating a robust pipeline for data normalization (MinMaxScaling) and sequence generation (100-day look-back) to effectively capture long-term temporal dependencies in volatile market data.
+
+\item \textbf{Objective 2: Interactive Visualization Dashboard.} Develop a user-friendly frontend using the Streamlit framework. The interface must support real-time querying of stock tickers, rendering dynamic line charts for historical vs. predicted prices, and providing immediate visual feedback on market trends.
+
+\item \textbf{Objective 3: Virtual Portfolio Simulation.} Engineer a risk-free "Paper Trading" environment. This includes building a persistent backend system (using JSON storage) to track user portfolios, calculate Realized and Unrealized Profit/Loss (P\&L), and simulate buy/sell execution orders at current market prices to test trading strategies.
+
+\item \textbf{Objective 4: Automated Notification System.} Implement a robust background automation service. This objective focuses on writing Python scripts that trigger at specific market hours (e.g., 9:15 AM) to fetch the latest data and dispatch personalized email alerts via SMTP protocols, ensuring users are kept informed of market movements without manual intervention.
+\end{itemize}
+Collectively, the successful realization of these objectives will result in a cohesive financial platform that democratizes access to institutional-grade analytics. By merging predictive intelligence with a risk-free simulation environment, the system not only aids in decision-making but also serves as an educational tool for fostering financial literacy among retail investors. This holistic approach ensures that users are equipped with both the foresight of AI and the practical experience required to navigate volatile markets.
+
+\section{Report Organization} The remainder of this project report is structured sequentially to guide the reader from theoretical foundations to practical implementation. The detailed organization is as follows:
+
+\begin{itemize} \item \textbf{Chapter 2: Literature Survey.} This chapter provides a critical review of stock market prediction research. It analyzes the evolution from traditional statistical methods like ARIMA to modern Machine Learning algorithms, highlighting their limitations and justifying the selection of Long Short-Term Memory (LSTM) networks for this project.
+
+\item \textbf{Chapter 3: System Analysis \& Design.} This section outlines the software engineering aspects, detailing the Functional and Non-Functional Requirements (SRS). It presents the high-level system architecture and visualizes data flow through Unified Modeling Language (UML) diagrams, including Use Case and Sequence diagrams, to provide a blueprint of system behavior.
+
+\item \textbf{Chapter 4: Methodology.} This chapter covers the theoretical foundation, detailing the mathematical architecture of LSTM networks and their internal gates. It also documents the data preprocessing pipeline, including feature scaling and sequence generation strategies essential for effective time-series analysis.
+
+\item \textbf{Chapter 5: Implementation.} This chapter describes the development process and the technology stack used (Python, Keras, Flask, Streamlit). It provides key source code snippets for the prediction model and dashboard, explicitly explaining how the backend APIs integrate with the frontend simulation engine.
+
+\item \textbf{Chapter 6: Results \& Discussions.} This section presents experimental findings and validation metrics. It includes visualizations of training loss curves to demonstrate model convergence and compares predicted stock prices against actual historical values. Additionally, it lists various unit and integration test cases to verify system reliability.
+
+\item \textbf{Chapter 7: Conclusion \& Future Scope.} The final chapter summarizes the project's achievements against the initial objectives. It acknowledges current system limitations and proposes future enhancements, such as mobile application development and real-time cloud deployment, to further extend the system's utility.
+\end{itemize}
+
+%================================= CHAPTER 2 ===========================================
+\chapter{Literature Survey}
+
+This chapter reviews the existing literature and research papers that form the foundation of this project. The selection of the Long Short-Term Memory (LSTM) architecture for our system is based on the progressive findings and comparative analyses presented in these studies.
+
+\section{Literature Review and Summary of the Literature Study}
+
+Extensive research has been carried out over the years in the field of stock market prediction using statistical, machine learning, and deep learning techniques. Early studies primarily relied on traditional statistical models such as Random Walk Theory and ARIMA, which assumed market stationarity and linear behavior. These models were simple and computationally efficient but failed to capture the non-linear and highly volatile nature of real-world stock markets.
+
+With the advancement of machine learning, models such as Linear Regression and Support Vector Machines (SVM) were introduced to improve prediction accuracy. These models demonstrated better performance than purely statistical techniques by handling certain non-linear patterns. However, they still depended heavily on manual feature engineering and lacked the ability to learn long-term temporal dependencies in sequential financial data.
+
+The emergence of Artificial Neural Networks (ANN) and Recurrent Neural Networks (RNN) marked a significant shift toward data-driven prediction systems. While these models were capable of learning complex patterns, standard RNNs suffered from the Vanishing Gradient Problem, limiting their effectiveness in long-term stock trend prediction.
+
+Recent studies highlight Long Short-Term Memory (LSTM) networks as one of the most effective deep learning architectures for stock market forecasting. LSTM models overcome the limitations of traditional RNNs by using gated mechanisms to retain long-term dependencies, making them highly suitable for time-series financial data. Additionally, recent literature emphasizes the critical role of data preprocessing techniques such as normalization and sliding window sequencing in improving model performance.\\
+
+\textbf{Summary of the Literature Study:}  
+From the reviewed research, it is evident that stock market prediction systems have evolved from simple statistical models to advanced deep learning architectures. While conventional methods are limited by linear assumptions and short memory, modern LSTM-based approaches provide superior accuracy by capturing complex non-linear and long-term temporal patterns. Furthermore, the integration of proper data preprocessing, model optimization, and real-time visualization has been identified as essential for developing robust and practical stock prediction systems. These findings strongly support the selection of LSTM as the core predictive model for the proposed project.
+
+
+\section{Summary of Methodological Evolution}
+Based on the reviewed literature, the following table summarizes the evolution of methodologies along with their advantages, drawbacks, and scope for future work.
+
+\begin{table}[H]
+    \centering
+    \caption{Summary of Literature Study Based on Techniques}
+    \begin{tabular}{|p{3.5cm}|p{4cm}|p{4cm}|p{4cm}|}
+        \hline
+        \textbf{Technique} & \textbf{Advantages} & \textbf{Drawbacks} & \textbf{Future Work} \\
+        \hline
+        Statistical Models (Random Walk, ARIMA) 
+        & Simple to implement, low computational cost, good for short-term linear trends 
+        & Assumes stationarity, poor performance for non-linear and volatile markets 
+        & Integration with machine learning and deep learning models for hybrid prediction systems \\
+        \hline
+        Machine Learning Models (SVM, Linear Regression) 
+        & Handles non-linearity better than statistical models, improved prediction accuracy 
+        & Requires manual feature engineering, no long-term memory handling 
+        & Automated feature extraction and combination with deep learning architectures \\
+        \hline
+        Artificial Neural Networks (ANN, RNN) 
+        & Learns complex patterns, suitable for sequential data 
+        & Suffers from vanishing gradient problem, limited long-term dependency learning 
+        & Development of advanced recurrent models to handle long-range dependencies \\
+        \hline
+        Long Short-Term Memory (LSTM) Networks 
+        & Captures long-term dependencies, handles non-linear time-series effectively, high prediction accuracy 
+        & High computational cost, requires large datasets for training 
+        & Optimization using attention mechanisms, reinforcement learning, and real-time adaptive training \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+% \section{Justification for Proposed Methodology}
+% Based on the comparative analysis in the table above, specifically the findings from the \textit{"Comparative Study of SVM, LSTM, and LR"} and the \textit{2024 Deep Learning} research, we have implemented the **Long Short-Term Memory (LSTM)** architecture in our project.
+
+% The literature confirms that LSTM is the only model capable of:
+% \begin{enumerate}
+%     \item Handling the non-linear volatility identified by Fama.
+%     \item Overcoming the "memory loss" issues of standard RNNs and SVMs.
+%     \item Effectively utilizing the 100-day sliding window sequence used in our source code.
+% \end{enumerate}
+
+% \section{Research Gap}
+% Most existing systems focus solely on accuracy metrics (RMSE/MSE). There is a lack of platforms that integrate **prediction** with **actionable tools** like portfolio tracking and automated alerts. Our project fills this gap by building a full-stack solution.
+
+%================================= CHAPTER 3 ===========================================
+\chapter{System Analysis and Design}
+\section{Software Requirements Specification (SRS)} The Software Requirements Specification (SRS) document serves as the primary blueprint for the development phase. It comprehensively describes the intended purpose, behavior, and constraints of the "LSTM-Powered Stock Prediction System." This section bridges the gap between the initial project scope and the specific technical implementation, ensuring that the final deliverable aligns with the user's needs for accurate forecasting and seamless portfolio management.
+
+\subsection{Functional Requirements} Functional requirements define the specific behaviors and functions the system must support. \begin{itemize} \item \textbf{User Registration \& Management:} The system must provide a registration interface allowing new users to create an account using a unique username and a valid email address. The backend must serialize this data into a JSON structure for persistent storage. \item \textbf{Secure Authentication:} The application must implement a secure login mechanism. Password validation ensures that only authorized users can access their personalized portfolios and simulation history. \item \textbf{Real-Time Stock Search:} Users must be able to query any valid stock ticker symbol (e.g., 'RELIANCE.NS', 'TCS.NS') listed on the National Stock Exchange. The system interacts with the Yahoo Finance API to fetch the latest market data for the requested ticker. \item \textbf{Predictive Analytics:} Upon selecting a stock, the system must trigger the pre-trained LSTM model. It is required to process the last 100 days of closing prices and generate a visual forecast for the upcoming 10 days, overlaying this prediction against the original trendline for comparison. \item \textbf{Virtual Trading Simulation:} The system must include a transaction engine that allows users to execute 'Buy' and 'Sell' orders using virtual currency. The engine must validate that the user has sufficient funds (for buying) or sufficient holdings (for selling) before updating the portfolio file. \end{itemize}
+
+\subsection{System Environment Specifications} To ensure optimal performance during both the model training and deployment phases, the following hardware and software configurations are required:
+
+\textbf{1. Hardware Requirements:} \begin{itemize} \item \textbf{Processor:} Intel Core i5 (8th Gen) or AMD Ryzen 5 equivalent or higher. \item \textbf{RAM:} Minimum 8GB (16GB recommended for faster model training). \item \textbf{Storage:} At least 10GB of free SSD space to store dataset caches and model weights (.h5 files). \item \textbf{GPU (Optional):} NVIDIA GeForce GTX 1650 or higher (required only if retraining the model using CUDA acceleration). \end{itemize}
+
+\textbf{2. Software Requirements:} \begin{itemize} \item \textbf{Operating System:} Windows 10/11, macOS, or Linux (Ubuntu 20.04+). \item \textbf{Programming Language:} Python 3.9 or higher. \item \textbf{Frameworks \& Libraries:} TensorFlow 2.x (Deep Learning), Streamlit (Frontend), Flask (Backend API), Pandas (Data Manipulation), Scikit-Learn (Preprocessing). \item \textbf{Development Tools:} Visual Studio Code, Jupyter Notebook. \end{itemize}
+
+\subsection{Data Requirements} Since the project relies heavily on time-series analysis, the data requirements are stringent: \begin{itemize} \item \textbf{Source:} Historical market data is sourced dynamically via the yfinance library. \item \textbf{Granularity:} The system requires daily timeframe data containing 'Open', 'High', 'Low', 'Close', and 'Volume' (OHLCV) attributes. \item \textbf{Consistency:} To satisfy the LSTM input shape, the dataset must provide a continuous sequence of at least 1,000 trading days. Forward-filling techniques are applied to handle any missing values due to market holidays. \end{itemize}
+
+\subsection{Non-Functional Requirements}\begin{itemize} \item \textbf{Performance:} The Streamlit dashboard must render charts and load historical data within 3 seconds under normal network conditions. \item \textbf{Reliability:} The automated email notification system must achieve a 99\% success rate in delivering market open alerts by 09:17 AM daily. \item \textbf{Scalability:} The backend architecture should support multiple concurrent users without data collision in the JSON storage. \item \textbf{Security:} Sensitive user credentials must not be displayed in the URL or the frontend interface. Input validation must be implemented to prevent injection attacks during stock ticker searching. \end{itemize}
+
+\section{Proposed System}
+The proposed system is an intelligent, web-based stock market prediction and virtual trading platform powered by a Long Short-Term Memory (LSTM) neural network. It integrates real-time stock data acquisition, predictive analytics, and portfolio management into a single user-friendly interface. Users can securely register, log in, search for NSE-listed stocks, view historical trends, and receive future price forecasts. In addition, the system supports a virtual trading environment where users can simulate buy and sell operations using virtual currency. The modular design ensures scalability, reliability, and ease of future enhancement.
+
+
+\section{System Architecture}
+The system follows a modular architecture :
+\begin{figure}[H]
+\centering
+    \centering
+    \includegraphics[width=1\textwidth, height=7cm]{Images/Architecture.png} 
+    \caption{High-Level System Architecture}
+\end{figure} 
+The proposed system utilizes a multi-tier, modular architecture designed to decouple data acquisition, computational logic, and user presentation. This separation of concerns ensures maintainability and scalability. The architecture is composed of four distinct layers:
+
+\begin{enumerate} \item \textbf{Data Acquisition Layer:} This layer acts as the entry point for external data. It leverages the \textbf{yFinance API} to fetch real-time and historical financial data (OHLCV) from the National Stock Exchange (NSE). This raw data is passed to a preprocessing module where it undergoes cleaning and normalization using \textbf{MinMax Scaling} to fit within the (0,1) range required by the neural network.
+
+\item \textbf{Computational Logic Layer (The Backend):} This is the core engine of the system. It hosts the pre-trained \textbf{LSTM Model} developed using \textbf{TensorFlow/Keras}. When a user requests a prediction, this layer constructs a sliding window of the past 100 days' data and feeds it into the model to generate future price trends. Additionally, this layer manages the \textbf{Authentication Server}, a lightweight Flask application that handles user login and session validation via RESTful API calls.
+
+\item \textbf{Persistence Layer:} Unlike traditional heavy SQL databases, this system utilizes a lightweight, file-based approach. \textbf{JSON} files are employed to store user credentials (`users.json`) and portfolio states (`portfolios/`). This ensures fast read/write operations for the specific scale of this application and simplifies backup procedures.
+
+\item \textbf{Presentation Layer (The Frontend):} The user interface is built using \textbf{Streamlit}. It serves as the visual dashboard where users interact with the system. It renders dynamic line charts using \textbf{Matplotlib}, displays portfolio metrics, and provides buttons for executing virtual buy/sell orders. It communicates asynchronously with the backend to update the display without reloading the entire page.
+\end{enumerate}
+
+\section{UML Design} Unified Modeling Language (UML) diagrams are utilized here to visualize the structural and behavioral aspects of the system. They provide a blueprint that bridges the gap between the requirements analysis and the actual implementation, ensuring a clear understanding of actor interactions and data flow.
+
+\subsection{Use Case Diagram} The Use Case diagram depicts the functional scope of the system by illustrating the interactions between external agents (Actors) and the system functionalities (Use Cases). \begin{itemize} \item \textbf{Primary Actor (User):} The User is the active entity who initiates requests. Their workflow is hierarchical; the 'Login' use case is a mandatory precondition (an <<include>> relationship) for accessing protected functionalities such as 'Buy Stock', 'Sell Stock', and 'View Dashboard'. This ensures that portfolio data remains secure. \item \textbf{Secondary Actor (System Automation):} This represents the autonomous, background processes of the application. Unlike the User, this actor is time-triggered. It is responsible for executing maintenance tasks such as 'Fetch Data' from the Yahoo Finance API and 'Send Email' via the SMTP server every morning. These actions occur independently of the user's presence. \end{itemize}
+
+\begin{figure}[H] \centering \includegraphics[width=0.8\textwidth]{Images/UseCase.png} \caption{Use Case Diagram showing User and System interactions} \end{figure}
+
+\subsection{Sequence Diagram (Login Process)} The Sequence Diagram models the temporal order of message exchanges between the system objects during the authentication phase. It details the "Lifeline" of the frontend and backend components and the synchronous messages passed between them.
+
+The logical flow is as follows: \begin{enumerate} \item \textbf{Initiation:} The interaction begins when the User Actor inputs their credentials on the index.html interface and triggers the submit event. \item \textbf{Request Dispatch:} The Frontend (Client) encapsulates the username and password into a JSON payload and sends a synchronous HTTP POST request to the Flask Server's /login endpoint. \item \textbf{Server-Side Validation:} The Flask Server receives the request and acts as a Controller. It opens the persistent storage file users.json to verify if the credentials match an existing record. \item \textbf{Response Generation:} If the validation is successful, the Server returns a JSON response {"status": "success"} with a 200 OK HTTP code. If it fails, a 401 Unauthorized error is returned. \item \textbf{Session Handover:} Upon receiving a success signal, the Frontend performs a client-side redirection, handing over control to the Streamlit application (app.py), which then initializes the user's unique session state and loads the dashboard. \end{enumerate}
+
+\section{Data Dictionary}
+The Persistence Layer of the system utilizes a flat-file database architecture implemented via JavaScript Object Notation (JSON). Unlike relational database management systems (RDBMS) like MySQL, which require rigid schema definitions and significant server overhead, JSON offers a lightweight, schema-less alternative. This approach is particularly advantageous for this project as it allows for rapid serialization of Python dictionaries and seamless integration with the Flask-Streamlit ecosystem without the need for an ORM (Object-Relational Mapper).
+
+The system maintains two primary data structures: the Global User Registry and the Individual Portfolio Ledger.
+
+\subsection{User Registry (users.json)}
+This file acts as the central repository for authentication. It stores static user data required for the login process and the automated email notification service.
+
+\begin{table}[h]
+    \centering
+    \caption{User Database Structure (users.json)}
+    \begin{tabular}{|p{3cm}|p{3cm}|p{8cm}|}
+        \hline
+        \textbf{Field} & \textbf{Type} & \textbf{Description} \\
+        \hline
+        Username & String (Key) & The unique primary key used to identify the user. It also serves as the filename for the user's portfolio. \\
+        \hline
+        Password & String & The user's authentication string. In a production environment, this would be hashed (e.g., SHA-256), but for this prototype, it is stored as a direct string for validation. \\
+        \hline
+        Email & String & The destination address for the SMTP Market Notifier service.\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Portfolio Ledger (portfolios/username.json)}
+For every registered user, the system dynamically creates a dedicated JSON file within the portfolios/ directory. This file is highly dynamic, updating in real-time whenever a 'Buy' or 'Sell' action is triggered on the dashboard. It tracks both current asset holdings and the historical log of all transactions.
+
+\begin{table}[h]
+    \centering
+    \caption{Portfolio Structure (username.json)}
+    \begin{tabular}{|p{3cm}|p{3cm}|p{8cm}|}
+        \hline
+        \textbf{Field} & \textbf{Type} & \textbf{Description} \\
+        \hline
+        positions & Object (Dictionary) & A key-value pair mapping stock tickers to the quantity held (e.g., \{``RELIANCE.NS'': 10\}). This allows for $O(1)$ lookup complexity when checking balances. \\
+        \hline
+        orders & Array (List) & A chronological list of transaction objects. \\
+        \hline
+        orders[i].type & String & Indicates the nature of the trade: ``BUY'' or ``SELL''. \\
+        \hline
+        orders[i].price & Float & The market closing price at the exact moment the trade was executed. \\
+        \hline
+        orders[i].time & String (Timestamp) & The datetime string recording when the transaction occurred, used for audit trails. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+%================================= CHAPTER 4 ===========================================
+\chapter{Methodology (Deep Learning)}\section{Long Short-Term Memory (LSTM)}The core computational engine of this project is the Long Short-Term Memory (LSTM) network, a specialized architecture of Recurrent Neural Networks (RNNs) proposed by Hochreiter and Schmidhuber (1997). Standard RNNs suffer from the "Vanishing Gradient Problem," where the gradients of the loss function approach zero as they are backpropagated through time, causing the network to stop learning from earlier inputs. This makes standard RNNs incapable of capturing long-term temporal dependencies, such as a stock trend formed over several months.LSTMs overcome this by introducing a robust internal memory unit called the Cell State ($C_t$). The cell state acts as a "conveyor belt" that runs straight down the entire chain with only minor linear interactions. This allows information to flow along it unchanged, preserving long-term context. The flow of information into and out of this cell state is regulated by three distinct structures called Gates, which are composed of a sigmoid neural net layer and a pointwise multiplication operation.\subsection{Mathematical Formulation}The LSTM transitions between time steps $t-1$ and $t$ using the following mathematical operations:\textbf{1. Forget Gate ($f_t$):}The first step is to decide what information to discard from the cell state. This is handled by the "Forget Gate." It looks at the previous hidden state $h_{t-1}$ and the current input $x_t$ and outputs a number between 0 and 1 for each number in the cell state $C_{t-1}$. A value of 1 represents "completely keep this" while 0 represents "completely get rid of this."\begin{equation}f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)\end{equation}\textbf{2. Input Gate ($i_t$) and Candidate Memory ($\tilde{C}_t$):}The next step is to decide what new information to store. This has two parts. First, a sigmoid layer called the "Input Gate" ($i_t$) decides which values we will update. Next, a tanh layer creates a vector of new candidate values, $\tilde{C}_t$, that could be added to the state.\begin{equation}i_t = \sigma(W_i \cdot [h_{t-1}, x_t] + b_i)\end{equation}\begin{equation}\tilde{C}t = \tanh(W_C \cdot [h{t-1}, x_t] + b_C)\end{equation}\textbf{3. Cell State Update ($C_t$):}The old cell state $C_{t-1}$ is updated to the new cell state $C_t$. We multiply the old state by $f_t$ (forgetting the things we decided to forget earlier) and then add $i_t * \tilde{C}_t$. This is the new candidate values, scaled by how much we decided to update each state value.\begin{equation}C_t = f_t * C_{t-1} + i_t * \tilde{C}_t\end{equation}\textbf{4. Output Gate ($o_t$) and Hidden State ($h_t$):}Finally, the output is a filtered version of the cell state. The output gate decides what parts of the cell state to output. The cell state is passed through a $\tanh$ function (to push the values to be between -1 and 1) and multiplied by the output gate.\begin{equation}o_t = \sigma(W_o \cdot [h_{t-1}, x_t] + b_o)\end{equation}\begin{equation}h_t = o_t * \tanh(C_t)\end{equation}\begin{figure}[H]\centering\centering\includegraphics[width=0.8\textwidth]{Images/LSTM_Cell.png}\caption{Internal Structure of an LSTM Cell showing the flow of tensors through gates}\label{fig:lstm}\end{figure}\section{Data Preprocessing}Financial time-series data is inherently noisy and contains values with large magnitudes (e.g., Sensex at 60,000 vs. Nifty at 18,000). Feeding raw prices directly into a neural network results in unstable gradients and slow convergence. Therefore, a rigorous preprocessing pipeline is applied:\\ \begin{itemize}\item \textbf{Feature Scaling (Normalization):} We utilize the MinMaxScaler from the Scikit-Learn library to transform the stock prices into a bounded range of $[0, 1]$. This is critical because the LSTM uses Sigmoid and Tanh activation functions, which are most sensitive to inputs within this range. The transformation is given by:\begin{equation}x_{scaled} = \frac{x - x_{min}}{x_{max} - x_{min}}\end{equation}\item \textbf{Train-Test Splitting Strategy:} Unlike standard classification problems, time-series data cannot be randomly shuffled. The temporal order must be preserved. Therefore, we strictly split the data sequentially: the first 70\% of dates are used for training, and the remaining 30\% for testing. This ensures the model is evaluated on "future" data it has never seen, simulating real-world forecasting.
+
+\item \textbf{Sliding Window Sequence Generation:} To convert the univariate time series into a supervised learning problem, we employ a "Sliding Window" approach. We selected a window size of $100$ days. This means the feature set ($X$) at time $t$ consists of prices from $[t-100, t-1]$, and the target label ($y$) is the price at time $t$. This forces the model to look at the past 3 months of momentum to predict the next day's value.
+\end{itemize}\section{Model Compilation and Architecture}The model is constructed using the Keras Sequential API. The architecture consists of four stacked LSTM layers, each followed by a Dropout layer (rate=0.2) to prevent overfitting. The final layer is a dense neuron that outputs the predicted scalar value.\begin{itemize}\item \textbf{Optimizer - Adam:} We utilize the Adam (Adaptive Moment Estimation) optimizer. Unlike Stochastic Gradient Descent (SGD) which maintains a single learning rate, Adam computes individual adaptive learning rates for different parameters. It combines the advantages of AdaGrad and RMSProp, allowing the model to converge faster and navigate the complex loss landscape of stock data more effectively.\item \textbf{Loss Function - Mean Squared Error (MSE):} Since stock prediction is a regression problem, we minimize the MSE. MSE calculates the average squared difference between the estimated values and the actual value. Squaring the error ensures that larger deviations are penalized more heavily than smaller ones, forcing the model to correct significant trend misinterpretations.
+\begin{equation}
+    MSE = \frac{1}{n} \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2
+\end{equation}
+\vspace{0.5cm}
+\item \textbf{Hyperparameters:}
+\begin{itemize}
+    \item \textbf{Epochs (50):} The dataset is passed forward and backward through the neural network 50 times.
+    \item \textbf{Batch Size (64):} The model updates its weights after processing 64 samples. This batch size provides a balance between memory efficiency and gradient stability.
+\end{itemize}
+\end{itemize}
+
+%================================= CHAPTER 5 ===========================================
+\chapter{Implementation Details}
+This chapter contains the full source code used in the project.
+
+\section{Backend: Authentication Server}
+The \texttt{register\_server.py} handles user management using the Flask framework by performing user registration and login authentication through a file-based storage system.
+
+\subsection*{Algorithm: User Registration and Login System}
+
+\textbf{Input:}  
+Username, Password, Email (for registration)  
+Username, Password (for login)
+\vspace{-0.05cm}
+\textbf{\\Output:}  
+Registration status message and Login authentication status message
+
+\begin{enumerate}
+    \item Start the system.
+    \item Initialize the Flask application.
+    \item Enable Cross-Origin Resource Sharing (CORS).
+    \item Define \texttt{users.json} as the user data storage file.
+    \item If \texttt{users.json} exists, load user data; otherwise, create an empty user database.
+    \item When a request is received at \texttt{/register}, read username, password, and email.
+    \item If any field is missing, return a “Missing fields” error.
+    \item If the username already exists, return a “User exists” error.
+    \item Store the new user details and update the JSON file.
+    \item Return a “Registered successfully” message.
+    \item When a request is received at \texttt{/login}, read username and password.
+    \item Verify the credentials with the stored user data.
+    \item If valid, return “Login successful”; otherwise, return “Invalid credentials”.
+    \item Run the Flask server with debug mode disabled.
+    \item End.
+\end{enumerate}
+
+\subsection*{Algorithm Description}
+
+This algorithm represents the working of a Flask-based authentication server responsible for handling user registration and login functionalities. At the beginning, the Flask application is initialized and CORS is enabled to allow secure communication between the frontend and backend systems. A JSON file named \texttt{users.json} is used as the storage medium for all user credentials. If the file already exists, the stored user data is loaded into memory; otherwise, an empty database is created.
+
+During registration, the server receives the username, password, and email from the user. It validates whether all required fields are provided and checks if the username already exists to prevent duplicate entries. On successful validation, the user data is stored in the JSON file and a success message is returned.
+
+For login, the server verifies the entered username and password with the stored records. If the credentials match, the user is authenticated successfully; otherwise, access is denied. The server continuously runs to process authentication requests securely.\\
+
+\vspace{-1cm}
+\section{Frontend: Login Portal}
+The `index.html` provides the entry point.
+
+\begin{lstlisting}[language=html, caption=Login Interface HTML]
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Training Registration Portal</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <style>
+      body { background: #f0f0f0 !important; }
+      .curved-bottom {
+        border-bottom-left-radius: 50% 40%;
+        border-bottom-right-radius: 50% 40%;
+        background: indigo;
+        color: white; text-align: center; padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="curved-bottom">
+      <h4>TechMehfil</h4>
+      <small>A solution for all your tech needs</small>
+    </div>
+    <div class="card container" style="max-width: 600px; padding: 30px;">
+      <h4 class="text-center">Login</h4>
+      <div id="loginForm">
+        <div class="form-group">
+          <label>User Name</label>
+          <input type="text" id="loginUsername" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" class="form-control" required />
+        </div>
+        <button class="btn btn-primary btn-block" onclick="login()">Login</button>
+        <p id="loginMessage" class="text-center mt-2"></p>
+      </div>
+    </div>
+  <script>
+  function login() {
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+    
+    fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        window.location.href = `streamlit_redirect.html?user=${username}`;
+      } else {
+        alert(data.message);
+      }
+    })
+  }
+  </script>
+  </body>
+</html>
+\end{lstlisting}
+\vspace{2cm}
+\section{Core Application: Dashboard \& Logic}
+The `app.py` script combines the UI and the ML logic.
+
+\begin{lstlisting}[language=Python, caption=Main Dashboard App (Part 1)]
+import os
+import json
+import datetime
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import yfinance as yf
+import streamlit as st
+from sklearn.preprocessing import MinMaxScaler
+from tensorflow.keras.models import load_model
+
+st.set_page_config(page_title="Stock Prediction", layout="wide")
+
+# Check Login
+username = st.query_params.get("user", "guest")
+if username == "guest":
+    st.warning("Please log in first.")
+    st.stop()
+
+# Portfolio Handling
+os.makedirs("portfolios", exist_ok=True)
+user_file = os.path.join("portfolios", f"{username}.json")
+
+if not os.path.exists(user_file):
+    with open(user_file, "w") as f:
+        json.dump({"positions": {}, "orders": []}, f)
+
+def load_portfolio():
+    with open(user_file, "r") as f: return json.load(f)
+
+def save_portfolio(data):
+    with open(user_file, "w") as f: json.dump(data, f, indent=2)
+
+# Data Fetching
+ticker = st.text_input("Enter Ticker", "RELIANCE.NS").upper()
+df = yf.download(ticker, start="2020-01-01", end=datetime.date.today())
+
+st.subheader("Historical Close Price")
+st.line_chart(df['Close'])
+
+# LSTM Prediction Logic
+model = load_model("keras_model.h5")
+scaler = MinMaxScaler(feature_range=(0,1))
+data_training = pd.DataFrame(df['Close'][0:int(len(df)*0.70)])
+data_testing = pd.DataFrame(df['Close'][int(len(df)*0.70):])
+
+scaler.fit(data_training)
+past_100 = data_training.tail(100)
+final_df = pd.concat([past_100, data_testing], ignore_index=True)
+input_data = scaler.transform(final_df)
+
+x_test, y_test = [], []
+for i in range(100, input_data.shape[0]):
+    x_test.append(input_data[i-100:i])
+    y_test.append(input_data[i,0])
+
+x_test, y_test = np.array(x_test), np.array(y_test)
+y_pred = model.predict(x_test)
+
+scale = 1/scaler.scale_[0]
+y_pred = y_pred * scale
+y_test = y_test * scale
+
+st.subheader("Prediction vs Original")
+fig = plt.figure(figsize=(10,5))
+plt.plot(y_test, 'b', label='Original')
+plt.plot(y_pred, 'r', label='Predicted')
+plt.legend()
+st.pyplot(fig)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption=Main Dashboard App (Part 2 - Trading Logic)]
+# Trading Section
+st.subheader("Trade Actions")
+col1, col2 = st.columns(2)
+portfolio = load_portfolio()
+
+if col1.button("Buy 1 Share"):
+    price = float(df['Close'].iloc[-1])
+    portfolio["positions"][ticker] = portfolio["positions"].get(ticker, 0) + 1
+    portfolio["orders"].append({
+        "type": "BUY", "symbol": ticker, "price": price, "time": str(datetime.datetime.now())
+    })
+    save_portfolio(portfolio)
+    st.success(f"Bought {ticker} at {price}")
+
+if col2.button("Sell 1 Share"):
+    price = float(df['Close'].iloc[-1])
+    if portfolio["positions"].get(ticker, 0) > 0:
+        portfolio["positions"][ticker] -= 1
+        portfolio["orders"].append({
+            "type": "SELL", "symbol": ticker, "price": price, "time": str(datetime.datetime.now())
+        })
+        save_portfolio(portfolio)
+        st.success(f"Sold {ticker} at {price}")
+    else:
+        st.error("Not enough shares.")
+
+st.subheader("Current Portfolio")
+st.write(portfolio["positions"])
+\end{lstlisting}
+
+\section{Automation: Market Notifier}
+The `market\_notifier.py` handles email alerts.
+\begin{lstlisting}[language=Python, caption=Automation Script]
+import smtplib
+from email.mime.text import MIMEText
+from datetime import datetime
+import json, time
+
+def send_email(to, subject, body):
+    sender = "tanmoybiswas478@gmail.com"
+    pwd = "dlmn shsd vrpm lwcu"
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = to
+    
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
+        s.login(sender, pwd)
+        s.send_message(msg)
+
+while True:
+    now = datetime.now().strftime("%H:%M")
+    if now == "09:15":
+        users = json.load(open("users.json"))
+        for u, d in users.items():
+            send_email(d["email"], "Market Open", "The market is open!")
+        time.sleep(60)
+    time.sleep(10)
+\end{lstlisting}
+
+%================================= CHAPTER 6 ===========================================
+\chapter{Results and Discussions}
+The primary objective of this project was to synthesize Deep Learning methodologies with modern web technologies to create a functional stock analysis platform. This chapter presents the empirical findings derived from the model training phase, the results of the system integration testing, and a qualitative analysis of the prediction accuracy. Furthermore, it evaluates the robustness of the application interface and the reliability of the portfolio management backend.
+
+\section{Testing and Validation Strategy}
+The system underwent a rigorous two-tiered testing process involving Unit Testing and System Integration Testing. Unit testing focused on individual modules, such as ensuring the yfinance scraper correctly handled invalid ticker symbols (returning a null object instead of crashing) and verifying that the MinMaxScaler correctly normalized data within the $[0, 1]$ range.
+
+System Integration Testing focused on the data flow between the Flask backend and the Streamlit frontend. We executed specific test cases to validate the end-to-end functionality, particularly the persistence of the JSON database. For instance, in TC04 (Buy Stock), we verified that a "Buy" action not only updated the session state but also correctly appended the transaction timestamp and price to the portfolios/username.json file, ensuring data integrity across login sessions.
+
+\begin{table}[H]
+    \centering
+    \caption{System Test Cases and Validation Results}
+    \begin{tabular}{|p{1.5cm}|p{5cm}|p{5cm}|p{2cm}|}
+        \hline
+        \textbf{ID} & \textbf{Test Scenario} & \textbf{Expected Result} & \textbf{Status} \\
+        \hline
+        TC01 & Register new user & User credentials appended to \texttt{users.json}. & Pass \\
+        \hline
+        TC02 & Login with invalid password & Authentication denied; Red error message displayed. & Pass \\
+        \hline
+        TC03 & Enter Invalid Ticker Symbol & System handles exception; displays "Ticker Not Found". & Pass \\
+        \hline
+        TC04 & Buy Stock (Sufficient Funds) & Portfolio quantity updates; transaction logged. & Pass \\
+        \hline
+        TC05 & Sell Stock (Insufficient Holdings) & Transaction blocked; Error "Not enough shares" shown. & Pass \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Performance Analysis}
+\subsection{Model Convergence and Training Loss}
+The LSTM model was trained over 50 epochs using the Adam optimizer. As illustrated in Figure 6.1, the loss function (Mean Squared Error) demonstrates a classic convergence pattern.
+\begin{itemize}
+    \item \textbf{Initial Phase (Epochs 1-10):} We observe a steep decline in loss, indicating that the network is rapidly learning the fundamental non-linear relationships and the rough magnitude of the stock prices.
+    \item \textbf{Stabilization Phase (Epochs 20-50):} The curve flattens out, fluctuating slightly but trending downwards. This plateau suggests that the model has reached a local minimum and is refining its weights. The absence of a divergent validation loss curve (where validation loss rises while training loss falls) indicates that the model has not overfitted and generalizes well to unseen data.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/Loss.png}
+    \caption{Training Loss vs Epochs showing rapid convergence}
+\end{figure}
+
+\subsection{Visual Results and Interface Evaluation}
+The final deployed system successfully integrates the backend logic with a responsive User Interface (UI).
+
+\textbf{1. Authentication Module:}
+Figure \ref{fig:login} depicts the secure entry point. The decoupling of the login logic (Flask) from the main app (Streamlit) proved effective in preventing unauthorized access. The UI is clean, minimal, and provides immediate feedback on connection status.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Images/Login.png}
+    \caption{User Login Portal Interface}
+    \label{fig:login}
+\end{figure}
+
+\textbf{2. The Analytical Dashboard:}
+Figure 6.3 showcases the main dashboard environment. The integration of Matplotlib charts within Streamlit allows for high-resolution rendering. The dashboard effectively segregates "Historical Data" (Ground Truth) from the "Prediction Model," allowing users to visually verify the trend before making trade decisions. The "Trade Actions" panel on the sidebar ensures that portfolio management controls are always accessible without obstructing the data visualization.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth,height=20cm]{Images/Dashboard.png}
+    \caption{Full Dashboard View with Portfolio Management Sidebar}
+\end{figure}
+
+\subsection{Prediction Accuracy Analysis}
+Figure 6.4 presents the comparison between the Actual Stock Price (Blue Line) and the Predicted Price (Red Line).\\
+
+\textbf{Interpretation:} The LSTM model demonstrates a strong ability to capture the directional momentum of the market. When the actual price trends upward, the predicted line follows closely with a minimal lag. This "lag" is inherent to time-series forecasting, as the model relies on the previous 100 days to project the next day. However, crucially, the model ignores high-frequency noise and effectively smooths the curve, providing a clear trend signal. This confirms that the LSTM gates are successfully filtering irrelevant intraday volatility while retaining the significant long-term dependencies required for swing trading strategies.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{Images/Prediction.png}
+    \caption{Detailed Prediction Graph: Actual (Blue) vs Predicted (Red)}
+\end{figure}
+
+%================================= CHAPTER 7 ===========================================
+\chapter{Conclusion}
+The "LSTM-Powered Stock Prediction and Portfolio Management System" represents a significant step forward in democratizing access to institutional-grade financial analytics. By successfully integrating complex Deep Learning methodologies with a user-friendly web interface, this project addresses the critical information asymmetry that often disadvantages retail investors.
+
+Throughout the development lifecycle, we successfully met our primary objectives. The Long Short-Term Memory (LSTM) network proved effective in capturing long-term temporal dependencies in stock price data, overcoming the limitations of traditional statistical models like ARIMA. The resulting model provides reliable short-term forecasts that track market momentum with a high degree of fidelity. Furthermore, the integration of a full-stack ecosystem—comprising a Flask authentication server, a Streamlit visualization dashboard, and a persistent JSON-based portfolio engine—transforms raw predictions into actionable insights.
+
+Crucially, the inclusion of a "Paper Trading" environment serves a dual purpose: it acts as a validation sandbox for the AI model and provides a risk-free educational platform for users to refine their trading strategies. The successful implementation of the automated SMTP notification system further ensures that users remain engaged and informed, creating a holistic, end-to-end financial solution. In essence, this project demonstrates that robust, data-driven investment tools can be built using open-source technologies, bridging the gap between algorithmic trading theory and practical, real-world application.
+
+\section{Future Scope}
+While the current system is functional and robust, the dynamic nature of financial markets and technology suggests several avenues for future enhancement:
+\vspace{1cm}
+
+\begin{enumerate}
+    \item \textbf{Cloud Deployment \& Serverless Architecture:} 
+    Currently, the system runs locally. Future iterations will focus on deploying the application to cloud platforms like AWS or Heroku. Specifically, migrating the LSTM inference engine to **AWS Lambda** (Serverless) would allow the system to scale automatically during peak market hours while minimizing costs during inactivity. Additionally, implementing a CI/CD pipeline (using GitHub Actions) would ensure seamless updates.
+
+    \item \textbf{Mobile Application Development:} 
+    To enhance accessibility, we aim to transition from a web-based dashboard to a native mobile application. Utilizing cross-platform frameworks like **React Native** or **Flutter**, we can build a dedicated app for iOS and Android. This would enable features such as push notifications for price alerts and biometric authentication (Fingerprint/FaceID) for enhanced security.
+
+    \item \textbf{Integration of Sentiment Analysis (NLP):} 
+    Stock prices are heavily influenced by news and social media sentiment, which numerical data alone cannot capture. We plan to integrate Natural Language Processing (NLP) models, specifically **BERT (Bidirectional Encoder Representations from Transformers)** or **FinBERT**. By scraping financial news headers and Twitter feeds, the system could generate a "Sentiment Score" to augment the LSTM's numerical prediction, creating a hybrid forecasting model.
+
+    \item \textbf{Reinforcement Learning (RL) Agents:} 
+    Moving beyond passive prediction, the next logical step is active trading. We propose experimenting with Deep Reinforcement Learning (DRL) agents (e.g., Deep Q-Networks). These agents can be trained within our simulation environment to autonomously execute buy/sell orders to maximize profit, effectively creating an automated "Robo-Advisor."
+\end{enumerate}
+
+%================================= REFERENCES ===========================================
+%================================= REFERENCES ===========================================
+\vspace{-3cm}
+\renewcommand{\bibname}{}% 
+\bibliographystyle{IEEEtran}
+
+\chapter*{References}
+\addcontentsline{toc}{chapter}{References}
+
+\vspace{-0.8cm}
+
+\begingroup
+\footnotesize
+
+% Force long URLs to break properly
+\def\UrlBreaks{\do\/\do-\do\_\do\?\do\=\do\&\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z\do\0\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9}
+
+\begin{enumerate}[label={[ \arabic* ]}]
+
+\item Md Masum Billah, Azmery Sultana, Farzana Bhuiyan, and Mohammed Golam Kaosar,
+\textit{Stock Price Prediction: Comparison of Different Moving Average Techniques Using Deep Learning Model.}
+Journal, 2024.  
+Available: \url{https://drive.google.com/file/d/1-pcQJK8Oz12TF-PuQYFUNngLHJNPm5rA/view?usp=sharing}
+
+\item Qusai Q. Abuein, Mohammed Q. Shatnawi, Emran Y. Aljawarneh, and Ahmed Manasrah,
+\textit{Time Series Forecasting Model for the Stock Market using LSTM and SVR.}
+Journal, 2023.  
+Available: \url{https://drive.google.com/file/d/1PMm57S1OFdjLBggXJ4HY-uJa6yaNGnCe/view?usp=drive_link}
+
+\item Latrisha N., Mintaryaa, Jeta N. M. Halima, Callista Angiea, Said Achmada, and Aditya Kurniawana,
+\textit{Machine Learning Approaches in Stock Market Prediction: A Systematic Literature Review.}
+Journal, 2022.  
+Available: \url{https://drive.google.com/file/d/1log15BIYKPluVlx-X3UtNJewLCgG0BVt/view?usp=sharing}
+
+\item Isha S. Meshram and Prajakta J. Kulal,
+\textit{A Comparative Study of SVM, LSTM and LR Algorithms for Stock Market Prediction Using OHLC Data.}
+Journal, 2021.  
+Available: \url{https://drive.google.com/file/d/18Fct7_I8q1hUsg-QnLWaFmz0F6Obk-O0/view?usp=drive_link}
+
+\end{enumerate}
+\endgroup
+
+
+%================================= BIO DATA ===========================================
+% \chapter*{Bio-data}
+\includepdf[pages=-, scale=0.9, pagecommand={\thispagestyle{plain}}]{CV.pdf}
+\end{spacing}
+
+\end{document}

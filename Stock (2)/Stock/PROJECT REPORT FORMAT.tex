@@ -1,0 +1,941 @@
+
+\documentclass[12pt, a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{times}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage[nottoc]{tocbibind}
+
+% =========================================================================
+%                           DOCUMENT SETTINGS
+% =========================================================================
+\geometry{
+  top=2.5cm,
+  bottom=2.5cm,
+  left=2.0cm,
+  right=2.0cm
+}
+
+\onehalfspacing
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  filecolor=black,
+  urlcolor=blue,
+  citecolor=black,
+  pdftitle={AI-Powered Multi-Modal Book Summarizer (Summarize.Pro)},
+  pdfauthor={B.Tech Final Year Project Team},
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.97}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, switch, var, if, in, while, do, else, case, break, const, let, await, async, import, export, default, from, extends},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, boolean, throw, implements, this, useState, useEffect, useNavigate, axios, create},
+  ndkeywordstyle=\color{teal}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{codegreen}\ttfamily,
+  stringstyle=\color{codepurple}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=single
+}
+\lstset{style=mystyle}
+
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\centering}
+{\raggedleft \chaptertitlename\ \thechapter\\[6pt]\titlerule}
+{0cm}
+{\Huge}
+
+% =========================================================================
+%                       HEADER & FOOTER SETUP
+% =========================================================================
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{%
+  \markboth{\MakeUppercase{\chaptername\ \thechapter.\ #1}}{}%
+}
+\fancyhead[L]{\leftmark}
+\renewcommand{\headrulewidth}{1pt}
+\fancyfoot[C]{\thepage}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% =========================================================================
+%                               DOCUMENT START
+% =========================================================================
+\begin{document}
+
+% -------------------------------------------------------------------------
+%                               TITLE PAGE
+% -------------------------------------------------------------------------
+\thispagestyle{empty}
+\begin{center}
+  \begin{spacing}{1}
+    {\large \bf AI-POWERED MULTI-MODAL BOOK SUMMARIZER\\(SUMMARIZE.PRO)\\}
+  \end{spacing}
+
+  \vspace*{1.0cm} {\em Report submitted to\\ Techno College of Engineering Agartala\\ for the partial fulfillment}\\
+  \vspace*{0.4cm} {\em of} \\
+  \vspace*{0.4cm}
+  {\bf Bachelor of Technology in\\ ARTIFICIAL INTELLIGENCE \& DATA SCIENCE}\\
+
+  \vspace*{0.5cm}
+  {\em by}\\
+  \vspace*{0.4cm}
+  {\bf Abantika Bhowmik\quad(226709001)}\\
+  {\bf Shilpa Deb\quad(236709007)}\\
+  {\bf Riya Debnath\quad(236709006)}\\
+  {\bf Nandita Sarkar\quad(236709004)}\\
+  {\bf Sujoy Shil\quad(226709010)}\\
+
+  \vspace*{0.7cm}
+  {\em under the guidance of}\\
+  \vspace*{0.3cm}
+  {\bf Mrs. Sarmistha Das}\\
+  {\bf Assistant Professor}\\
+  {(Department of Computer Science \& Engineering)}
+
+  \vspace*{0.6cm}
+  Project Work Final\\
+  (EEC -- 805)\\
+  Academic Session -- 2025 -- 2026
+
+  \begin{figure}[htbp]
+    \centerline{
+    \includegraphics[scale=.25]{Logo.png}} % Ensure Logo.png exists
+  \end{figure}
+
+  % \vspace*{2.0cm}
+  {{\bf DEPARTMENT OF ARTIFICIAL INTELLIGENCE \& DATA SCIENCE\\TECHNO COLLEGE OF ENGINEERING AGARTALA\\May 2026}}
+\end{center}
+
+\clearpage
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+% -------------------------------------------------------------------------
+%                            DECLARATION
+% -------------------------------------------------------------------------
+\chapter*{Declaration}
+\addcontentsline{toc}{chapter}{Declaration}
+We hereby declare that the project report entitled \textbf{``AI-Powered Multi-Modal Book Summarizer (Summarize.Pro)''} submitted in partial fulfillment of the requirements for the award of the degree of \textbf{Bachelor of Technology in Artificial Intelligence \& Data Science} at \textbf{Techno College of Engineering Agartala} is an authentic record of our own work carried out during the academic session 2025--2026 under the supervision of \textbf{Mrs. Sarmistha Das}, Assistant Professor, Department of Computer Science \& Engineering. We further declare that the work reported in this project has not been submitted, either in part or in full, for the award of any other degree or diploma in this institute or in any other institute or university.
+
+\vspace{2cm}
+\begin{center}
+  \begin{minipage}{0.4\textwidth}
+    \hrulefill\\ (Signature)\\ \textbf{ABANTIKA BHOWMIK}\\ Roll No. 226709001
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.4\textwidth}
+    \hrulefill\\ (Signature)\\ \textbf{SHILPA DEB}\\ Roll No. 236709007
+  \end{minipage}
+
+  \vspace{1.2cm}
+  \begin{minipage}{0.4\textwidth}
+    \hrulefill\\ (Signature)\\ \textbf{RIYA DEBNATH}\\ Roll No. 236709006
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.4\textwidth}
+    \hrulefill\\ (Signature)\\ \textbf{NANDITA SARKAR}\\ Roll No. 236709004
+  \end{minipage}
+
+  \vspace{1.2cm}
+  \begin{minipage}{0.4\textwidth}
+    \hrulefill\\ (Signature)\\ \textbf{SUJOY SHIL}\\ Roll No. 226709010
+  \end{minipage}
+\end{center}
+
+\vspace{1cm}
+\noindent Date: \rule{4.5cm}{0.4pt}
+
+% -------------------------------------------------------------------------
+%                            CERTIFICATE
+% -------------------------------------------------------------------------
+\chapter*{Certificate}
+\addcontentsline{toc}{chapter}{Certificate}
+This is to certify that the project report entitled \textbf{``AI-Powered Multi-Modal Book Summarizer (Summarize.Pro)''}, submitted by \textbf{Abantika Bhowmik}, \textbf{Shilpa Deb}, \textbf{Riya Debnath}, \textbf{Nandita Sarkar}, and \textbf{Sujoy Shil} in partial fulfillment of the requirements for the award of the degree of \textbf{Bachelor of Technology in Artificial Intelligence \& Data Science} of \textbf{Techno College of Engineering Agartala}, is a record of the bona fide work carried out by them under my supervision and guidance. To the best of my knowledge, the content of this report has not been submitted to any other institute or university for the award of any degree or diploma.
+
+\vspace{4cm}
+\noindent
+\begin{minipage}[t]{0.6\textwidth}
+  \hrulefill\\
+  \textbf{Mrs. SARMISTHA DAS}\\
+  \textit{Project Guide \& Assistant Professor}\\
+  Department of Computer Science \& Engineering\\
+  Techno College of Engineering Agartala\\
+  May 2026
+\end{minipage}
+
+% -------------------------------------------------------------------------
+%                               APPROVAL
+% -------------------------------------------------------------------------
+\chapter*{Approval}
+\addcontentsline{toc}{chapter}{Approval}
+Certified that the project report entitled \textbf{``AI-Powered Multi-Modal Book Summarizer (Summarize.Pro)''} submitted by \textbf{Abantika Bhowmik}, \textbf{Shilpa Deb}, \textbf{Riya Debnath}, \textbf{Nandita Sarkar}, and \textbf{Sujoy Shil} has been examined and approved as a satisfactory record of the project work carried out for the award of the degree of B.Tech in Artificial Intelligence \& Data Science.
+
+\vspace*{3cm}
+\begin{flushleft}
+  \begin{minipage}{7.5cm}
+    \hrulefill\\
+    External Examiner (s)
+  \end{minipage}
+  \hfill
+  \begin{minipage}{7.5cm}
+    \hrulefill\\
+    Examiner (s)
+  \end{minipage}
+
+  \vspace{2.0cm}
+  \begin{minipage}{7.5cm}
+    \hrulefill\\
+    Supervisor (s)
+  \end{minipage}
+  \hfill
+  \begin{minipage}{7.5cm}
+    \hrulefill\\
+    Head of the Department
+  \end{minipage}
+\begin{minipage}{7.5cm}
+\vspace{2.0cm}
+  Date: \hrulefill\\
+  \vspace{0.2cm}\\
+  Place: \hrulefill\\
+\end{minipage}
+\end{flushleft}
+
+% -------------------------------------------------------------------------
+%                          ACKNOWLEDGMENT
+% -------------------------------------------------------------------------
+\chapter*{Acknowledgment}
+\addcontentsline{toc}{chapter}{Acknowledgment}
+The successful completion of any significant project requires the guidance, support, and encouragement of many individuals. We would like to take this opportunity to express our sincere gratitude to everyone who contributed to the successful completion of this work. First and foremost, we express our deepest gratitude to our project guide, \textbf{Mrs. Sarmistha Das}, Assistant Professor, Department of Computer Science \& Engineering, for her invaluable guidance, constructive suggestions, and continuous encouragement throughout the development of this project. Her insights, technical expertise, and motivation helped us transform an initial idea into a well-structured academic and practical implementation. We are also thankful to \textbf{Mrs. Purbani Kar}, Head of the Department, Computer Science \& Engineering, for providing the necessary infrastructure, academic support, and laboratory facilities required for this project. We extend our sincere thanks to all the faculty members and non-teaching staff of the Department of Artificial Intelligence \& Data Science for their support, encouragement, and for creating a positive learning environment that made this work possible. We also acknowledge our classmates and friends for their assistance during testing, documentation, and presentation preparation. Finally, we express our heartfelt gratitude to our parents and family members for their constant support, patience, encouragement, and understanding throughout the course of this project.
+
+
+\vspace{2cm}
+\begin{flushright}
+  {\bf ABANTIKA BHOWMIK\quad(226709001)}\\[0.7cm]
+  {\bf SHILPA DEB\quad(236709007)}\\[0.7cm]
+  {\bf RIYA DEBNATH\quad(236709006)}\\[0.7cm]
+  {\bf NANDITA SARKAR\quad(236709004)}\\[0.7cm]
+  {\bf SUJOY SHIL\quad(226709010)}
+\end{flushright}
+
+% -------------------------------------------------------------------------
+%                          TABLE OF CONTENTS
+% -------------------------------------------------------------------------
+\tableofcontents
+\listoffigures
+\listoftables
+
+% -------------------------------------------------------------------------
+%                     LIST OF SYMBOLS & ABBREVIATIONS
+% -------------------------------------------------------------------------
+\chapter*{List of Symbols \& Abbreviations}
+\addcontentsline{toc}{chapter}{List of Symbols \& Abbreviations}
+\vspace{-1.5cm}
+\section*{Symbols:}
+\begin{longtable}{p{3cm} p{11cm}}
+  $Q$ & Query matrix in attention computation \\
+  $K$ & Key matrix in attention computation \\
+  $V$ & Value matrix in attention computation \\
+  $d_k$ & Dimension of the key vectors \\
+  $Score$ & Ranking score assigned to generated summaries \\
+  $O(n)$ & Order notation for algorithmic complexity \\
+\end{longtable}
+
+\section*{Abbreviations:}
+\begin{longtable}{p{3cm} p{11cm}}
+  \textbf{AI} & Artificial Intelligence \\
+  \textbf{API} & Application Programming Interface \\
+  \textbf{BERT} & Bidirectional Encoder Representations from Transformers \\
+  \textbf{DOM} & Document Object Model \\
+  \textbf{DOCX} & Microsoft Word Open XML Document \\
+  \textbf{JWT} & JSON Web Token \\
+  \textbf{LLM} & Large Language Model \\
+  \textbf{NLP} & Natural Language Processing \\
+  \textbf{OCR} & Optical Character Recognition \\
+  \textbf{OTP} & One-Time Password \\
+  \textbf{PDF} & Portable Document Format \\
+  \textbf{SPA} & Single Page Application \\
+  \textbf{TTS} & Text-to-Speech \\
+  \textbf{UI} & User Interface \\
+  \textbf{UX} & User Experience \\
+  \textbf{UTF} & Unicode Transformation Format \\
+\end{longtable}
+
+% -------------------------------------------------------------------------
+%                               ABSTRACT
+% -------------------------------------------------------------------------
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\vspace{-1cm}
+\titlerule
+\vspace{0.2cm}
+
+The rapid growth of digital books, reports, lecture notes, and scanned documents has created a major information overload problem for students, researchers, and professionals. Reading large documents in full is often time-consuming, while many existing summarization tools support only plain text and give little control over output quality, language style, or accessibility. To address this problem, this project presents \textbf{AI-Powered Multi-Modal Book Summarizer (Summarize.Pro)}, a web-based application that accepts \textbf{text, PDF documents, and images} and generates concise AI-based summaries with multilingual and accessibility support.The proposed system is implemented as a React-based single page application and combines \textbf{Natural Language Processing (NLP)}, \textbf{Optical Character Recognition (OCR)}, \textbf{Large Language Model (LLM) APIs}, and \textbf{Text-to-Speech (TTS)}. PDF documents are parsed on the client side using PDF.js to protect user privacy. Images are processed using Tesseract OCR, and when extraction quality is low, a vision-capable AI fallback is used. Extracted text then passes through preprocessing, Unicode-based language detection, prompt engineering, and transformer-based summarization APIs. The system supports tone and format control, including \textbf{formal, concise, bullet-point, and Hinglish outputs}. The final summary may be listened to through speech synthesis, saved securely in local storage with lightweight encryption, and exported in multiple formats.A key design decision of this work is that \textbf{the system uses pre-trained transformer-based models via APIs instead of training models from scratch}. This reduces hardware cost, accelerates development, and enables practical deployment for an undergraduate engineering project while still delivering strong abstractive summarization quality.The developed system also provides dashboard-based history management, search and filter options, OTP-based email authentication, and export support for PDF, DOCX, TXT, Canva, and Google Docs workflows. Experimental evaluation and user testing indicate that the system is effective, modular, privacy-aware, and suitable for academic and real-world use where multi-modal summarization is required.
+
+\clearpage
+\pagenumbering{arabic}
+
+% =========================================================================
+%                              CHAPTER 1
+% =========================================================================
+\chapter{Introduction}
+\section{Overview}
+The growth of digital knowledge sources has changed the way users consume information. Books, lecture notes, research articles, reports, and scanned documents are now available in large volumes, but the time available to read them has not increased proportionally. Users often need a quick understanding of long documents before deciding whether to study them in detail. This need has increased the importance of automatic summarization systems.
+
+\textbf{Summarize.Pro} is designed as a practical engineering solution for this problem. It is a multi-modal summarization platform that accepts raw text, uploaded PDF files, and images containing printed text. The platform extracts textual content, detects language patterns, generates abstractive summaries through external LLM APIs, and provides accessible output through speech synthesis. The project focuses on implementation realism, privacy-conscious design, and usability rather than building a new training pipeline.
+
+\section{Problem Statement}
+Most basic summarizers work only with plain text and fail when the input comes from books in PDF form, scanned pages, photographs, or mixed-language documents. Many tools also provide fixed summary styles and limited accessibility support. Users therefore face the following problems:
+\begin{enumerate}[label=\arabic*.]
+  \item Difficulty in summarizing content from multiple formats through a single interface.
+  \item Loss of privacy when PDF files must be uploaded to a server only for text extraction.
+  \item Poor support for multilingual and mixed-script inputs such as Hinglish.
+  \item Limited control over summary tone, size, and presentation.
+  \item Lack of accessibility features for users who prefer listening over reading.
+\end{enumerate}
+
+\section{Objectives}
+The major objectives of the project are as follows:
+\begin{itemize}
+  \item To develop a single web application capable of processing text, PDF, and image inputs.
+  \item To implement OCR-based extraction for images and scanned documents.
+  \item To generate high-quality abstractive summaries using pre-trained transformer-based models accessed through APIs.
+  \item To support multilingual detection and prompt-controlled outputs, including Hinglish.
+  \item To provide TTS, secure storage, OTP-based login, and export functionality for better usability.
+\end{itemize}
+
+\section{Motivation}
+The project was motivated by the real needs of students and researchers who regularly handle lengthy material from different sources. Many documents are available only as scanned pages or PDF books, and users often need a brief summary before class, presentation, or literature review. The availability of strong pre-trained AI models through APIs makes it possible to build a useful system without expensive model training infrastructure. This project demonstrates how such technologies can be integrated into a complete product.
+
+\section{Scope of the Project}
+The scope of this project includes document ingestion, OCR, text preprocessing, language detection, AI summarization, speech output, authentication, local persistence, and export options. The system is primarily targeted at academic and educational use, but it may also support researchers, content writers, and professionals. The scope does not include training a custom transformer model, full cloud synchronization, or domain-specific fine-tuning.
+
+\section{Organization of the Report}
+This report is organized into eight major chapters. Chapter 1 introduces the problem and objectives. Chapter 2 presents the literature review and theoretical background. Chapter 3 explains system requirements and feasibility. Chapter 4 describes the architecture and design. Chapter 5 discusses methodology and algorithms. Chapter 6 explains implementation details. Chapter 7 presents results and discussion. Chapter 8 concludes the work and outlines future scope.
+
+% =========================================================================
+%                              CHAPTER 2
+% =========================================================================
+\chapter{Literature Survey \& Theoretical Background}
+\section{Evolution of Automatic Text Summarization}
+Automatic text summarization has evolved from rule-based and statistical approaches to neural and transformer-based approaches. Earlier extractive methods selected important sentences using frequency, position, or graph scoring. Later abstractive methods attempted to generate new sentences closer to human summaries. Allahyari \textit{et al.} described the main summarization paradigms and highlighted the strengths and weaknesses of extractive and abstractive methods \cite{textsumsurvey}. Their survey is important because it shows that modern summarization systems need both linguistic understanding and output generation quality.
+
+In the context of the present project, the literature confirms that summarization quality improves when the system considers semantic relations rather than only keyword overlap. This motivates the use of transformer-based APIs for final summary generation.
+
+\section{Deep Dive: The Transformer Architecture}
+The modern breakthrough in NLP came from the transformer architecture proposed in \textit{Attention Is All You Need} \cite{vaswani}. The paper introduced self-attention as the main mechanism for sequence modeling and removed recurrence from the architecture. The scaled dot-product attention is commonly represented as:
+\begin{equation}
+  \text{Attention}(Q,K,V)=\text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+\end{equation}
+
+This architecture made large-scale language modeling more parallelizable and more effective for long-range dependencies. The success of transformer models later led to BERT, GPT, and many other LLM families. In this project, transformer principles are not reimplemented from scratch; instead, the system uses APIs backed by pre-trained transformer-based models for summarization.
+
+\section{BERT, LLMs, and Modern NLP Techniques}
+BERT popularized contextual bidirectional representations and improved performance in many NLP tasks such as classification, question answering, and sentence understanding. Although this project does not deploy a separate BERT model locally, the concepts of contextual encoding, token representations, and attention-based language understanding are directly relevant to summary generation and prompt design.
+
+The uploaded survey \textit{A Survey of Large Language Models} explains how pre-training at scale, transformer depth, and instruction following have shaped the current generation of LLM systems \cite{llmsurvey}. Brown \textit{et al.} further demonstrated strong few-shot and zero-shot performance of large models \cite{fewshot}. These works support the engineering decision adopted in this project: instead of training a new model, the system uses already trained transformer-based APIs to perform abstractive summarization efficiently.
+
+\section{OCR Systems and Tesseract}
+For images and scanned pages, the first requirement is reliable text extraction. The uploaded document on the Tesseract OCR engine describes OCR as a pipeline involving segmentation, recognition, and text reconstruction \cite{tesseract}. Tesseract remains an effective option because it is open, lightweight, and practical for browser-linked OCR workflows. However, OCR quality can degrade for noisy, low-resolution, or complex images. Therefore, this project includes a fallback vision-based AI path when direct OCR output is incomplete.
+
+\section{Prompt Engineering Techniques}
+The quality of LLM output depends not only on the model but also on the form of instruction. The uploaded prompt engineering paper by White \textit{et al.} presents prompt patterns for improving consistency, structure, and task alignment \cite{promptpattern}. This idea is directly applied in Summarize.Pro through templates that control summary length, style, tone, and target language. Prompt engineering allows the same underlying model to produce bullet summaries, academic summaries, simplified explanations, or Hinglish responses.
+
+\section{Privacy, Client-Side Processing, and Security}
+Privacy is an important concern when users upload academic or personal documents. In many online tools, the raw document is sent to the server for parsing before summarization. In contrast, this project performs PDF text extraction on the client side using PDF.js. This design reduces exposure of the original file contents and gives the user better control. On the security side, authentication and token handling must be implemented carefully. The uploaded OAuth security analysis demonstrates how authentication systems can fail when flow integrity is not handled properly \cite{oauth}. Although this project uses OTP-based email verification rather than full OAuth, the same security mindset guides validation, session handling, and trusted state updates.
+
+\section{Text-to-Speech and Accessibility}
+The uploaded TTS paper by Tira Nur Fitria shows that speech synthesis can improve learning accessibility and support alternative modes of content consumption \cite{tts}. This is especially useful in educational tools where users may wish to listen to summaries while travelling, revising, or multitasking. Based on this insight, Summarize.Pro includes configurable TTS playback with voice and speed adjustments.
+
+\section{Research Gap and Project Positioning}
+The reviewed literature shows strong progress in summarization, transformers, OCR, prompt engineering, and TTS. However, many studies focus on a single component rather than an integrated end-user system. This project addresses that gap by combining multi-modal input handling, privacy-aware client-side extraction, API-based LLM summarization, multilingual prompt control, speech output, and lightweight user management inside one React application.
+
+% =========================================================================
+%                              CHAPTER 3
+% =========================================================================
+\chapter{System Requirement Analysis}
+\section{Software Requirements Specification (SRS)}
+The system requirements were identified from the perspective of academic users who need fast summarization, easy navigation, and output flexibility.
+
+\begin{table}[H]
+  \centering
+  \caption{Functional Requirements of Summarize.Pro}
+  \begin{tabular}{|p{2cm}|p{10.5cm}|}
+    \hline
+    \textbf{ID} & \textbf{Requirement} \\
+    \hline
+    FR1 & The system shall accept raw text input from the user. \\
+    \hline
+    FR2 & The system shall upload and parse PDF files using client-side PDF.js. \\
+    \hline
+    FR3 & The system shall extract text from images using OCR and trigger a fallback method when required. \\
+    \hline
+    FR4 & The system shall detect language patterns using Unicode-based heuristics. \\
+    \hline
+    FR5 & The system shall generate summaries using external AI APIs. \\
+    \hline
+    FR6 & The system shall allow control over tone, length, and output format. \\
+    \hline
+    FR7 & The system shall provide TTS playback with adjustable rate and voice. \\
+    \hline
+    FR8 & The system shall support OTP-based email authentication. \\
+    \hline
+    FR9 & The system shall save, search, filter, and export summaries. \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Non-Functional Requirements}
+  \begin{tabular}{|p{2.5cm}|p{10cm}|}
+    \hline
+    \textbf{Category} & \textbf{Requirement} \\
+    \hline
+    Performance & The system should provide summary output within practical response time for normal academic documents. \\
+    \hline
+    Usability & The interface should be simple enough for first-time users. \\
+    \hline
+    Portability & The application should run in common modern browsers. \\
+    \hline
+    Security & User summaries and login state should be stored securely with lightweight encryption and validation. \\
+    \hline
+    Scalability & API provider choice should allow future extension without full redesign. \\
+    \hline
+    Maintainability & The codebase should remain modular and component-oriented. \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{Feasibility Study}
+\textbf{Technical Feasibility:} The project is technically feasible because React, PDF.js, Tesseract, Zustand, Axios, and browser speech APIs are mature and well documented. API-based summarization removes the need for local GPU training.
+
+\textbf{Economic Feasibility:} The system is economical for an academic project because it uses open-source frontend technologies and pay-per-use or free-tier AI APIs.
+
+\textbf{Operational Feasibility:} The system is easy to operate through a browser-based interface and does not require installation of heavy software on the user side.
+
+\section{Risk Analysis}
+The main risks identified during development are given below:
+\begin{itemize}
+  \item OCR errors in low-quality images.
+  \item API latency or temporary unavailability.
+  \item Inconsistent output if prompts are not carefully structured.
+  \item Token limits for very large documents.
+  \item Browser storage limits for long histories.
+\end{itemize}
+These risks were reduced through modular fallback paths, chunking, prompt templates, and local validation.
+
+\input{chapters/system_requirement_analysis_expanded}
+
+% =========================================================================
+%                              CHAPTER 4
+% =========================================================================
+\chapter{System Design \& Architecture}
+\section{System Architecture}
+The complete system follows a modular pipeline architecture. Each stage transforms the input and passes structured data to the next stage.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{screenshots/initiative.png}
+  \caption{Conceptual View of the Summarize.Pro Workflow}
+\end{figure}
+
+\begin{table}[H]
+  \centering
+  \caption{Major System Modules}
+  \begin{tabular}{|p{4cm}|p{10cm}|}
+    \hline
+    \textbf{Module} & \textbf{Responsibility} \\
+    \hline
+    Authentication Module & Email OTP verification, session gating, and user entry validation \\
+    \hline
+    Input Module & Receives text, PDF, and image uploads \\
+    \hline
+    Extraction Module & Performs PDF parsing and OCR extraction \\
+    \hline
+    Preprocessing Module & Cleans text and detects language patterns \\
+    \hline
+    Summarization Module & Sends prompt-engineered requests to transformer-based APIs \\
+    \hline
+    Post-Processing Module & Applies keyword extraction, scoring, and formatting \\
+    \hline
+    Storage Module & Saves summaries, metadata, and preferences securely in local storage \\
+    \hline
+    Export \& TTS Module & Handles voice playback and multi-format export \\
+    \hline
+  \end{tabular}
+\end{table}
+
+The architecture can be interpreted in five cooperating layers. The \textbf{presentation layer} contains the React pages and form controls visible to the user. The \textbf{state coordination layer} stores active document text, summary output, route-specific flags, and user preferences. The \textbf{processing layer} performs extraction, cleanup, language tagging, and prompt construction. The \textbf{integration layer} manages API communication with external model providers. Finally, the \textbf{utility layer} handles persistence, speech synthesis, and export workflows. This layered view helps explain that the project is not a single summarization call but a full end-to-end software system.
+
+An important design goal of this architecture is loose coupling. The OCR and PDF extraction modules both produce normalized text, so the later summarization stages remain independent of the original input type. Similarly, the API integration logic is isolated from the interface, which makes it easier to switch providers or update request parameters without redesigning the complete frontend.
+
+\section{Data Flow Diagrams (DFD)}
+The data flow may be summarized as follows:
+\begin{enumerate}
+  \item The user logs in through the email OTP process.
+  \item The user selects one input path: text, PDF, or image.
+  \item Content is extracted using the appropriate parser.
+  \item The extracted text is cleaned, chunked if necessary, and language tagged.
+  \item Prompt parameters are generated according to user choices.
+  \item The summarization request is sent to the selected API provider.
+  \item The response is post-processed, stored, displayed, spoken, and optionally exported.
+\end{enumerate}
+
+From a formal DFD perspective, the external entities are the user, the email delivery service, and the AI summarization provider. The main processes are authentication, content extraction, prompt generation, summary generation, and result management. The principal data stores are temporary application state and persistent summary history in browser storage. This makes the information movement explicit and helps justify the privacy-oriented decision to keep PDF parsing on the client side.
+
+\section{UML-Oriented Design Description}
+From a software design point of view, the application can be described using the following interaction sequence:
+\begin{itemize}
+  \item \textbf{Actor: User} initiates authentication and content upload.
+  \item \textbf{React Components} render pages and collect user actions.
+  \item \textbf{State Store} holds current text, summaries, and user preferences.
+  \item \textbf{Service Layer} performs API calls, OCR triggers, and export operations.
+  \item \textbf{Browser Storage} persists saved summaries and settings.
+\end{itemize}
+This modular separation improves maintainability and supports future extension.
+
+In a sequence-style interpretation, the user action first activates a route-level component. That component validates the input, dispatches shared state updates, and calls helper services. The service layer performs extraction or API communication asynchronously, then returns structured output to the component tree. The final state update re-renders the summary panel, activates playback and export controls, and optionally stores the result for later retrieval. This explanation is useful in the report because it translates frontend behavior into standard software engineering notation.
+
+\section{Secure Storage Design}
+The application stores only processed user data needed for history and convenience. Sensitive values are not kept in plain, human-readable form. Lightweight encoding and structured storage are used for saved summaries, metadata, timestamps, and preference settings. This design is suitable for a browser-centric academic project, while a future production version can migrate the same schema to a database-backed cloud service.
+
+Conceptually, each stored record contains fields such as a unique identifier, source type, title, language tag, generated summary, and creation timestamp. With this structure, the dashboard can support search, filtering, and chronological ordering without complex backend indexing. The design is therefore simple enough for an undergraduate implementation but structured enough to resemble a realistic product data model.
+
+\input{chapters/system_design_architecture_expanded}
+
+% =========================================================================
+%                              CHAPTER 5
+% =========================================================================
+\chapter{Methodology \& Algorithms}
+\input{chapters/technical_methodology}
+\section{Modular Pipeline Methodology}
+The proposed system follows the methodology below:
+\begin{enumerate}
+  \item \textbf{Input Processing:} The user provides text, a PDF, or an image.
+  \item \textbf{OCR Extraction:} If the input is image-based, Tesseract is used first and a vision AI fallback is applied when necessary.
+  \item \textbf{Text Preprocessing and Language Detection:} Noise is reduced, spacing normalized, and Unicode patterns are checked.
+  \item \textbf{AI Summarization:} Cleaned text is sent to transformer-based APIs.
+  \item \textbf{Prompt Engineering:} Prompts are constructed according to summary goal, tone, length, and target style.
+  \item \textbf{Post-Processing:} Keywords, summary ranking, and display formatting are applied.
+  \item \textbf{Text-to-Speech:} The user may listen to the output at adjustable speed.
+  \item \textbf{Secure Storage and Authentication:} The summary is stored for authenticated use with dashboard access.
+\end{enumerate}
+
+\textbf{Important Note:} The system uses pre-trained transformer-based models via APIs instead of training models from scratch. This makes the solution practical, cost-effective, and implementation-focused.
+
+\section{Algorithm for Multi-Modal Input Handling}
+\begin{enumerate}
+  \item Accept the selected input type.
+  \item If the type is text, directly pass the content to preprocessing.
+  \item If the type is PDF, parse each page using PDF.js and merge extracted text.
+  \item If the type is image, apply Tesseract OCR.
+  \item If OCR confidence is poor or text length is abnormally low, call the vision fallback pathway.
+  \item Return the final extracted text to the summarization pipeline.
+\end{enumerate}
+
+The key engineering advantage of this algorithm is normalization. Three different user inputs are reduced to one common internal representation: cleaned text. Once this representation is obtained, later modules such as language detection, prompt construction, scoring, and storage can reuse the same logic. This reduces code duplication and makes system testing more systematic.
+
+\section{Language Detection Algorithm}
+The project uses a lightweight heuristic detector based on Unicode ranges and character frequency. For example, Devanagari, Bengali, Tamil, and Latin scripts are counted separately. Mixed-script detection is used for Hinglish-like content.
+
+\begin{lstlisting}[language=JavaScript,caption={Simplified Unicode-Based Language Detection Logic}]
+function detectLanguage(content) {
+  const sample = content.slice(0, 2000);
+  const devanagari = (sample.match(/[\u0900-\u097F]/g) || []).length;
+  const bengali = (sample.match(/[\u0980-\u09FF]/g) || []).length;
+  const latin = (sample.match(/[A-Za-z]/g) || []).length;
+
+  if (devanagari > 10 && latin > 10) return 'Hinglish';
+  if (devanagari > 10) return 'Hindi';
+  if (bengali > 10) return 'Bengali';
+  return 'English';
+}
+\end{lstlisting}
+
+This detector is intentionally lightweight. The project does not require fine-grained linguistic classification; it only needs enough signal to adapt prompts, labels, and output style. A Unicode-based approach therefore provides a strong balance between speed and usefulness, especially for identifying mixed-script situations such as Hinglish where a formal monolingual classifier may not be the most practical choice.
+
+\section{Prompt Engineering Strategy}
+Prompt engineering converts user intent into structured instructions. A good prompt template includes:
+\begin{itemize}
+  \item role definition for the model,
+  \item target audience,
+  \item tone requirement,
+  \item size constraint,
+  \item output format requirement,
+  \item optional language transformation.
+\end{itemize}
+A sample prompt template is:
+\begin{quote}
+  Summarize the following extracted book content in a clear academic style. Keep the summary within 200 words, preserve the main arguments, produce bullet points, and if the selected mode is Hinglish, explain the result in simple mixed Hindi-English language.
+\end{quote}
+
+Prompt engineering serves as the translation layer between interface controls and model behavior. Options selected by the user, such as formal tone, concise length, bullet formatting, or simple language, are converted into explicit instructions. This improves consistency across requests and makes the system easier to extend because new modes can be introduced by modifying prompt templates rather than rewriting the summarization pipeline.
+
+\section{Post-Processing and Scoring}
+After the response is received, the system performs output cleanup, sentence formatting, keyword highlighting, and basic score assignment. The score is based on factors such as length balance, presence of named entities, and keyword retention. This score is used only for UI guidance and not as a formal research metric.
+
+This stage is necessary because provider outputs may contain repeated phrases, inconsistent spacing, or formatting artifacts. A lightweight cleanup pass improves readability before the text is spoken, stored, or exported. The displayed score should therefore be understood as a usability aid that flags unusually weak outputs rather than as a substitute for formal summary evaluation metrics.
+
+\section{Text-to-Speech Generation}
+The final summary is passed to the browser speech synthesis engine. The user can choose preferred voice and playback speed. This stage adds accessibility and convenience, especially for revision or hands-free use.
+
+Methodologically, TTS is treated as an accessibility layer attached after summary generation. The same summary can be read on screen, listened to, exported, or stored without changing the extraction or model-integration logic. This modularity is beneficial because improvements to playback controls remain isolated from the core summarization pipeline.
+
+\input{chapters/methodology_algorithm_expanded}
+
+% =========================================================================
+%                              CHAPTER 6
+% =========================================================================
+\chapter{Implementation Details}
+\input{chapters/technical_implementation_frontend}
+\input{chapters/technical_implementation_pipeline}
+\section{Development Environment}
+The project is implemented using React.js with supporting frontend libraries. The overall implementation stack is summarized in Table \ref{tab:stack}.
+
+\begin{table}[H]
+  \centering
+  \caption{Implementation Stack}
+  \label{tab:stack}
+  \begin{tabular}{|p{3.5cm}|p{8.5cm}|}
+    \hline
+    \textbf{Technology} & \textbf{Purpose} \\
+    \hline
+    React.js & Frontend SPA development \\
+    \hline
+    React Router & Client-side navigation between pages \\
+    \hline
+    Zustand & Lightweight state management \\
+    \hline
+    Axios & API communication with summarization providers \\
+    \hline
+    PDF.js & Client-side PDF text extraction \\
+    \hline
+    Tesseract OCR & Image text extraction \\
+    \hline
+    EmailJS & OTP email delivery integration \\
+    \hline
+    Browser Speech Synthesis & TTS playback \\
+    \hline
+    Local Storage & Summary history and preference persistence \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{React.js Frontend Architecture}
+The application is structured as a component-based SPA. Each screen is implemented as a reusable React component. Routing controls user movement between login, dashboard, summarizer, and saved summaries. Zustand stores core application state such as extracted text, generated summary, and selected options. This architecture keeps the UI responsive and reduces unnecessary prop drilling.
+
+At implementation level, the React structure separates page-level containers from reusable helpers. Page components handle rendering, user events, and conditional layouts, while utility modules perform extraction, prompt building, storage updates, and export preparation. This division improves maintainability because failures in OCR, API calls, or browser storage can be debugged without rewriting the entire user interface.
+
+\section{Routing System}
+React Router handles navigation among the authentication page, dashboard, main summarizer interface, and saved summary management page. This enables a clean multi-page experience while still running as a single web application.
+
+\begin{lstlisting}[language=JavaScript,caption={Simplified Routing Structure}]
+<Routes>
+  <Route path="/" element={<Login />} />
+  <Route path="/dashboard" element={<UserDashboard />} />
+  <Route path="/main" element={<MainSummarizer />} />
+  <Route path="/saved" element={<SavedSummaries />} />
+</Routes>
+\end{lstlisting}
+
+\section{API Integration Using Axios}
+The summarization layer uses Axios to communicate with transformer-based API providers such as OpenRouter, Groq, and Google-compatible endpoints. The request payload contains the cleaned text, prompt template, length option, tone option, and provider-specific parameters. Axios simplifies asynchronous communication and error handling.
+
+A robust request layer must also handle network delays, invalid credentials, token limits, and provider-side failures gracefully. For that reason, the implementation conceptually wraps requests with loading-state updates, error capture, and user-readable status messages. This is an important engineering detail because a reliable academic prototype should demonstrate controlled failure handling in addition to normal successful execution.
+
+\begin{lstlisting}[language=JavaScript,caption={Illustrative Axios Summarization Request}]
+const response = await axios.post(apiUrl, {
+  model,
+  messages: [{ role: 'user', content: prompt }],
+  temperature: 0.4,
+  max_tokens: 500,
+}, { headers });
+\end{lstlisting}
+
+\section{OCR Pipeline Using Tesseract and Vision AI}
+When an image is uploaded, the image is first processed through OCR. The extracted text is validated using length and confidence heuristics. If the result is poor, the system forwards the content through a fallback vision-capable AI path. This dual-stage approach increases robustness for difficult inputs such as low-light photos or decorative fonts.
+
+This can be understood as a selective escalation strategy. The lower-cost OCR path is attempted first because it is fast and effective for many printed documents. The more capable fallback path is used only when heuristic checks indicate that the initial extraction is unreliable. Such staged processing improves efficiency without ignoring challenging real-world inputs.
+
+\section{State Management with Zustand}
+Zustand is used because it is simple, lightweight, and suitable for medium-sized frontend projects. It stores input text, current summary, saved summaries, and playback preferences. This central state approach avoids duplication and keeps components synchronized.
+
+A centralized store is especially useful after summary generation, because the summary panel, TTS controls, save button, and export actions all depend on the same final output. Instead of passing this data through many component levels, Zustand provides a single source of truth that keeps the interface predictable and easier to extend.
+
+\section{Secure Storage Mechanism}
+Saved summaries are written to browser local storage with structured metadata such as title, timestamp, detected language, source type, and export status. Lightweight obfuscation or encryption of selected values improves privacy over plain storage. While this does not replace enterprise-grade encryption, it is appropriate for the defined project scope.
+
+The storage workflow supports creation, retrieval, filtering, and deletion of saved summaries. Because metadata is stored alongside each summary, the dashboard can organize previous results chronologically and support basic management functions without needing a backend database. This choice matches the prototype scope while still demonstrating realistic product behavior.
+
+\section{OTP-Based Email Authentication with EmailJS}
+The login flow generates a one-time password, sends it to the user's email using EmailJS, and verifies the entered code before granting dashboard access. This removes the need to maintain a dedicated backend mail server for the academic prototype while still demonstrating modern authentication flow design.
+
+Within the project scope, this mechanism is useful because it introduces session control and verification without requiring a full credential-management backend. It therefore strengthens the application as a product-oriented prototype and shows how access control can be integrated into an AI workflow.
+
+\section{User Interface Screens}
+The actual implementation is reflected through the following interface screens.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{screenshots/loginpage.png}
+  \caption{Login Page}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{screenshots/OTPverification.png}
+  \caption{OTP Verification Screen}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.88\textwidth]{screenshots/userdashboard.png}
+  \caption{User Dashboard}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.88\textwidth]{screenshots/mainsummarizerUI.png}
+  \caption{Main Summarizer Interface}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.88\textwidth]{screenshots/pdfupload.png}
+  \caption{PDF Upload Interface}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.88\textwidth]{screenshots/OCRprocessing.png}
+  \caption{OCR Processing for Image Input}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.88\textwidth]{screenshots/SummaryOutput.png}
+  \caption{Summary Output Screen}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.84\textwidth]{screenshots/exportoption.png}
+  \caption{Save and Export Options}
+\end{figure}
+
+% =========================================================================
+%                              CHAPTER 7
+% =========================================================================
+\chapter{Results \& Discussion}
+\input{chapters/technical_results_analysis}
+\section{Observed System Behavior}
+The completed system successfully handles all three major input categories: raw text, PDF, and image. During testing, client-side PDF extraction worked well for digitally generated documents, while OCR handled clear printed image text with acceptable accuracy. The fallback design improved resilience for difficult image inputs.
+
+\begin{table}[H]
+  \centering
+  \caption{Feature Comparison with Basic Summarizers}
+  \begin{tabular}{|p{4.2cm}|c|c|}
+    \hline
+    \textbf{Feature} & \textbf{Basic Summarizer} & \textbf{Summarize.Pro} \\
+    \hline
+    Plain text summarization & Yes & Yes \\
+    \hline
+    PDF support & Limited & Yes \\
+    \hline
+    Image OCR input & Rare & Yes \\
+    \hline
+    Prompt-controlled tone & Limited & Yes \\
+    \hline
+    Hinglish output & No & Yes \\
+    \hline
+    TTS playback & Rare & Yes \\
+    \hline
+    OTP authentication & No & Yes \\
+    \hline
+    Export options & Limited & Yes \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{Discussion of Output Quality}
+The summarization output is primarily abstractive in nature, meaning the system generates compressed explanations rather than only selecting original sentences. This improves readability and is useful for viva explanation, revision, and previewing a document before detailed reading. Prompt-based control also allows the same source text to be summarized in concise, formal, or simple explanatory styles.
+
+However, the summary quality still depends on the extracted text quality. If OCR introduces errors, the generated summary may miss fine details. Similarly, extremely long documents require chunking, and the final combined summary may sometimes omit less important subtopics. These observations are consistent with the limitations discussed in the literature.
+
+From a system evaluation perspective, the results show that preprocessing quality strongly influences final summary usefulness. When page ordering, OCR output, and prompt constraints are clear, the generated summary is more coherent and faithful. This confirms that the project should be viewed as an end-to-end pipeline in which each stage contributes to the final quality.
+
+\section{Privacy and Accessibility Outcomes}
+A major positive outcome of the implementation is privacy-aware PDF handling. Since PDF.js extracts text on the client side, the raw file need not be uploaded only for parsing. Accessibility also improves through TTS, which supports auditory learning and quick review.
+
+These outcomes are important because they address non-functional requirements often ignored in basic prototypes. Privacy increases trust when users process academic notes or personal material, while accessibility broadens the usefulness of the system for users who prefer listening, need revision support, or want hands-free interaction.
+
+\section{Representative Screens and Features}
+Additional implementation evidence is shown in the following screens.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{screenshots/filterbasedsummaries.png}
+  \caption{Summary Search and Filter Management}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{screenshots/shareoption.png}
+  \caption{Sharing and External Workflow Options}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{screenshots/playingthespeech.png}
+  \caption{Text-to-Speech Playback of Generated Summary}
+\end{figure}
+
+\section{Conclusion of Results}
+From an implementation perspective, the project meets its major goals. It demonstrates that a practical, privacy-aware, multi-modal summarization application can be built using a modern React frontend and pre-trained transformer-based APIs. The final system is realistic for an undergraduate final year project because it integrates several AI capabilities into a coherent product without requiring model training infrastructure.
+
+% =========================================================================
+%                              CHAPTER 8
+% =========================================================================
+\chapter{Conclusion \& Future Scope}
+\section{Conclusion}
+This project presented \textbf{AI-Powered Multi-Modal Book Summarizer (Summarize.Pro)}, a React-based web application for summarizing content from text, PDFs, and images. The system integrates OCR, Unicode-based language detection, transformer-based AI summarization, prompt engineering, TTS, secure local storage, OTP authentication, and export features into one workflow. The system uses pre-trained transformer-based models via APIs instead of training models from scratch, which makes the implementation feasible, cost-effective, and aligned with real-world deployment patterns.
+
+The final outcome is a user-friendly and academically meaningful product that can help students, researchers, and professionals process large documents more efficiently. The project also shows that privacy-aware client-side extraction and modular frontend design can be combined successfully with current AI services.
+
+\section{Future Scope}
+The project can be extended in the following directions:
+\begin{enumerate}
+  \item \textbf{Stronger OCR for handwritten and noisy inputs:} Additional image enhancement and document layout analysis can improve extraction from poor-quality scans.
+  \item \textbf{Cloud synchronization:} A secure backend database can allow users to access summaries across devices.
+  \item \textbf{Advanced evaluation metrics:} ROUGE, BERTScore, and human rating forms can be integrated for formal quality measurement.
+  \item \textbf{Chat-with-document support:} Retrieval-augmented generation can enable question answering over uploaded books and notes.
+  \item \textbf{Fine-grained multilingual support:} More regional languages and improved code-mixed detection can be added.
+  \item \textbf{Collaboration features:} Shared dashboards and annotation support can make the tool suitable for research groups.
+\end{enumerate}
+
+% =========================================================================
+%                              REFERENCES
+% =========================================================================
+\begin{thebibliography}{99}
+
+  \bibitem{smith2007}
+  Ray Smith,
+  \textit{\href{https://drive.google.com/file/d/1j8N7SkeDjVg5xpB3XX8Mm9ixMqXkSJ19/view?usp=drive_link}{An Overview of the Tesseract OCR Engine}}, Ninth International Conference on Document Analysis and Recognition (ICDAR), 2007.
+
+  \bibitem{englehardt2014}
+  Steven Englehardt, G\"une\c{s} Acar, Marc Juarez, Christian Eubank, Arvind Narayanan, and Claudia Diaz,
+  \textit{\href{https://drive.google.com/file/d/1lLDbKDBJMXgEY3nO3cRfYeHnitykOAvy/view?usp=drive_link}{The Web Never Forgets: Persistent Tracking Mechanisms in the Wild}}, Proceedings of the 2014 ACM SIGSAC Conference on Computer and Communications Security, 2014.
+
+  \bibitem{tesseract}
+  Akhil S,
+  \textit{\href{https://drive.google.com/file/d/1Y_iO3LfxYAve75SkbkwvU8KDQohasRge/view?usp=drive_link}{An Overview of Tesseract OCR Engine}}, Seminar Report, National Institute of Technology Calicut, 2016.
+
+  \bibitem{oauth}
+  Daniel Fett, Ralf K\"usters, and Guido Schmitz,
+  \textit{\href{https://drive.google.com/file/d/1VvIbIezH9r2YAgO4qY0M9V5rtIxDM6ZE/view?usp=drive_link}{A Comprehensive Formal Security Analysis of OAuth 2.0}}, Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security, 2016.
+
+  \bibitem{vaswani}
+  Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, {\L}ukasz Kaiser, and Illia Polosukhin,
+  \textit{\href{https://drive.google.com/file/d/186znXnfq8rV57agYSp1ZDJzgxlFMArCw/view?usp=drive_link}{Attention Is All You Need}}, Advances in Neural Information Processing Systems, 2017.
+
+  \bibitem{textsumsurvey}
+  Mehdi Allahyari, Seyedamin Pouriyeh, Mehdi Assefi, Saeid Safaei, Elizabeth D. Trippe, Juan B. Gutierrez, and Krys Kochut,
+  \textit{\href{https://drive.google.com/file/d/1gdCMbg6FfpO6nH9Gn9d9WY95y9TzAtBk/view?usp=drive_link}{Text Summarization Techniques: A Brief Survey}}, International Journal of Advanced Computer Science and Applications, 2017.
+
+  \bibitem{arik2017}
+  Sercan \"O. Ar\i k, Mike Chrzanowski, Adam Coates, Gregory Diamos, Andrew Gibiansky, Yongguo Kang, Xian Li, John Miller, Andrew Ng, Jonathan Raiman, Shubho Sengupta, and Mohammad Shoeybi,
+  \textit{\href{https://drive.google.com/file/d/1B2xzT1BBzqQ5HsL1-TdlqGLlN-cJbF5s/view?usp=drive_link}{Deep Voice: Real-time Neural Text-to-Speech}}, Proceedings of the 34th International Conference on Machine Learning Workshop Track, 2017.
+
+  \bibitem{fewshot}
+  Tom B. Brown et al.,
+  \textit{\href{https://drive.google.com/file/d/1EGd5i3sy6TM8brJq7mkBhFSSGp0yohHn/view?usp=drive_link}{Language Models are Few-Shot Learners}}, Advances in Neural Information Processing Systems, 2020.
+
+  \bibitem{liu2021}
+  Pengfei Liu et al.,
+  \textit{\href{https://drive.google.com/file/d/1cvVlqafXFmNP3vR7t-Lz69b0kN_i94yd/view?usp=drive_link}{Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing}}, 2021.
+
+  \bibitem{promptpattern}
+  Jules White et al.,
+  \textit{\href{https://drive.google.com/file/d/18x33udOFvfZraTsLYCr_nLLTw8t8hS5l/view?usp=drive_link}{A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT}}, 2023.
+
+  \bibitem{li2023}
+  Junnan Li et al.,
+  \textit{\href{https://drive.google.com/file/d/1gMl7C14kMdREkaQ9C2LOHM_-myDFGoGN/view?usp=drive_link}{BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models}}, 2023.
+
+  \bibitem{tts}
+  Tira Nur Fitria,
+  \textit{\href{https://drive.google.com/file/d/1Q49At_7yHsdbXEcGZLa-xRuIxvWlIeqW/view?usp=drive_link}{Utilizing Text-To-Speech (TTS) Technology in Creating Listening Materials for English Language Teaching (ELT)}}, Journal of English Language and Culture, 2024.
+
+  \bibitem{peddarapu2025}
+  Rama Krishna Peddarapu et al.,
+  \textit{\href{https://drive.google.com/file/d/1lcGT274bMno2-Ec5LqcDxJGVaemmb6Zt/view?usp=drive_link}{Document Summarizer: A Machine Learning Approach to PDF Summarization}}, Procedia Computer Science, 2025.
+
+  \bibitem{llmsurvey}
+  Wayne Xin Zhao et al.,
+  \textit{\href{https://drive.google.com/file/d/18yCd-hhyIrcaVDVAliXe6xxyjBC3sOMJ/view?usp=drive_link}{A Survey of Large Language Models}}, 2026.
+
+  \bibitem{mozilla}
+  \textit{\href{https://mozilla.github.io/pdf.js/}{Mozilla PDF.js Documentation}}.
+
+  \bibitem{metaopensource}
+  \textit{\href{https://react.dev/}{React Documentation}}.
+
+  \bibitem{poimandres}
+  \textit{\href{https://github.com/pmndrs/zustand}{Zustand State Management Documentation}}.
+
+  \bibitem{emailjs}
+  \textit{\href{https://www.emailjs.com/docs/}{EmailJS Documentation}}.
+
+\end{thebibliography}
+\end{document}
